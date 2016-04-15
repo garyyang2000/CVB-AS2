@@ -55,7 +55,7 @@ Public Class DBManager
             Dim sqlReader As SqlDataReader = sqlComm.ExecuteReader()
             If sqlReader.HasRows Then
                 While (sqlReader.Read())
-                    Dim productId As String = sqlReader.Item(0).ToString
+                    Dim productId As String = sqlReader.Item(0).ToString.Trim
                     Dim description As String = sqlReader.Item(1)
                     Dim qtyOnHand As Int32 = sqlReader.Item(2)
                     Dim price As Double = sqlReader.GetSqlMoney(3).ToDouble()
@@ -99,7 +99,19 @@ Public Class DBManager
 
         Dim strQuery As String
         strQuery = "SELECT * FROM OrderItem WHERE orderNumber=@orderNum"
+        Using (sqlCon)
+            Dim sqlComm As New SqlCommand(strQuery, sqlCon)
+            sqlComm.Parameters.AddWithValue("@orderNum", order1._orderNumber.ToString)
+            sqlCon.Open()
+            Dim sqlReader As SqlDataReader = sqlComm.ExecuteReader()
+            If sqlReader.HasRows Then
+                Dim productId = sqlReader.Item(1).ToString.Trim
+                Dim qty = sqlReader.GetInt32(2)
+                Dim discount As Double = sqlReader.GetSqlMoney(3).ToDouble()
+                Dim item = New OrderItem()
 
+            End If
+        End Using
 
     End Sub
 
