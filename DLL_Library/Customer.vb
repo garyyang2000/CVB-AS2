@@ -254,7 +254,7 @@ Namespace IOTS
                         If lineData.Length >= 7 Then
                             Console.WriteLine("Read record:" + line)
                             'save to array
-                            oneCust = New DLL_Library.IOTS.Customer(lineData(0), lineData(1), lineData(2), lineData(3), lineData(4), lineData(5), lineData(6), lineData(7), lineData(8))
+                            oneCust = New DLL_Library.IOTS.Customer(lineData(0), lineData(1), lineData(2), lineData(3), lineData(4), lineData(5), lineData(6), lineData(7), lineData(8), lineData(9))
                             customerList.Add(oneCust)
                         End If
                     Catch ex As Exception
