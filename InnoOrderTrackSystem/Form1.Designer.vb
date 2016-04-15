@@ -22,7 +22,7 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.ListView1 = New System.Windows.Forms.ListView()
+        Me.listData = New System.Windows.Forms.ListView()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.SearchToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CustomerSearchToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -34,13 +34,13 @@ Partial Class Form1
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
-        'ListView1
+        'listData
         '
-        Me.ListView1.Location = New System.Drawing.Point(12, 77)
-        Me.ListView1.Name = "ListView1"
-        Me.ListView1.Size = New System.Drawing.Size(643, 391)
-        Me.ListView1.TabIndex = 0
-        Me.ListView1.UseCompatibleStateImageBehavior = False
+        Me.listData.Location = New System.Drawing.Point(12, 77)
+        Me.listData.Name = "listData"
+        Me.listData.Size = New System.Drawing.Size(643, 391)
+        Me.listData.TabIndex = 0
+        Me.listData.UseCompatibleStateImageBehavior = False
         '
         'MenuStrip1
         '
@@ -112,7 +112,7 @@ Partial Class Form1
         Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Button1)
-        Me.Controls.Add(Me.ListView1)
+        Me.Controls.Add(Me.listData)
         Me.Controls.Add(Me.MenuStrip1)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "Form1"
@@ -132,5 +132,5 @@ Partial Class Form1
     Friend WithEvents OrderSearchToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents CustomerSearchToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents MenuStrip1 As MenuStrip
-    Friend WithEvents ListView1 As ListView
+    Friend WithEvents listData As ListView
 End Class

@@ -118,6 +118,16 @@
     </None>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DBManager\DBManager.vbproj">
+      <Project>{31c4b360-d4fa-449b-ace8-d854cf801f73}</Project>
+      <Name>DBManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DLL_Library\DLL_Library.vbproj">
+      <Project>{1a0bccc4-5680-4841-adfe-81a4fbbe0046}</Project>
+      <Name>DLL_Library</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
