@@ -13,7 +13,16 @@ Namespace IOTS
         Private productId As String
         Private discount As Double
         Private custId As Long
+        Public orderItems As New List(Of OrderItem)()
 
+        Public Function addOrderItem(ByVal item As OrderItem) As Boolean
+            Dim result As Boolean = False
+            If (orderItems.Count < 10) Then
+                orderItems.Add(item)
+                result = True
+            End If
+            Return result
+        End Function
         'the order number cannot be changed!
         Public ReadOnly Property _orderNumber() As Long
             Get
@@ -129,11 +138,17 @@ Namespace IOTS
             _shipDate() = ShipDate
             _numberOrdered = numberOrdered
             _productId = productId
-
             _discount = discount
+            MyClass.custId = custid
+        End Sub
 
-                MyClass.custId = custid
 
+        Sub New(ByVal orderNumber As Long, ByVal orderDate As String,
+                ByVal ShipDate As String, ByVal custid As Long)
+            MyClass.orderNumber = orderNumber
+            _orderDate() = orderDate
+            _shipDate() = ShipDate
+            MyClass.custId = custid
         End Sub
 
         Public Function IsValid(ByVal testData As String, ByVal regex As String) As Boolean Implements IValidator.IsValid

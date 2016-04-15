@@ -44,13 +44,64 @@ Public Class DBManager
 
     End Function
 
-    Public Function getAllProduct()
-
+    Public Function getAllProduct() As List(Of Product)
+        Dim result As New List(Of Product)()
+        Dim strQuery As String
+        strQuery = "SELECT * FROM Product"
+        sqlCon = New SqlConnection(strConn)
+        Using (sqlCon)
+            Dim sqlComm As SqlCommand = New SqlCommand(strQuery, sqlCon)
+            sqlCon.Open()
+            Dim sqlReader As SqlDataReader = sqlComm.ExecuteReader()
+            If sqlReader.HasRows Then
+                While (sqlReader.Read())
+                    Dim productId As String = sqlReader.Item(0).ToString
+                    Dim description As String = sqlReader.Item(1)
+                    Dim qtyOnHand As Int32 = sqlReader.Item(2)
+                    Dim price As Double = sqlReader.GetSqlMoney(3).ToDouble()
+                    Dim newProd As New DLL_Library.IOTS.Product(productId, description, qtyOnHand, price)
+                    result.Add(newProd)
+                End While
+            End If
+            sqlReader.Close()
+        End Using
+        Return result
     End Function
 
     Public Function getAllOrder()
+        Dim result As New List(Of Order)()
+        Dim strQuery As String
+        strQuery = "SELECT * FROM Order"
+        sqlCon = New SqlConnection(strConn)
+        Using (sqlCon)
+            Dim sqlComm As SqlCommand = New SqlCommand(strQuery, sqlCon)
+            sqlCon.Open()
+            Dim sqlReader As SqlDataReader = sqlComm.ExecuteReader()
+            If sqlReader.HasRows Then
+                While (sqlReader.Read())
+                    Dim orderNumber As Long = CLng(sqlReader.GetString(0))
+                    Dim orderDate As String = sqlReader.Item(1).ToString
+                    Dim shipDate As String = sqlReader.Item(2).ToString
+                    Dim custId As Long = sqlReader.GetInt64(3)
+                    Dim newOrder As New Order(orderNumber, orderDate, shipDate, custId)
+
+                    result.Add(newOrder)
+                End While
+            End If
+            sqlReader.Close()
+        End Using
+        Return result
 
     End Function
+
+    Public Sub getOrderItems(ByRef order1 As Order)
+        Dim sqlCon As New SqlConnection(strConn)
+
+        Dim strQuery As String
+        strQuery = "SELECT * FROM OrderItem WHERE orderNumber=@orderNum"
+
+
+    End Sub
 
     Public Sub addNewCustomer()
 
