@@ -1,0 +1,1 @@
+﻿INSERT INTO [dbo].[Customer] ([custId], [firstName], [lastName], [streetAddress], [city], [province], [postalCode], [creditLimit], [email], [phoneNumber]) VALUES ('1', 'John','Doe','120 jefferson st.','Toronto','ON','L2G3K7',5000,'john@hotmail.com','416-123-5678')
