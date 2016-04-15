@@ -5,9 +5,23 @@ Imports DLL_Library.OrderSystemExceptions
 Public Class DBManager
     Private strConn As String = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=\\Mac\Dropbox\Academic\Seneca\CVB815\CVB-AS2\DBManager\InnoTrackSys.mdf;Integrated Security=True"
     Private sqlCon As SqlConnection
+    Public productList As List(Of Product)
+    Public customerList As List(Of Customer)
+    Public orderList As List(Of Order)
+    Public Function getProductById(ByVal productId As String) As Product
+        Dim result As Product = Nothing
+        For Each product1 In productList
+            If product1._productId.Equals(productId) Then
+                result = product1
+                Exit For
+            End If
+        Next
+        Return result
+    End Function
     Public Function getAllCustomer() As List(Of Customer)
         Dim result As New List(Of Customer)()
         Dim strQuery As String
+
 
         strQuery = "SELECT * FROM Customer"
 
@@ -99,7 +113,19 @@ Public Class DBManager
 
         Dim strQuery As String
         strQuery = "SELECT * FROM OrderItem WHERE orderNumber=@orderNum"
-
+        Using (sqlCon)
+            Dim sqlComm As New SqlCommand(strQuery, sqlCon)
+            sqlComm.Parameters.AddWithValue("@orderNum", order1._orderNumber.ToString)
+            sqlCon.Open()
+            Dim sqlReader As SqlDataReader = sqlComm.ExecuteReader()
+            If sqlReader.HasRows Then
+                Dim productId = sqlReader.Item(1).ToString.Trim
+                Dim qty = sqlReader.GetInt32(2)
+                Dim discount As Double = sqlReader.GetSqlMoney(3).ToDouble()
+                Dim item = New OrderItem()
+                //item._orderNumber = order1._orderNumber
+            End If
+        End Using
 
     End Sub
 
