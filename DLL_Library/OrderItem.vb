@@ -11,6 +11,12 @@ Namespace IOTS
         Private productId As String
         Private discount As Double
 
+        Public Sub New(ByVal orderNum As Long, ByVal numOfOrdered As Int32, ByVal product As String, ByVal discount As Double)
+            Me.orderNumber = orderNum
+            _numberOrdered = numOfOrdered
+            _productId = product
+            _discount = discount
+        End Sub
         Public ReadOnly Property _orderNumber() As Long
             Get
                 Return orderNumber
