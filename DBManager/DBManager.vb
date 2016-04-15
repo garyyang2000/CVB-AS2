@@ -3,7 +3,7 @@ Imports DLL_Library.IOTS
 Imports DLL_Library.OrderSystemExceptions
 
 Public Class DBManager
-    Private strConn As String = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename='C:\Users\Wendy Meng\Documents\Seneca DAD\CVB\CVB-AS2\DBManager\InnoTrackSys.mdf';Integrated Security=True"
+    Private strConn As String = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=\\Mac\Dropbox\Academic\Seneca\CVB815\CVB-AS2\DBManager\InnoTrackSys.mdf;Integrated Security=True"
     Private sqlCon As SqlConnection
     Public Function getAllCustomer() As List(Of Customer)
         Dim result As New List(Of Customer)()
