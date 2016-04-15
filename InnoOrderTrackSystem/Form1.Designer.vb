@@ -36,7 +36,10 @@ Partial Class Form1
         '
         'listData
         '
+        Me.listData.FullRowSelect = True
+        Me.listData.GridLines = True
         Me.listData.Location = New System.Drawing.Point(12, 77)
+        Me.listData.MultiSelect = False
         Me.listData.Name = "listData"
         Me.listData.Size = New System.Drawing.Size(643, 391)
         Me.listData.TabIndex = 0

@@ -23,12 +23,12 @@ Public Class DBManager
                 Dim mailId As Int32 = 0
                 While (sqlReader.Read())
                     Dim custId = sqlReader.Item(0)
-                    Dim first_name = sqlReader.Item(1)
-                    Dim last_name = sqlReader.Item(2)
-                    Dim address = sqlReader.Item(3)
-                    Dim city = sqlReader.Item(4)
-                    Dim province = sqlReader.Item(5)
-                    Dim postalcode = sqlReader.Item(6)
+                    Dim first_name = sqlReader.Item(1).ToString().Trim
+                    Dim last_name = sqlReader.Item(2).ToString().Trim
+                    Dim address = sqlReader.Item(3).ToString().Trim
+                    Dim city = sqlReader.Item(4).ToString().Trim
+                    Dim province = sqlReader.Item(5).ToString().Trim
+                    Dim postalcode = sqlReader.Item(6).ToString().Trim
                     Dim credit_limit = sqlReader.Item(7)
                     Dim email = sqlReader.Item(8)
                     Dim phone = sqlReader.Item(9)
