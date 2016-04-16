@@ -1,5 +1,5 @@
 ﻿Imports DBManager
-Imports DLL_Library.IOTS.Product
+Imports DLL_Library.IOTS
 Public Class frmMain
 
     Dim db As New DBManager.DBManager
@@ -66,7 +66,27 @@ Public Class frmMain
     End Sub
 
     Private Sub loadOrder()
+        listData.Columns.Clear()
+        listData.Items.Clear()
+        listData.View = System.Windows.Forms.View.Details
+        listData.Columns.Add("orderNumber")
+        listData.Columns.Add("orderDate")
+        listData.Columns.Add("ShipDate")
+        listData.Columns.Add("customer")
 
+
+        Dim oList As List(Of DLL_Library.IOTS.Order) = db.getAllOrder()
+
+        For Each order As DLL_Library.IOTS.Order In oList
+            Dim li As ListViewItem
+            li = listData.Items.Add(order._orderNumber)
+            li.SubItems.Add(order._orderDate)
+            li.SubItems.Add(order._shipDate)
+
+            Dim customer As DLL_Library.IOTS.Customer = db.getCustomerByID(order._custId)
+            'li.SubItems.Add(customer._firstName + " " + customer._lastName)
+        Next
+        currentViewType = "Order"
     End Sub
 
     Private Sub listData_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles listData.MouseDoubleClick
@@ -78,12 +98,14 @@ Public Class frmMain
 
         Select Case currentViewType
             Case "Customer"
-                MessageBox.Show("Customer")
+                Dim frmCust As New frmCustomer
+                frmCust.ShowDialog()
             Case "Product"
-                Dim frmProduct As New ProductForm
-                frmProduct.ShowDialog()
+                Dim frmProd As New frmProduct
+                frmProd.ShowDialog()
             Case "Order"
-                MessageBox.Show("Order")
+                Dim frmOd As New frmOrder
+                frmOd.ShowDialog()
 
         End Select
     End Sub
@@ -93,7 +115,7 @@ Public Class frmMain
     End Sub
 
     Private Sub btnOrderList_Click(sender As Object, e As EventArgs) Handles btnOrderList.Click
-
+        loadOrder()
     End Sub
 
     Private Sub btnCustomerList_Click(sender As Object, e As EventArgs) Handles btnCustomerList.Click

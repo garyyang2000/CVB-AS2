@@ -85,7 +85,7 @@ Public Class DBManager
     Public Function getAllOrder()
         Dim result As New List(Of Order)()
         Dim strQuery As String
-        strQuery = "SELECT * FROM Order"
+        strQuery = "SELECT * FROM [Order]"
         sqlCon = New SqlConnection(strConn)
         Using (sqlCon)
             Dim sqlComm As SqlCommand = New SqlCommand(strQuery, sqlCon)
@@ -96,7 +96,7 @@ Public Class DBManager
                     Dim orderNumber As Long = CLng(sqlReader.GetString(0))
                     Dim orderDate As String = sqlReader.Item(1).ToString
                     Dim shipDate As String = sqlReader.Item(2).ToString
-                    Dim custId As Long = sqlReader.GetInt64(3)
+                    Dim custId As Long = sqlReader.GetInt32(3)
                     Dim newOrder As New Order(orderNumber, orderDate, shipDate, custId)
 
                     result.Add(newOrder)
@@ -106,6 +106,10 @@ Public Class DBManager
         End Using
         Return result
 
+    End Function
+
+    Public Function getCustomerByID(ByVal custID As Long)
+        Return Nothing
     End Function
 
     Public Sub getOrderItems(ByRef order1 As Order)
@@ -172,4 +176,5 @@ Public Class DBManager
     Public Sub searchOrder()
 
     End Sub
+
 End Class

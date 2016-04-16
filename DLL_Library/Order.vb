@@ -67,8 +67,9 @@ Namespace IOTS
                 If Value = Nothing Then
                     Throw New OrderSystemExceptions("An exception has occurred, orderDate not valid.")
                 Else
-                    Dim dateIn As Date = Date.ParseExact(Value, "dd/MM/yyyy",
-            System.Globalization.DateTimeFormatInfo.InvariantInfo)
+                    ' Dim dateIn As Date = Date.ParseExact(Value, "dd/MM/yyyy h:mm:ss tt",
+                    '         System.Globalization.DateTimeFormatInfo.InvariantInfo)
+                    Dim dateIn As Date = Date.Parse(Value)
                     'Order Date cannot be future
                     Dim result As Integer = DateTime.Compare(dateIn, Date.Now())
                     If result <= 0 Then
@@ -88,8 +89,9 @@ Namespace IOTS
                 If Value = Nothing Then
                     Throw New OrderSystemExceptions("An exception has occurred, shipDate not valid.")
                 Else
-                    Dim dateIn As Date = Date.ParseExact(Value, "dd/MM/yyyy",
-            System.Globalization.DateTimeFormatInfo.InvariantInfo)
+                    'Dim dateIn As Date = Date.ParseExact(Value, "dd/MM/yyyy",
+                    'System.Globalization.DateTimeFormatInfo.InvariantInfo)
+                    Dim dateIn As Date = Date.Parse(Value)
                     Dim result1 As Integer = DateTime.Compare(orderDate, dateIn)
                     Dim result2 As Integer = DateTime.Compare(dateIn, Date.Now())
                     'If result1 <= 0 And result2 >= 0 Then
