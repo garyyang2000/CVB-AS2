@@ -30,6 +30,7 @@ Partial Class frmOrder
         Me.dtShipDate = New System.Windows.Forms.DateTimePicker()
         Me.listOrderItems = New System.Windows.Forms.ListView()
         Me.Label5 = New System.Windows.Forms.Label()
+        Me.btnAddProduct = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'Label1
@@ -84,7 +85,10 @@ Partial Class frmOrder
         '
         'listOrderItems
         '
+        Me.listOrderItems.FullRowSelect = True
+        Me.listOrderItems.GridLines = True
         Me.listOrderItems.Location = New System.Drawing.Point(19, 110)
+        Me.listOrderItems.MultiSelect = False
         Me.listOrderItems.Name = "listOrderItems"
         Me.listOrderItems.Size = New System.Drawing.Size(269, 117)
         Me.listOrderItems.TabIndex = 6
@@ -99,11 +103,21 @@ Partial Class frmOrder
         Me.Label5.TabIndex = 7
         Me.Label5.Text = "Order Items:"
         '
+        'btnAddProduct
+        '
+        Me.btnAddProduct.Location = New System.Drawing.Point(19, 233)
+        Me.btnAddProduct.Name = "btnAddProduct"
+        Me.btnAddProduct.Size = New System.Drawing.Size(75, 23)
+        Me.btnAddProduct.TabIndex = 8
+        Me.btnAddProduct.Text = "Add Product"
+        Me.btnAddProduct.UseVisualStyleBackColor = True
+        '
         'frmOrder
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(312, 261)
+        Me.Controls.Add(Me.btnAddProduct)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.listOrderItems)
         Me.Controls.Add(Me.dtShipDate)
@@ -127,4 +141,5 @@ Partial Class frmOrder
     Friend WithEvents dtShipDate As DateTimePicker
     Friend WithEvents listOrderItems As ListView
     Friend WithEvents Label5 As Label
+    Friend WithEvents btnAddProduct As Button
 End Class

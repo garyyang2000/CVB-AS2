@@ -6,111 +6,94 @@ Public Class frmMain
     Dim currentViewType As String
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         loadCustomer()
-
     End Sub
 
     Private Sub loadCustomer()
-        listData.Columns.Clear()
-        listData.Items.Clear()
-        listData.View = System.Windows.Forms.View.Details
-        listData.Columns.Add("custId")
-        listData.Columns.Add("firstName")
-        listData.Columns.Add("lastName")
-        listData.Columns.Add("streetAddress")
-        listData.Columns.Add("city")
-        listData.Columns.Add("province")
-        listData.Columns.Add("postalCode")
-        listData.Columns.Add("creditLimit")
-        listData.Columns.Add("email")
-        listData.Columns.Add("phoneNum")
+        dgvData.DataSource = Nothing
+        dgvData.Columns.Clear()
+        dgvData.DataSource = db.getAllCustomer()
+        Dim delecolumn As DataGridViewButtonColumn = New DataGridViewButtonColumn
+        delecolumn.UseColumnTextForButtonValue = True
+        delecolumn.Text = "DEL"
+        delecolumn.Name = "DEL"
+        delecolumn.DataPropertyName = "_custId"
+        delecolumn.HeaderText = "DEL"
+        dgvData.Columns.Add(delecolumn)
 
-        Dim cList As List(Of DLL_Library.IOTS.Customer) = db.getAllCustomer()
-
-        For Each customer As DLL_Library.IOTS.Customer In cList
-            Dim li As ListViewItem
-            li = listData.Items.Add(customer._custId)
-            li.SubItems.Add(customer._firstName)
-            li.SubItems.Add(customer._lastName)
-            li.SubItems.Add(customer._streetAddress)
-            li.SubItems.Add(customer._city)
-            li.SubItems.Add(customer._province)
-            li.SubItems.Add(customer._postalCode)
-            li.SubItems.Add(customer._creditLimit)
-            li.SubItems.Add(customer._email)
-            li.SubItems.Add(customer._phoneNum)
-        Next
-
+        With dgvData
+            .RowHeadersVisible = False
+            .Columns("_phoneNum").DisplayIndex = 10
+            .Columns("DEL").DisplayIndex = 0
+            .Columns(1).HeaderCell.Value = "Customer ID"
+            .Columns(2).HeaderCell.Value = "First Name"
+            .Columns(3).HeaderCell.Value = "Last Name"
+            .Columns(4).HeaderCell.Value = "Street Address"
+            .Columns(5).HeaderCell.Value = "City"
+            .Columns(6).HeaderCell.Value = "Province"
+            .Columns(7).HeaderCell.Value = "Postal Code"
+            .Columns(8).HeaderCell.Value = "Credit Limit"
+            .Columns(9).HeaderCell.Value = "Email"
+            .Columns(0).HeaderCell.Value = "Phone Number"
+        End With
         currentViewType = "Customer"
     End Sub
 
+
     Private Sub loadProduct()
-        listData.Columns.Clear()
-        listData.Items.Clear()
-        listData.View = System.Windows.Forms.View.Details
-        listData.Columns.Add("ProductId")
-        listData.Columns.Add("Description")
-        listData.Columns.Add("Qty")
-        listData.Columns.Add("Price")
+        dgvData.DataSource = Nothing
+        dgvData.Columns.Clear()
+        dgvData.DataSource = db.getAllProduct()
+        Dim delecolumn As DataGridViewButtonColumn = New DataGridViewButtonColumn
+        delecolumn.UseColumnTextForButtonValue = True
+        delecolumn.Text = "DEL"
+        delecolumn.Name = "DEL"
+        delecolumn.DataPropertyName = "_productId"
+        delecolumn.HeaderText = "DEL"
+        dgvData.Columns.Add(delecolumn)
 
-        Dim pList As List(Of DLL_Library.IOTS.Product) = db.getAllProduct()
+        With dgvData
+            .RowHeadersVisible = False
+            .Columns("DEL").DisplayIndex = 0
+            .Columns("_Price").DisplayIndex = 4
+            .Columns("_productId").DisplayIndex = 1
+            .Columns(1).HeaderCell.Value = "Description"
+            .Columns(2).HeaderCell.Value = "QTY"
+            .Columns(3).HeaderCell.Value = "Product ID"
+            .Columns(0).HeaderCell.Value = "Price"
 
-        For Each prodcut As DLL_Library.IOTS.Product In pList
-            Dim li As ListViewItem
-            li = listData.Items.Add(prodcut._productId)
-            li.SubItems.Add(prodcut._description)
-            li.SubItems.Add(prodcut._QtyOnHand)
-            li.SubItems.Add(prodcut._Price)
-        Next
+        End With
         currentViewType = "Product"
 
     End Sub
 
     Private Sub loadOrder()
-        listData.Columns.Clear()
-        listData.Items.Clear()
-        listData.View = System.Windows.Forms.View.Details
-        listData.Columns.Add("orderNumber")
-        listData.Columns.Add("orderDate")
-        listData.Columns.Add("ShipDate")
-        listData.Columns.Add("customer")
+        dgvData.DataSource = Nothing
+        dgvData.Columns.Clear()
+        dgvData.DataSource = db.getAllOrder()
+        Dim delecolumn As DataGridViewButtonColumn = New DataGridViewButtonColumn
+        delecolumn.UseColumnTextForButtonValue = True
+        delecolumn.Text = "DEL"
+        delecolumn.Name = "DEL"
+        delecolumn.DataPropertyName = "_orderNumber"
+        delecolumn.HeaderText = "DEL"
+        dgvData.Columns.Add(delecolumn)
+
+        With dgvData
+            .RowHeadersVisible = False
+            .Columns("DEL").DisplayIndex = 0
+
+            .Columns(0).HeaderCell.Value = "Order Number"
+            .Columns(1).Visible = False
+            .Columns(2).Visible = False
+            .Columns(3).HeaderCell.Value = "Order Date"
+            .Columns(4).HeaderCell.Value = "Ship Date"
+            .Columns(5).HeaderCell.Value = "Customer"
+            .Columns(6).HeaderCell.Value = "Discount"
 
 
-        Dim oList As List(Of DLL_Library.IOTS.Order) = db.getAllOrder()
 
-        For Each order As DLL_Library.IOTS.Order In oList
-            Dim li As ListViewItem
-            li = listData.Items.Add(order._orderNumber)
-            li.SubItems.Add(order._orderDate)
-            li.SubItems.Add(order._shipDate)
-
-            Dim customer As DLL_Library.IOTS.Customer = db.getCustomerByID(order._custId)
-            'li.SubItems.Add(customer._firstName + " " + customer._lastName)
-        Next
+        End With
         currentViewType = "Order"
-    End Sub
-
-    Private Sub listData_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles listData.MouseDoubleClick
-        Dim items As ListView.SelectedListViewItemCollection = listData.SelectedItems
-
-        Dim item As ListViewItem = items(0)
-
-        Dim id As Object = item.Text.Trim
-
-        Select Case currentViewType
-            Case "Customer"
-                Dim frmCust As New frmCustomer
-                frmCust._CustID = Long.Parse(id)
-                frmCust.ShowDialog()
-            Case "Product"
-                Dim frmProd As New frmProduct
-                frmProd._Product_id = id.ToString
-                frmProd.ShowDialog()
-            Case "Order"
-                Dim frmOd As New frmOrder
-                frmOd._OrderNumber = Long.Parse(id)
-                frmOd.ShowDialog()
-
-        End Select
     End Sub
 
     Private Sub btnProductList_Click(sender As Object, e As EventArgs) Handles btnProductList.Click
@@ -123,5 +106,43 @@ Public Class frmMain
 
     Private Sub btnCustomerList_Click(sender As Object, e As EventArgs) Handles btnCustomerList.Click
         loadCustomer()
+    End Sub
+
+    Private Sub dgvData_CellMouseDoubleClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvData.CellMouseDoubleClick
+        If e.RowIndex >= 0 AndAlso e.ColumnIndex >= 0 Then
+            Dim selectedRow = dgvData.Rows(e.RowIndex)
+            Dim id As Object = selectedRow.Cells(2).Value.ToString()
+            Select Case currentViewType
+                Case "Customer"
+                    Dim frmCust As New frmCustomer
+                    frmCust._CustID = Long.Parse(id)
+                    frmCust.ShowDialog()
+                Case "Product"
+                    Dim frmProd As New frmProduct
+                    frmProd._Product_id = id.ToString
+                    frmProd.ShowDialog()
+                Case "Order"
+                    Dim frmOd As New frmOrder
+                    frmOd._OrderNumber = Long.Parse(id)
+                    frmOd.ShowDialog()
+
+            End Select
+        End If
+
+    End Sub
+
+    Private Sub dgvData_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvData.CellClick
+        If e.RowIndex < 0 Or e.ColumnIndex < 0 Then
+            Return
+        End If
+
+        If (dgvData.Columns(e.ColumnIndex).Name = "DEL") Then
+            Dim result As Integer = MessageBox.Show("Confirm to delete the row?", "Delete the record", MessageBoxButtons.YesNo)
+            If result = DialogResult.No Then
+                MessageBox.Show("No pressed")
+            ElseIf result = DialogResult.Yes Then
+                MessageBox.Show("Yes pressed")
+            End If
+        End If
     End Sub
 End Class
