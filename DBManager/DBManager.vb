@@ -3,7 +3,7 @@ Imports DLL_Library.IOTS
 Imports DLL_Library.OrderSystemExceptions
 
 Public Class DBManager
-    Private strConn As String = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\USERS\WENDY MENG\SOURCE\REPOS\CVB-AS2\DBMANAGER\INNOTRACKSYS.MDF;Integrated Security=True"
+    Private strConn As String = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Michael\Documents\Visual Studio 2015\Projects\CVB-AS2\DBManager\InnoTrackSys.mdf;Integrated Security=True"
     Private sqlCon As SqlConnection
     Public productList As List(Of Product)
     Public customerList As List(Of Customer)
@@ -85,7 +85,7 @@ Public Class DBManager
     Public Function getAllOrder()
         Dim result As New List(Of Order)()
         Dim strQuery As String
-        strQuery = "SELECT * FROM Order"
+        strQuery = "SELECT * FROM [Order]"
         sqlCon = New SqlConnection(strConn)
         Using (sqlCon)
             Dim sqlComm As SqlCommand = New SqlCommand(strQuery, sqlCon)
@@ -96,7 +96,7 @@ Public Class DBManager
                     Dim orderNumber As Long = CLng(sqlReader.GetString(0))
                     Dim orderDate As String = sqlReader.Item(1).ToString
                     Dim shipDate As String = sqlReader.Item(2).ToString
-                    Dim custId As Long = sqlReader.GetInt64(3)
+                    Dim custId As Long = sqlReader.GetInt32(3)
                     Dim newOrder As New Order(orderNumber, orderDate, shipDate, custId)
 
                     result.Add(newOrder)
@@ -106,6 +106,14 @@ Public Class DBManager
         End Using
         Return result
 
+    End Function
+
+    Public Function getCustomerByID(ByVal custID As Long)
+        Return Nothing
+    End Function
+
+    Public Function getOrderByID(ByVal orderNumber As Long)
+        Return Nothing
     End Function
 
     Public Sub getOrderItems(ByRef order1 As Order)
@@ -130,18 +138,7 @@ Public Class DBManager
 
     End Sub
 
-    Public Sub addNewCustomer(ByVal cust As Customer)
-        Dim sqlCon As New SqlConnection(strConn)
-
-        Dim strQuery As String
-        strQuery = "insert  * FROM OrderItem WHERE orderNumber=@orderNum"
-        Using (sqlCon)
-            Dim sqlComm As New SqlCommand(strQuery, sqlCon)
-            sqlCon.Open()
-            sqlComm.ExecuteNonQuery()
-
-        End Using
-
+    Public Sub addNewCustomer()
 
     End Sub
     Public Sub addNewProduct()
@@ -152,13 +149,17 @@ Public Class DBManager
 
     End Sub
 
-    Public Sub deleteOrder()
+    Public Sub deleteOrder(ByVal orderId As Long)
 
     End Sub
-    Public Sub deleteProduct()
+    Public Sub deleteProduct(ByVal prodId As String)
 
     End Sub
-    Public Sub deleteCustomer()
+    Public Sub deleteCustomer(ByVal custId As Long)
+
+    End Sub
+
+    Public Sub deleteProductFromOrderById(ByVal orderId As Long, ByVal prodId As Long)
 
     End Sub
     Public Sub updateCustomer()
@@ -183,4 +184,5 @@ Public Class DBManager
     Public Sub searchOrder()
 
     End Sub
+
 End Class
