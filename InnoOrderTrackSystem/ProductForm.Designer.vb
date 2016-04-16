@@ -37,58 +37,65 @@ Partial Class ProductForm
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(38, 49)
+        Me.Label1.Location = New System.Drawing.Point(25, 35)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(107, 18)
+        Me.Label1.Size = New System.Drawing.Size(61, 13)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Product ID:"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(41, 92)
+        Me.Label2.Location = New System.Drawing.Point(25, 64)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(53, 18)
+        Me.Label2.Size = New System.Drawing.Size(35, 13)
         Me.Label2.TabIndex = 1
         Me.Label2.Text = "Desc:"
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(38, 135)
+        Me.Label3.Location = New System.Drawing.Point(25, 97)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(116, 18)
+        Me.Label3.Size = New System.Drawing.Size(72, 13)
         Me.Label3.TabIndex = 2
         Me.Label3.Text = "Qty On Hand:"
         '
         'txtDesc
         '
-        Me.txtDesc.Location = New System.Drawing.Point(170, 89)
+        Me.txtDesc.Location = New System.Drawing.Point(113, 64)
+        Me.txtDesc.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.txtDesc.Name = "txtDesc"
-        Me.txtDesc.Size = New System.Drawing.Size(182, 28)
+        Me.txtDesc.Size = New System.Drawing.Size(123, 20)
         Me.txtDesc.TabIndex = 4
         '
         'txtQty
         '
-        Me.txtQty.Location = New System.Drawing.Point(170, 132)
+        Me.txtQty.Location = New System.Drawing.Point(113, 95)
+        Me.txtQty.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.txtQty.Name = "txtQty"
-        Me.txtQty.Size = New System.Drawing.Size(182, 28)
+        Me.txtQty.Size = New System.Drawing.Size(123, 20)
         Me.txtQty.TabIndex = 5
         '
         'btnUpdate
         '
-        Me.btnUpdate.Location = New System.Drawing.Point(170, 236)
+        Me.btnUpdate.Location = New System.Drawing.Point(113, 170)
+        Me.btnUpdate.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.btnUpdate.Name = "btnUpdate"
-        Me.btnUpdate.Size = New System.Drawing.Size(75, 23)
+        Me.btnUpdate.Size = New System.Drawing.Size(56, 23)
         Me.btnUpdate.TabIndex = 6
         Me.btnUpdate.Text = "Update"
         Me.btnUpdate.UseVisualStyleBackColor = True
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(275, 235)
+        Me.btnCancel.Location = New System.Drawing.Point(183, 170)
+        Me.btnCancel.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(75, 23)
+        Me.btnCancel.Size = New System.Drawing.Size(53, 23)
         Me.btnCancel.TabIndex = 7
         Me.btnCancel.Text = "Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
@@ -96,33 +103,36 @@ Partial Class ProductForm
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(41, 179)
+        Me.Label4.Location = New System.Drawing.Point(25, 129)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(62, 18)
+        Me.Label4.Size = New System.Drawing.Size(34, 13)
         Me.Label4.TabIndex = 8
         Me.Label4.Text = "Price:"
         '
         'txtPrice
         '
-        Me.txtPrice.Location = New System.Drawing.Point(170, 179)
+        Me.txtPrice.Location = New System.Drawing.Point(113, 129)
+        Me.txtPrice.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.txtPrice.Name = "txtPrice"
-        Me.txtPrice.Size = New System.Drawing.Size(182, 28)
+        Me.txtPrice.Size = New System.Drawing.Size(123, 20)
         Me.txtPrice.TabIndex = 9
         '
         'lbProductID
         '
         Me.lbProductID.AutoSize = True
-        Me.lbProductID.Location = New System.Drawing.Point(170, 49)
+        Me.lbProductID.Location = New System.Drawing.Point(113, 35)
+        Me.lbProductID.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lbProductID.Name = "lbProductID"
-        Me.lbProductID.Size = New System.Drawing.Size(62, 18)
+        Me.lbProductID.Size = New System.Drawing.Size(39, 13)
         Me.lbProductID.TabIndex = 10
         Me.lbProductID.Text = "Label5"
         '
         'ProductForm
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 18.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(466, 283)
+        Me.ClientSize = New System.Drawing.Size(311, 204)
         Me.Controls.Add(Me.lbProductID)
         Me.Controls.Add(Me.txtPrice)
         Me.Controls.Add(Me.Label4)
@@ -133,6 +143,7 @@ Partial Class ProductForm
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Name = "ProductForm"
         Me.Text = "Product"
         Me.ResumeLayout(False)
