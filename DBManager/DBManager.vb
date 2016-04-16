@@ -112,6 +112,10 @@ Public Class DBManager
         Return Nothing
     End Function
 
+    Public Function getOrderByID(ByVal orderNumber As Long)
+        Return Nothing
+    End Function
+
     Public Sub getOrderItems(ByRef order1 As Order)
         Dim sqlCon As New SqlConnection(strConn)
 

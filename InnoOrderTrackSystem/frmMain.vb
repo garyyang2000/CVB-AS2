@@ -99,12 +99,15 @@ Public Class frmMain
         Select Case currentViewType
             Case "Customer"
                 Dim frmCust As New frmCustomer
+                frmCust._CustID = Long.Parse(id)
                 frmCust.ShowDialog()
             Case "Product"
                 Dim frmProd As New frmProduct
+                frmProd._Product_id = id.ToString
                 frmProd.ShowDialog()
             Case "Order"
                 Dim frmOd As New frmOrder
+                frmOd._OrderNumber = Long.Parse(id)
                 frmOd.ShowDialog()
 
         End Select
