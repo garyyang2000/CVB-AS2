@@ -38,10 +38,11 @@ Partial Class Form1
         '
         Me.listData.FullRowSelect = True
         Me.listData.GridLines = True
-        Me.listData.Location = New System.Drawing.Point(12, 77)
+        Me.listData.Location = New System.Drawing.Point(9, 69)
+        Me.listData.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.listData.MultiSelect = False
         Me.listData.Name = "listData"
-        Me.listData.Size = New System.Drawing.Size(643, 391)
+        Me.listData.Size = New System.Drawing.Size(430, 283)
         Me.listData.TabIndex = 0
         Me.listData.UseCompatibleStateImageBehavior = False
         '
@@ -51,7 +52,8 @@ Partial Class Form1
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SearchToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(667, 33)
+        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
+        Me.MenuStrip1.Size = New System.Drawing.Size(479, 24)
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -59,65 +61,69 @@ Partial Class Form1
         '
         Me.SearchToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CustomerSearchToolStripMenuItem, Me.OrderSearchToolStripMenuItem, Me.ProductSearchToolStripMenuItem})
         Me.SearchToolStripMenuItem.Name = "SearchToolStripMenuItem"
-        Me.SearchToolStripMenuItem.Size = New System.Drawing.Size(76, 29)
+        Me.SearchToolStripMenuItem.Size = New System.Drawing.Size(54, 22)
         Me.SearchToolStripMenuItem.Text = "Search"
         '
         'CustomerSearchToolStripMenuItem
         '
         Me.CustomerSearchToolStripMenuItem.Name = "CustomerSearchToolStripMenuItem"
-        Me.CustomerSearchToolStripMenuItem.Size = New System.Drawing.Size(231, 30)
+        Me.CustomerSearchToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
         Me.CustomerSearchToolStripMenuItem.Text = "Customer Search"
         '
         'OrderSearchToolStripMenuItem
         '
         Me.OrderSearchToolStripMenuItem.Name = "OrderSearchToolStripMenuItem"
-        Me.OrderSearchToolStripMenuItem.Size = New System.Drawing.Size(231, 30)
+        Me.OrderSearchToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
         Me.OrderSearchToolStripMenuItem.Text = "Order Search"
         '
         'ProductSearchToolStripMenuItem
         '
         Me.ProductSearchToolStripMenuItem.Name = "ProductSearchToolStripMenuItem"
-        Me.ProductSearchToolStripMenuItem.Size = New System.Drawing.Size(231, 30)
+        Me.ProductSearchToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
         Me.ProductSearchToolStripMenuItem.Text = "Product Search"
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(13, 37)
+        Me.Button1.Location = New System.Drawing.Point(9, 27)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(94, 23)
+        Me.Button1.Size = New System.Drawing.Size(60, 38)
         Me.Button1.TabIndex = 2
         Me.Button1.Text = "Customer"
         Me.Button1.UseVisualStyleBackColor = True
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(137, 37)
+        Me.Button2.Location = New System.Drawing.Point(91, 27)
+        Me.Button2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(75, 23)
+        Me.Button2.Size = New System.Drawing.Size(59, 38)
         Me.Button2.TabIndex = 3
         Me.Button2.Text = "Order"
         Me.Button2.UseVisualStyleBackColor = True
         '
         'Button3
         '
-        Me.Button3.Location = New System.Drawing.Point(260, 37)
+        Me.Button3.Location = New System.Drawing.Point(173, 27)
+        Me.Button3.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(89, 23)
+        Me.Button3.Size = New System.Drawing.Size(61, 38)
         Me.Button3.TabIndex = 4
         Me.Button3.Text = "Product"
         Me.Button3.UseVisualStyleBackColor = True
         '
         'Form1
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 18.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(667, 480)
+        Me.ClientSize = New System.Drawing.Size(479, 402)
         Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.listData)
         Me.Controls.Add(Me.MenuStrip1)
         Me.MainMenuStrip = Me.MenuStrip1
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Name = "Form1"
         Me.Text = "CVB-Assignment2"
         Me.MenuStrip1.ResumeLayout(False)

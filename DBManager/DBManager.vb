@@ -3,7 +3,7 @@ Imports DLL_Library.IOTS
 Imports DLL_Library.OrderSystemExceptions
 
 Public Class DBManager
-    Private strConn As String = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=\\Mac\Dropbox\Academic\Seneca\CVB815\CVB-AS2\DBManager\InnoTrackSys.mdf;Integrated Security=True"
+    Private strConn As String = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\USERS\WENDY MENG\SOURCE\REPOS\CVB-AS2\DBMANAGER\INNOTRACKSYS.MDF;Integrated Security=True"
     Private sqlCon As SqlConnection
     Public productList As List(Of Product)
     Public customerList As List(Of Customer)
@@ -130,7 +130,18 @@ Public Class DBManager
 
     End Sub
 
-    Public Sub addNewCustomer()
+    Public Sub addNewCustomer(ByVal cust As Customer)
+        Dim sqlCon As New SqlConnection(strConn)
+
+        Dim strQuery As String
+        strQuery = "insert  * FROM OrderItem WHERE orderNumber=@orderNum"
+        Using (sqlCon)
+            Dim sqlComm As New SqlCommand(strQuery, sqlCon)
+            sqlCon.Open()
+            sqlComm.ExecuteNonQuery()
+
+        End Using
+
 
     End Sub
     Public Sub addNewProduct()
