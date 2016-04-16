@@ -110,20 +110,19 @@ Public Class frmMain
 
     Private Sub dgvData_CellMouseDoubleClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvData.CellMouseDoubleClick
         If e.RowIndex >= 0 AndAlso e.ColumnIndex >= 0 Then
-            Dim selectedRow = dgvData.Rows(e.RowIndex)
-            Dim id As Object = selectedRow.Cells(1).Value.ToString()
+            Dim selectedRow As DataGridViewRow = dgvData.Rows(e.RowIndex)
             Select Case currentViewType
                 Case "Customer"
                     Dim frmCust As New frmCustomer
-                    frmCust._CustID = Long.Parse(id)
+                    frmCust._CustID = Long.Parse(selectedRow.Cells(1).Value.ToString())
                     frmCust.ShowDialog()
                 Case "Product"
                     Dim frmProd As New frmProduct
-                    frmProd._Product_id = id.ToString
+                    frmProd._Product_id = selectedRow.Cells(3).Value.ToString()
                     frmProd.ShowDialog()
                 Case "Order"
                     Dim frmOd As New frmOrder
-                    frmOd._OrderNumber = Long.Parse(id)
+                    frmOd._OrderNumber = Long.Parse(selectedRow.Cells(0).Value.ToString())
                     frmOd.ShowDialog()
 
             End Select
@@ -139,10 +138,24 @@ Public Class frmMain
         If (dgvData.Columns(e.ColumnIndex).Name = "DEL") Then
             Dim result As Integer = MessageBox.Show("Confirm to delete the row?", "Delete the record", MessageBoxButtons.YesNo)
             If result = DialogResult.No Then
-                MessageBox.Show("No pressed")
+                Return
             ElseIf result = DialogResult.Yes Then
-                MessageBox.Show("Yes pressed")
+                deleteRow(dgvData.Rows(e.RowIndex))
             End If
         End If
+    End Sub
+
+    Private Sub deleteRow(ByVal selectedRow As DataGridViewRow)
+        Select Case currentViewType
+            Case "Customer"
+                db.deleteCustomer(Long.Parse(selectedRow.Cells(1).Value.ToString()))
+                loadCustomer()
+            Case "Product"
+                db.deleteProduct(selectedRow.Cells(3).Value.ToString())
+                loadProduct()
+            Case "Order"
+                db.deleteOrder(selectedRow.Cells(0).Value.ToString())
+                loadOrder()
+        End Select
     End Sub
 End Class

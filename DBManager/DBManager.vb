@@ -149,13 +149,17 @@ Public Class DBManager
 
     End Sub
 
-    Public Sub deleteOrder()
+    Public Sub deleteOrder(ByVal orderId As Long)
 
     End Sub
-    Public Sub deleteProduct()
+    Public Sub deleteProduct(ByVal prodId As String)
 
     End Sub
-    Public Sub deleteCustomer()
+    Public Sub deleteCustomer(ByVal custId As Long)
+
+    End Sub
+
+    Public Sub deleteProductFromOrderById(ByVal orderId As Long, ByVal prodId As Long)
 
     End Sub
     Public Sub updateCustomer()
