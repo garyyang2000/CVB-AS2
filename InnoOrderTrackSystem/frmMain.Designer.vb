@@ -28,9 +28,9 @@ Partial Class frmMain
         Me.CustomerSearchToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.OrderSearchToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ProductSearchToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.Button3 = New System.Windows.Forms.Button()
+        Me.btnCustomerList = New System.Windows.Forms.Button()
+        Me.btnOrderList = New System.Windows.Forms.Button()
+        Me.btnProductList = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -39,7 +39,7 @@ Partial Class frmMain
         Me.listData.FullRowSelect = True
         Me.listData.GridLines = True
         Me.listData.Location = New System.Drawing.Point(8, 56)
-        Me.listData.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.listData.Margin = New System.Windows.Forms.Padding(2)
         Me.listData.MultiSelect = False
         Me.listData.Name = "listData"
         Me.listData.Size = New System.Drawing.Size(430, 283)
@@ -82,49 +82,49 @@ Partial Class frmMain
         Me.ProductSearchToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
         Me.ProductSearchToolStripMenuItem.Text = "Product Search"
         '
-        'Button1
+        'btnCustomerList
         '
-        Me.Button1.Location = New System.Drawing.Point(9, 27)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(78, 25)
-        Me.Button1.TabIndex = 2
-        Me.Button1.Text = "Customer"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.btnCustomerList.Location = New System.Drawing.Point(9, 27)
+        Me.btnCustomerList.Margin = New System.Windows.Forms.Padding(2)
+        Me.btnCustomerList.Name = "btnCustomerList"
+        Me.btnCustomerList.Size = New System.Drawing.Size(78, 25)
+        Me.btnCustomerList.TabIndex = 2
+        Me.btnCustomerList.Text = "Customer"
+        Me.btnCustomerList.UseVisualStyleBackColor = True
         '
-        'Button2
+        'btnOrderList
         '
-        Me.Button2.Location = New System.Drawing.Point(105, 27)
-        Me.Button2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(64, 25)
-        Me.Button2.TabIndex = 3
-        Me.Button2.Text = "Order"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.btnOrderList.Location = New System.Drawing.Point(105, 27)
+        Me.btnOrderList.Margin = New System.Windows.Forms.Padding(2)
+        Me.btnOrderList.Name = "btnOrderList"
+        Me.btnOrderList.Size = New System.Drawing.Size(64, 25)
+        Me.btnOrderList.TabIndex = 3
+        Me.btnOrderList.Text = "Order"
+        Me.btnOrderList.UseVisualStyleBackColor = True
         '
-        'Button3
+        'btnProductList
         '
-        Me.Button3.Location = New System.Drawing.Point(193, 27)
-        Me.Button3.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(68, 25)
-        Me.Button3.TabIndex = 4
-        Me.Button3.Text = "Product"
-        Me.Button3.UseVisualStyleBackColor = True
+        Me.btnProductList.Location = New System.Drawing.Point(193, 27)
+        Me.btnProductList.Margin = New System.Windows.Forms.Padding(2)
+        Me.btnProductList.Name = "btnProductList"
+        Me.btnProductList.Size = New System.Drawing.Size(68, 25)
+        Me.btnProductList.TabIndex = 4
+        Me.btnProductList.Text = "Product"
+        Me.btnProductList.UseVisualStyleBackColor = True
         '
-        'Form1
+        'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(445, 347)
-        Me.Controls.Add(Me.Button3)
-        Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.btnProductList)
+        Me.Controls.Add(Me.btnOrderList)
+        Me.Controls.Add(Me.btnCustomerList)
         Me.Controls.Add(Me.listData)
         Me.Controls.Add(Me.MenuStrip1)
         Me.MainMenuStrip = Me.MenuStrip1
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.Name = "Form1"
+        Me.Margin = New System.Windows.Forms.Padding(2)
+        Me.Name = "frmMain"
         Me.Text = "CVB-Assignment2"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
@@ -134,9 +134,9 @@ Partial Class frmMain
     End Sub
 
     Friend WithEvents SearchToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents Button1 As Button
-    Friend WithEvents Button2 As Button
-    Friend WithEvents Button3 As Button
+    Friend WithEvents btnCustomerList As Button
+    Friend WithEvents btnOrderList As Button
+    Friend WithEvents btnProductList As Button
     Friend WithEvents ProductSearchToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents OrderSearchToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents CustomerSearchToolStripMenuItem As ToolStripMenuItem

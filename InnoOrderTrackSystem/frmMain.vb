@@ -65,8 +65,7 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub listData_SelectedIndexChanged(sender As Object, e As EventArgs) Handles listData.SelectedIndexChanged
-
+    Private Sub loadOrder()
 
     End Sub
 
@@ -87,5 +86,17 @@ Public Class frmMain
                 MessageBox.Show("Order")
 
         End Select
+    End Sub
+
+    Private Sub btnProductList_Click(sender As Object, e As EventArgs) Handles btnProductList.Click
+        loadProduct()
+    End Sub
+
+    Private Sub btnOrderList_Click(sender As Object, e As EventArgs) Handles btnOrderList.Click
+
+    End Sub
+
+    Private Sub btnCustomerList_Click(sender As Object, e As EventArgs) Handles btnCustomerList.Click
+        loadCustomer()
     End Sub
 End Class
