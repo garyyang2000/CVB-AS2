@@ -111,7 +111,7 @@ Public Class frmMain
     Private Sub dgvData_CellMouseDoubleClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvData.CellMouseDoubleClick
         If e.RowIndex >= 0 AndAlso e.ColumnIndex >= 0 Then
             Dim selectedRow = dgvData.Rows(e.RowIndex)
-            Dim id As Object = selectedRow.Cells(2).Value.ToString()
+            Dim id As Object = selectedRow.Cells(1).Value.ToString()
             Select Case currentViewType
                 Case "Customer"
                     Dim frmCust As New frmCustomer
