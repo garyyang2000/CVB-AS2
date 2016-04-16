@@ -122,8 +122,9 @@ Public Class DBManager
                 Dim productId = sqlReader.Item(1).ToString.Trim
                 Dim qty = sqlReader.GetInt32(2)
                 Dim discount As Double = sqlReader.GetSqlMoney(3).ToDouble()
-                Dim item = New OrderItem()
-                //item._orderNumber = order1._orderNumber
+                Dim item = New OrderItem(order1._orderNumber, qty, productId, discount)
+                'item._orderNumber = order1._orderNumber
+                order1.orderItems.Add(item)
             End If
         End Using
 
