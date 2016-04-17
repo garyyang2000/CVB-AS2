@@ -31,6 +31,8 @@ Partial Class frmOrder
         Me.Label5 = New System.Windows.Forms.Label()
         Me.btnAddProduct = New System.Windows.Forms.Button()
         Me.dgvOrderItems = New System.Windows.Forms.DataGridView()
+        Me.btnUpdate = New System.Windows.Forms.Button()
+        Me.btnCancel = New System.Windows.Forms.Button()
         CType(Me.dgvOrderItems, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -95,7 +97,7 @@ Partial Class frmOrder
         '
         'btnAddProduct
         '
-        Me.btnAddProduct.Location = New System.Drawing.Point(16, 262)
+        Me.btnAddProduct.Location = New System.Drawing.Point(223, 262)
         Me.btnAddProduct.Name = "btnAddProduct"
         Me.btnAddProduct.Size = New System.Drawing.Size(75, 23)
         Me.btnAddProduct.TabIndex = 8
@@ -113,11 +115,33 @@ Partial Class frmOrder
         Me.dgvOrderItems.Size = New System.Drawing.Size(483, 150)
         Me.dgvOrderItems.TabIndex = 9
         '
+        'btnUpdate
+        '
+        Me.btnUpdate.DialogResult = System.Windows.Forms.DialogResult.OK
+        Me.btnUpdate.Location = New System.Drawing.Point(321, 262)
+        Me.btnUpdate.Name = "btnUpdate"
+        Me.btnUpdate.Size = New System.Drawing.Size(75, 23)
+        Me.btnUpdate.TabIndex = 10
+        Me.btnUpdate.Text = "Update"
+        Me.btnUpdate.UseVisualStyleBackColor = True
+        '
+        'btnCancel
+        '
+        Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.btnCancel.Location = New System.Drawing.Point(424, 262)
+        Me.btnCancel.Name = "btnCancel"
+        Me.btnCancel.Size = New System.Drawing.Size(75, 23)
+        Me.btnCancel.TabIndex = 11
+        Me.btnCancel.Text = "Cancel"
+        Me.btnCancel.UseVisualStyleBackColor = True
+        '
         'frmOrder
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(531, 290)
+        Me.Controls.Add(Me.btnCancel)
+        Me.Controls.Add(Me.btnUpdate)
         Me.Controls.Add(Me.dgvOrderItems)
         Me.Controls.Add(Me.btnAddProduct)
         Me.Controls.Add(Me.Label5)
@@ -144,4 +168,6 @@ Partial Class frmOrder
     Friend WithEvents Label5 As Label
     Friend WithEvents btnAddProduct As Button
     Friend WithEvents dgvOrderItems As DataGridView
+    Friend WithEvents btnUpdate As Button
+    Friend WithEvents btnCancel As Button
 End Class

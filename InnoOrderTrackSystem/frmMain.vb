@@ -129,7 +129,10 @@ Public Class frmMain
                 Case "Order"
                     Dim frmOd As New frmOrder
                     frmOd._OrderNumber = Long.Parse(selectedRow.Cells(0).Value.ToString())
-                    frmOd.ShowDialog()
+                    Dim dr = frmOd.ShowDialog()
+                    If dr = System.Windows.Forms.DialogResult.OK And currentViewType = "Order" Then
+                        loadOrder(db.getAllOrder())
+                    End If
 
             End Select
         End If

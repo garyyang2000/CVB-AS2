@@ -429,7 +429,7 @@ Public Class DBManager
             sqlComm.Parameters.AddWithValue("@orderDate", DateTime.Parse(order1._orderDate))
             sqlComm.Parameters.AddWithValue("@shipDate", DateTime.Parse(order1._shipDate))
             sqlComm.Parameters.AddWithValue("@custId", order1._custId)
-            sqlComm.Parameters.AddWithValue("@orerNum", order1._orderNumber)
+            sqlComm.Parameters.AddWithValue("@orderNum", order1._orderNumber)
             sqlCon.Open()
             sqlComm.ExecuteNonQuery()
         End Using

@@ -74,4 +74,10 @@ Public Class frmOrder
             End If
         End If
     End Sub
+
+    Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
+        order._orderDate = dtOrderDate.Value
+        order._shipDate = dtShipDate.Value
+        db.updateOrder(order)
+    End Sub
 End Class
