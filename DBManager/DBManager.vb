@@ -5,7 +5,7 @@ Imports System.Windows.Forms
 
 
 Public Class DBManager
-    Private strConn As String = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Wendy Meng\Source\Repos\CVB-AS2\DBManager\InnoTrackSys.mdf;Integrated Security=True"
+    Private strConn As String = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\USERS\MICHAEL\DOCUMENTS\VISUAL STUDIO 2015\PROJECTS\CVB-AS2\DBMANAGER\INNOTRACKSYS.MDF;Integrated Security=True"
     Private sqlCon As SqlConnection
     Public productList As List(Of Product)
     Public customerList As List(Of Customer)
