@@ -153,6 +153,14 @@ Namespace IOTS
             MyClass.custId = custid
         End Sub
 
+        Sub New(ByVal orderDate As String,
+                ByVal ShipDate As String, ByVal custid As Long)
+            MyClass.orderNumber = orderNumber
+            _orderDate() = orderDate
+            _shipDate() = ShipDate
+            MyClass.custId = custid
+        End Sub
+
         Public Function IsValid(ByVal testData As String, ByVal regex As String) As Boolean Implements IValidator.IsValid
             Dim r As Regex = New Regex(regex, RegexOptions.IgnoreCase)
             Dim m As Match = r.Match(testData)

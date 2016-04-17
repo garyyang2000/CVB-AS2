@@ -181,8 +181,8 @@ Namespace IOTS
             End Set
         End Property
 
-        Sub New(ByVal custId, ByVal firstname, ByVal lastname, ByVal street, ByVal city, ByVal province, ByVal postalcode, ByVal credit, ByVal email, ByVal phoneNumber)
-            MyClass.custId = custId
+        Sub New(ByVal firstname, ByVal lastname, ByVal street, ByVal city, ByVal province, ByVal postalcode, ByVal credit, ByVal email, ByVal phoneNumber)
+
             _firstName = firstname
             _lastName = lastname
             _streetAddress = street
