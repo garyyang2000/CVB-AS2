@@ -24,6 +24,8 @@ Public Class frmOrder
         loadOrderItems(order.orderItems)
         Dim customer As DLL_Library.IOTS.Customer = db.getCustomerByID(order._custId)
         lbCustomer.Text = customer._firstName + " " + customer._lastName
+        lbCustAddress.Text = customer._streetAddress & "  " & customer._city
+        lbCustAddress.Text = lbCustAddress.Text & ", " & customer._province & " " & customer._postalCode
     End Sub
 
     Private Sub loadOrderItems(ByVal orderItems As List(Of OrderItem))

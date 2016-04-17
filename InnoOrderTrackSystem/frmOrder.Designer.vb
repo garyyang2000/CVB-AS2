@@ -35,6 +35,8 @@ Partial Class frmOrder
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.lbCustomer = New System.Windows.Forms.Label()
+        Me.lbCustAddress = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
         CType(Me.dgvOrderItems, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -142,9 +144,9 @@ Partial Class frmOrder
         Me.Label2.AutoSize = True
         Me.Label2.Location = New System.Drawing.Point(13, 37)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(51, 13)
+        Me.Label2.Size = New System.Drawing.Size(54, 13)
         Me.Label2.TabIndex = 12
-        Me.Label2.Text = "Customer"
+        Me.Label2.Text = "Customer:"
         '
         'lbCustomer
         '
@@ -155,11 +157,31 @@ Partial Class frmOrder
         Me.lbCustomer.TabIndex = 13
         Me.lbCustomer.Text = "Label6"
         '
+        'lbCustAddress
+        '
+        Me.lbCustAddress.AutoSize = True
+        Me.lbCustAddress.Location = New System.Drawing.Point(274, 37)
+        Me.lbCustAddress.Name = "lbCustAddress"
+        Me.lbCustAddress.Size = New System.Drawing.Size(39, 13)
+        Me.lbCustAddress.TabIndex = 14
+        Me.lbCustAddress.Text = "Label6"
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(220, 37)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(48, 13)
+        Me.Label7.TabIndex = 15
+        Me.Label7.Text = "Address:"
+        '
         'frmOrder
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(531, 333)
+        Me.Controls.Add(Me.Label7)
+        Me.Controls.Add(Me.lbCustAddress)
         Me.Controls.Add(Me.lbCustomer)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.btnCancel)
@@ -194,4 +216,6 @@ Partial Class frmOrder
     Friend WithEvents btnCancel As Button
     Friend WithEvents Label2 As Label
     Friend WithEvents lbCustomer As Label
+    Friend WithEvents lbCustAddress As Label
+    Friend WithEvents Label7 As Label
 End Class
