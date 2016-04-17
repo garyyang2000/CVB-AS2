@@ -3,7 +3,7 @@ Imports DLL_Library.IOTS
 Imports DLL_Library.OrderSystemExceptions
 
 Public Class DBManager
-    Private strConn As String = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\USERS\MICHAEL\DOCUMENTS\VISUAL STUDIO 2015\PROJECTS\CVB-AS2\DBMANAGER\INNOTRACKSYS.MDF;Integrated Security=True"
+    Private strConn As String = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Wendy Meng\Source\Repos\CVB-AS2\DBManager\InnoTrackSys.mdf;Integrated Security=True"
     Private sqlCon As SqlConnection
     Public productList As List(Of Product)
     Public customerList As List(Of Customer)
@@ -170,7 +170,7 @@ Public Class DBManager
         Using (sqlCon)
             Dim strQuery As String
             strQuery = "insert INTO Customer(firstName, lastName,streetAddress,city,province,postalCode,creditLimit,email,phoneNumber) "
-            strQuery = +"Values(@fName,@lName,@StreetAddr,@city,@prov,@pCode,@credit,@email,@phoneNum)"
+            strQuery = strQuery & "Values(@fName,@lName,@StreetAddr,@city,@prov,@pCode,@credit,@email,@phoneNum)"
             Dim sqlComm As New SqlCommand(strQuery, sqlCon)
             'sqlComm.Parameters.AddWithValue("@custId", cust._custId)
             sqlComm.Parameters.AddWithValue("@fName", cust._firstName)
@@ -339,10 +339,10 @@ Public Class DBManager
         Using (sqlCon)
             Dim strQuery As String
             strQuery = "UPDATE Customer SET firstName=@fName,"
-            strQuery = strQuery + "lastName =@lName,streetAddress=@StreetAddr,"
-            strQuery = +"city=@city,province=@prov,postalCode=@pCode,"
-            strQuery = +"creditLimit=@credit,email=@email,phoneNumber=@phoneNum "
-            strQuery = +" WHERE custId=@custId"
+            strQuery = strQuery & "lastName =@lName,streetAddress=@StreetAddr,"
+            strQuery = strQuery & "city=@city,province=@prov,postalCode=@pCode,"
+            strQuery = strQuery & "creditLimit=@credit,email=@email,phoneNumber=@phoneNum "
+            strQuery = strQuery & " WHERE custId=@custId"
             Dim sqlComm As New SqlCommand(strQuery, sqlCon)
             sqlComm.Parameters.AddWithValue("@fName", cust._firstName)
             sqlComm.Parameters.AddWithValue("@lName", cust._lastName)
@@ -375,8 +375,8 @@ Public Class DBManager
         Using (sqlCon)
             Dim strQuery As String
             strQuery = "Update PRODUCT SET "
-            strQuery = +"description=@desc, stock=@stock, price=@price "
-            strQuery = +"WHERE productId=@prodId"
+            strQuery = strQuery & "description=@desc, stock=@stock, price=@price "
+            strQuery = strQuery & "WHERE productId=@prodId"
             Dim sqlComm As New SqlCommand(strQuery, sqlCon)
 
             sqlComm.Parameters.AddWithValue("@desc", prod._description)
@@ -478,8 +478,6 @@ Public Class DBManager
             sqlReader.Close()
         End Using
         Return result
-
-
     End Function
 
     Public Function searchCustomer(ByVal name As String)
@@ -526,8 +524,8 @@ Public Class DBManager
         Using (sqlCon)
             Dim strQuery As String
             strQuery = "SELECT * FROM [Order] WHERE orderNumber=@orderNum "
-            strQuery = +" OR (orderDate>=@oderDateStart AND orderDate<=@orderDateEnd)"
-            strQuery = +" OR (shipDate>=@shipDateStart AND orderDate<=@shipDateEnd)"
+            strQuery = strQuery & " OR (orderDate>=@oderDateStart AND orderDate<=@orderDateEnd)"
+            strQuery = strQuery & " OR (shipDate>=@shipDateStart AND orderDate<=@shipDateEnd)"
             Dim sqlComm As SqlCommand = New SqlCommand(strQuery, sqlCon)
             sqlComm.Parameters.AddWithValue("@orderNum", ordernumber)
             sqlComm.Parameters.AddWithValue("@orderDateStart", dtOrderDateStart)

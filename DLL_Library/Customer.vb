@@ -31,10 +31,10 @@ Namespace IOTS
             Set(ByVal Value As String)
                 ' Store the value in a local variable.
 
-                If (Value IsNot Nothing) Then
+                If (Value.Length < 50) Then
                     phoneNum = Value
                 Else
-                    Throw New OrderSystemExceptions("An exception has occurred, phone number not valid.")
+                    Throw New OrderSystemExceptions("An exception has occurred, phone number can not be more than 50.")
                 End If
             End Set
         End Property
@@ -191,7 +191,6 @@ Namespace IOTS
             _postalCode = postalcode
             _creditLimit = credit
             _email = email
-            _phoneNum = phoneNumber
         End Sub
         Sub New(ByVal firstname, ByVal lastname, ByVal street, ByVal city, ByVal province, ByVal postalcode, ByVal credit, ByVal email, ByVal phoneNumber)
 
@@ -203,7 +202,6 @@ Namespace IOTS
             _postalCode = postalcode
             _creditLimit = credit
             _email = email
-            _phoneNum = phoneNumber
         End Sub
 
         Sub New()

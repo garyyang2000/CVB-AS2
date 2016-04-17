@@ -1,6 +1,6 @@
 ﻿Public Class frmCustomer
     Private custId As Long
-    Private customer As DLL_Library.IOTS.Customer
+    Private customer As DLL_Library.IOTS.Customer = New DLL_Library.IOTS.Customer()
 
     Private db As DBManager.DBManager = New DBManager.DBManager
 
