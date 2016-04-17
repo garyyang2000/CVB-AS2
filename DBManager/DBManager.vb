@@ -459,13 +459,15 @@ Public Class DBManager
     End Sub
 
 
-    Public Function searchProduct(ByVal desc As String)
+    Public Function searchProduct(ByVal desc As String) As List(Of Product)
         Dim result As New List(Of Product)()
-        Dim strQuery As String
-        strQuery = "SELECT * FROM Product WHERE description LIKE %@"
-        sqlCon = New SqlConnection(strConn)
         Using (sqlCon)
+            Dim strQuery As String
+            strQuery = "SELECT * FROM Product WHERE description LIKE @desc"
+            sqlCon = New SqlConnection(strConn)
             Dim sqlComm As SqlCommand = New SqlCommand(strQuery, sqlCon)
+            desc = "%" + desc + "%"
+            sqlComm.Parameters.AddWithValue("@desc", desc)
             sqlCon.Open()
             Dim sqlReader As SqlDataReader = sqlComm.ExecuteReader()
             If sqlReader.HasRows Then
@@ -482,14 +484,70 @@ Public Class DBManager
         End Using
         Return result
 
-        Return Nothing
+
     End Function
 
     Public Function searchCustomer(ByVal name As String)
-        Return Nothing
+        Dim result As New List(Of Customer)()
+
+        Using (sqlCon)
+            Dim strQuery As String
+            strQuery = "SELECT * FROM Customer WHERE firstName LIKE @name OR lastName LIKE @name"
+            sqlCon = New SqlConnection(strConn)
+            Dim sqlComm As SqlCommand = New SqlCommand(strQuery, sqlCon)
+            name = "%" + name + "%"
+            sqlComm.Parameters.AddWithValue("@name", name)
+            sqlCon.Open()
+            Dim sqlReader As SqlDataReader = sqlComm.ExecuteReader()
+            If sqlReader.HasRows Then
+                Dim mailAddr As String = Nothing
+                Dim mailId As Int32 = 0
+                While (sqlReader.Read())
+                    Dim custId = sqlReader.Item(0)
+                    Dim first_name = sqlReader.Item(1).ToString().Trim
+                    Dim last_name = sqlReader.Item(2).ToString().Trim
+                    Dim address = sqlReader.Item(3).ToString().Trim
+                    Dim city = sqlReader.Item(4).ToString().Trim
+                    Dim province = sqlReader.Item(5).ToString().Trim
+                    Dim postalcode = sqlReader.Item(6).ToString().Trim
+                    Dim credit_limit = sqlReader.Item(7)
+                    Dim email = sqlReader.Item(8)
+                    Dim phone = sqlReader.Item(9)
+                    Dim newCust As New DLL_Library.IOTS.Customer(custId,
+                             first_name, last_name, address, city, province, postalcode, credit_limit, email, phone)
+                    result.Add(newCust)
+                End While
+            End If
+            sqlReader.Close()
+        End Using
+        Return result
+
+
     End Function
     Public Function searchOrder(ByVal ordernumber As Long, ByVal dtOrderDateStart As Date, ByVal dtOrderDateEnd As Date, ByVal dtShipDateStart As Date, ByVal dtShipDateEnd As Date)
-        Return Nothing
+        Dim result As New List(Of Order)()
+        Dim strQuery As String
+        strQuery = "SELECT * FROM [Order]"
+        sqlCon = New SqlConnection(strConn)
+        Using (sqlCon)
+            Dim sqlComm As SqlCommand = New SqlCommand(strQuery, sqlCon)
+            sqlCon.Open()
+            Dim sqlReader As SqlDataReader = sqlComm.ExecuteReader()
+            If sqlReader.HasRows Then
+                While (sqlReader.Read())
+                    Dim orderNumber As Long = CLng(sqlReader.GetString(0))
+                    Dim orderDate As String = sqlReader.Item(1).ToString
+                    Dim shipDate As String = sqlReader.Item(2).ToString
+                    Dim custId As Long = sqlReader.GetInt32(3)
+                    Dim newOrder As New Order(orderNumber, orderDate, shipDate, custId)
+                    getOrderItems(newOrder)
+                    result.Add(newOrder)
+                End While
+            End If
+            sqlReader.Close()
+        End Using
+        Return result
+
     End Function
 
 End Class

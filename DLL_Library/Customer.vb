@@ -193,6 +193,9 @@ Namespace IOTS
             _email = email
         End Sub
 
+        Sub New()
+
+        End Sub
 
         'imlements the IsValid from IValidator
         Public Function IsValid(ByVal testData As String, ByVal regex As String) As Boolean Implements IValidator.IsValid
