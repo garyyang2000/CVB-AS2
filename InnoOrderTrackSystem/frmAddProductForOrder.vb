@@ -33,10 +33,6 @@
     End Sub
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
-        If lbProductId.Text = "" Then
-            MessageBox.Show("Please select the product in the list")
-            Return
-        End If
         item = New DLL_Library.IOTS.OrderItem(Long.Parse(lbOrderNumber.Text), Integer.Parse(txtNuberOrdered.Text),
                                               lbProductId.Text, Double.Parse(txtDiscount.Text))
     End Sub
@@ -45,6 +41,7 @@
         Dim selectedRow As DataGridViewRow = dgpSelectProduct.Rows(e.RowIndex)
         lbDesc.Text = selectedRow.Cells(1).Value
         lbProductId.Text = selectedRow.Cells(3).Value
+        btnAdd.Enabled = True
     End Sub
 
     Private Sub txtNuberOrdered_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtNuberOrdered.KeyPress
