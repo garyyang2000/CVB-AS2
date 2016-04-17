@@ -34,12 +34,13 @@
     End Sub
 
     Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
+
         If custId = 0 Then
             'customer = New DLL_Library.IOTS.Customer()
 
             db.addNewCustomer(customer)
         Else
-            db.updateCustomer()
+            'db.updateCustomer()
         End If
     End Sub
 End Class
