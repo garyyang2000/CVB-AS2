@@ -30,34 +30,34 @@ Partial Class frmProductSearch
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(13, 13)
+        Me.Label1.Location = New System.Drawing.Point(23, 12)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(60, 13)
+        Me.Label1.Size = New System.Drawing.Size(77, 12)
         Me.Label1.TabIndex = 0
-        Me.Label1.Text = "Description"
+        Me.Label1.Text = "Description:"
         '
         'txtDesc
         '
-        Me.txtDesc.Location = New System.Drawing.Point(79, 13)
+        Me.txtDesc.Location = New System.Drawing.Point(106, 9)
         Me.txtDesc.Name = "txtDesc"
-        Me.txtDesc.Size = New System.Drawing.Size(100, 20)
+        Me.txtDesc.Size = New System.Drawing.Size(100, 21)
         Me.txtDesc.TabIndex = 1
         '
         'btnSearch
         '
         Me.btnSearch.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.btnSearch.Location = New System.Drawing.Point(79, 50)
+        Me.btnSearch.Location = New System.Drawing.Point(106, 42)
         Me.btnSearch.Name = "btnSearch"
-        Me.btnSearch.Size = New System.Drawing.Size(75, 23)
+        Me.btnSearch.Size = New System.Drawing.Size(75, 21)
         Me.btnSearch.TabIndex = 2
         Me.btnSearch.Text = "Search"
         Me.btnSearch.UseVisualStyleBackColor = True
         '
         'frmProductSearch
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(202, 85)
+        Me.ClientSize = New System.Drawing.Size(234, 75)
         Me.Controls.Add(Me.btnSearch)
         Me.Controls.Add(Me.txtDesc)
         Me.Controls.Add(Me.Label1)
