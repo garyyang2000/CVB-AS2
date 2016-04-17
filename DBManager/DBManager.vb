@@ -221,6 +221,7 @@ Public Class DBManager
             sqlComm.ExecuteNonQuery()
 
         End Using
+        orderList = getAllOrder()
     End Sub
     Public Sub addNewOrder(ByVal order1 As Order)
         Dim sqlCon As New SqlConnection(strConn)
