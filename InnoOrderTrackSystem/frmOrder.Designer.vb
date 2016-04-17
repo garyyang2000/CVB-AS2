@@ -33,6 +33,8 @@ Partial Class frmOrder
         Me.dgvOrderItems = New System.Windows.Forms.DataGridView()
         Me.btnUpdate = New System.Windows.Forms.Button()
         Me.btnCancel = New System.Windows.Forms.Button()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.lbCustomer = New System.Windows.Forms.Label()
         CType(Me.dgvOrderItems, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -57,7 +59,7 @@ Partial Class frmOrder
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(13, 39)
+        Me.Label3.Location = New System.Drawing.Point(13, 65)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(62, 13)
         Me.Label3.TabIndex = 2
@@ -66,7 +68,7 @@ Partial Class frmOrder
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(13, 65)
+        Me.Label4.Location = New System.Drawing.Point(13, 91)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(57, 13)
         Me.Label4.TabIndex = 3
@@ -74,14 +76,14 @@ Partial Class frmOrder
         '
         'dtOrderDate
         '
-        Me.dtOrderDate.Location = New System.Drawing.Point(98, 39)
+        Me.dtOrderDate.Location = New System.Drawing.Point(98, 65)
         Me.dtOrderDate.Name = "dtOrderDate"
         Me.dtOrderDate.Size = New System.Drawing.Size(200, 20)
         Me.dtOrderDate.TabIndex = 4
         '
         'dtShipDate
         '
-        Me.dtShipDate.Location = New System.Drawing.Point(98, 65)
+        Me.dtShipDate.Location = New System.Drawing.Point(98, 91)
         Me.dtShipDate.Name = "dtShipDate"
         Me.dtShipDate.Size = New System.Drawing.Size(200, 20)
         Me.dtShipDate.TabIndex = 5
@@ -89,7 +91,7 @@ Partial Class frmOrder
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(13, 90)
+        Me.Label5.Location = New System.Drawing.Point(13, 116)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(64, 13)
         Me.Label5.TabIndex = 7
@@ -97,7 +99,7 @@ Partial Class frmOrder
         '
         'btnAddProduct
         '
-        Me.btnAddProduct.Location = New System.Drawing.Point(223, 262)
+        Me.btnAddProduct.Location = New System.Drawing.Point(223, 288)
         Me.btnAddProduct.Name = "btnAddProduct"
         Me.btnAddProduct.Size = New System.Drawing.Size(75, 23)
         Me.btnAddProduct.TabIndex = 8
@@ -107,7 +109,7 @@ Partial Class frmOrder
         'dgvOrderItems
         '
         Me.dgvOrderItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvOrderItems.Location = New System.Drawing.Point(16, 106)
+        Me.dgvOrderItems.Location = New System.Drawing.Point(16, 132)
         Me.dgvOrderItems.MultiSelect = False
         Me.dgvOrderItems.Name = "dgvOrderItems"
         Me.dgvOrderItems.ReadOnly = True
@@ -118,7 +120,7 @@ Partial Class frmOrder
         'btnUpdate
         '
         Me.btnUpdate.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.btnUpdate.Location = New System.Drawing.Point(321, 262)
+        Me.btnUpdate.Location = New System.Drawing.Point(321, 288)
         Me.btnUpdate.Name = "btnUpdate"
         Me.btnUpdate.Size = New System.Drawing.Size(75, 23)
         Me.btnUpdate.TabIndex = 10
@@ -128,18 +130,38 @@ Partial Class frmOrder
         'btnCancel
         '
         Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(424, 262)
+        Me.btnCancel.Location = New System.Drawing.Point(424, 288)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
         Me.btnCancel.TabIndex = 11
         Me.btnCancel.Text = "Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(13, 37)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(51, 13)
+        Me.Label2.TabIndex = 12
+        Me.Label2.Text = "Customer"
+        '
+        'lbCustomer
+        '
+        Me.lbCustomer.AutoSize = True
+        Me.lbCustomer.Location = New System.Drawing.Point(98, 37)
+        Me.lbCustomer.Name = "lbCustomer"
+        Me.lbCustomer.Size = New System.Drawing.Size(39, 13)
+        Me.lbCustomer.TabIndex = 13
+        Me.lbCustomer.Text = "Label6"
+        '
         'frmOrder
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(531, 290)
+        Me.ClientSize = New System.Drawing.Size(531, 333)
+        Me.Controls.Add(Me.lbCustomer)
+        Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnUpdate)
         Me.Controls.Add(Me.dgvOrderItems)
@@ -170,4 +192,6 @@ Partial Class frmOrder
     Friend WithEvents dgvOrderItems As DataGridView
     Friend WithEvents btnUpdate As Button
     Friend WithEvents btnCancel As Button
+    Friend WithEvents Label2 As Label
+    Friend WithEvents lbCustomer As Label
 End Class

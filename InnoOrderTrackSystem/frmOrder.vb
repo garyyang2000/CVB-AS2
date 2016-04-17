@@ -22,6 +22,8 @@ Public Class frmOrder
         dtOrderDate.Value = order._orderDate
         dtShipDate.Value = order._shipDate
         loadOrderItems(order.orderItems)
+        Dim customer As DLL_Library.IOTS.Customer = db.getCustomerByID(order._custId)
+        lbCustomer.Text = customer._firstName + " " + customer._lastName
     End Sub
 
     Private Sub loadOrderItems(ByVal orderItems As List(Of OrderItem))
