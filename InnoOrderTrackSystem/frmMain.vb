@@ -115,11 +115,17 @@ Public Class frmMain
                 Case "Customer"
                     Dim frmCust As New frmCustomer
                     frmCust._CustID = Long.Parse(selectedRow.Cells(1).Value.ToString())
-                    frmCust.ShowDialog()
+                    Dim dr = frmCust.ShowDialog()
+                    If dr = System.Windows.Forms.DialogResult.OK And currentViewType = "Customer" Then
+                        loadCustomer(db.getAllCustomer())
+                    End If
                 Case "Product"
                     Dim frmProd As New frmProduct
                     frmProd._Product_id = selectedRow.Cells(3).Value.ToString()
-                    frmProd.ShowDialog()
+                    Dim dr = frmProd.ShowDialog()
+                    If dr = System.Windows.Forms.DialogResult.OK And currentViewType = "Product" Then
+                        loadProduct(db.getAllProduct())
+                    End If
                 Case "Order"
                     Dim frmOd As New frmOrder
                     frmOd._OrderNumber = Long.Parse(selectedRow.Cells(0).Value.ToString())

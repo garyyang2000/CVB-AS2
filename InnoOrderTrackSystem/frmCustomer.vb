@@ -61,4 +61,14 @@
             db.updateCustomer(customer)
         End If
     End Sub
+
+    Private Sub btnAddOrder_Click(sender As Object, e As EventArgs) Handles btnAddOrder.Click
+        Dim addOrder As New frmAddOrder
+        addOrder.lbCustomer.Text = customer._firstName + " " + customer._lastName
+        Dim dr = addOrder.ShowDialog
+        If dr = System.Windows.Forms.DialogResult.OK Then
+            Dim order As New DLL_Library.IOTS.Order(addOrder.dtOrderDate.Value, addOrder.dtShipDate.Value, customer._custId)
+            db.addNewOrder(order)
+        End If
+    End Sub
 End Class

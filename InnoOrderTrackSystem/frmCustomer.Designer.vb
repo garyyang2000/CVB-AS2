@@ -44,6 +44,7 @@ Partial Class frmCustomer
         Me.txtPhone = New System.Windows.Forms.TextBox()
         Me.btnUpdate = New System.Windows.Forms.Button()
         Me.btnCancel = New System.Windows.Forms.Button()
+        Me.btnAddOrder = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'Label1
@@ -227,11 +228,21 @@ Partial Class frmCustomer
         Me.btnCancel.Text = "Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
+        'btnAddOrder
+        '
+        Me.btnAddOrder.Location = New System.Drawing.Point(16, 312)
+        Me.btnAddOrder.Name = "btnAddOrder"
+        Me.btnAddOrder.Size = New System.Drawing.Size(75, 23)
+        Me.btnAddOrder.TabIndex = 22
+        Me.btnAddOrder.Text = "Add Order"
+        Me.btnAddOrder.UseVisualStyleBackColor = True
+        '
         'frmCustomer
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(284, 388)
+        Me.Controls.Add(Me.btnAddOrder)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnUpdate)
         Me.Controls.Add(Me.txtPhone)
@@ -283,4 +294,5 @@ Partial Class frmCustomer
     Friend WithEvents txtPhone As TextBox
     Friend WithEvents btnUpdate As Button
     Friend WithEvents btnCancel As Button
+    Friend WithEvents btnAddOrder As Button
 End Class

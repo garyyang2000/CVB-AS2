@@ -3,7 +3,7 @@ Imports DLL_Library.IOTS
 Imports DLL_Library.OrderSystemExceptions
 
 Public Class DBManager
-    Private strConn As String = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Wendy Meng\Source\Repos\CVB-AS2\DBManager\InnoTrackSys.mdf;Integrated Security=True"
+    Private strConn As String = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\USERS\MICHAEL\DOCUMENTS\VISUAL STUDIO 2015\PROJECTS\CVB-AS2\DBMANAGER\INNOTRACKSYS.MDF;Integrated Security=True"
     Private sqlCon As SqlConnection
     Public productList As List(Of Product)
     Public customerList As List(Of Customer)
@@ -226,9 +226,9 @@ Public Class DBManager
         Dim sqlCon As New SqlConnection(strConn)
         Using (sqlCon)
             Dim strQuery As String
-            strQuery = "insert INTO [Order](orderDate,shipDate,custId) Values(@orderNum,@orderDate,@shipDate,@custId)"
+            strQuery = "insert INTO [Order](orderNumber, orderDate,shipDate,custId) Values(@orderNum,@orderDate,@shipDate,@custId)"
             Dim sqlComm As New SqlCommand(strQuery, sqlCon)
-            sqlComm.Parameters.AddWithValue("@orerNum", order1._orderNumber)
+            sqlComm.Parameters.AddWithValue("@orderNum", order1._orderNumber)
             sqlComm.Parameters.AddWithValue("@orderDate", DateTime.Parse(order1._orderDate))
             sqlComm.Parameters.AddWithValue("@shipDate", DateTime.Parse(order1._shipDate))
             sqlComm.Parameters.AddWithValue("@custId", order1._custId)
