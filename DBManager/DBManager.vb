@@ -307,28 +307,47 @@ Public Class DBManager
 
 
     Public Sub deleteProduct(ByVal prodId As String)
-        Dim sqlCon As New SqlConnection(strConn)
-        Using (sqlCon)
-            Dim sqlComm As New SqlCommand()
-            Try
-                sqlComm.Connection = sqlCon
-                sqlComm.CommandText = "Delete FROM Product WHERE ProductId=@prodId"
-                sqlComm.Parameters.AddWithValue("@prodId", prodId)
-                sqlCon.Open()
-                sqlComm.ExecuteNonQuery()
-            Catch
-                MessageBox.Show("Fail to delete product from database", "Data Access Error")
-            End Try
-        End Using
-        For x = productList.Count - 1 To 0 Step -1
-            Dim Needed = productList(x)
-            If Needed._productId.Equals(prodId) Then
-                productList.RemoveAt(x)
-                Exit For
-            End If
-        Next
-
+        Dim orders As List(Of Order) = getProductOrders(prodId)
+        If orders.Count > 0 Then
+            MessageBox.Show("Reason: Cannot delete product with orders", "Fail to delete product")
+        Else
+            Dim sqlCon As New SqlConnection(strConn)
+            Using (sqlCon)
+                Dim sqlComm As New SqlCommand()
+                Try
+                    sqlComm.Connection = sqlCon
+                    sqlComm.CommandText = "Delete FROM Product WHERE ProductId=@prodId"
+                    sqlComm.Parameters.AddWithValue("@prodId", prodId)
+                    sqlCon.Open()
+                    sqlComm.ExecuteNonQuery()
+                Catch
+                    MessageBox.Show("Fail to delete product from database", "Data Access Error")
+                End Try
+            End Using
+            For x = productList.Count - 1 To 0 Step -1
+                Dim Needed = productList(x)
+                If Needed._productId.Equals(prodId) Then
+                    productList.RemoveAt(x)
+                    Exit For
+                End If
+            Next
+        End If
     End Sub
+
+    Public Function getProductOrders(ByVal prodId As String) As List(Of Order)
+        Dim result As New List(Of Order)()
+        For Each order1 In orderList
+            For Each item In order1.orderItems
+                If item._productId.Equals(prodId) Then
+                    Dim order2 As Order = order1
+                    result.Add(order2)
+                    Exit For
+                End If
+            Next
+        Next
+        Return result
+    End Function
+
     Public Function getCustOrders(ByVal custId As Long) As List(Of Order)
         Dim result As New List(Of Order)()
         For Each order1 In orderList
