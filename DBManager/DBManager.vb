@@ -101,7 +101,7 @@ Public Class DBManager
             Dim sqlReader As SqlDataReader = sqlComm.ExecuteReader()
             If sqlReader.HasRows Then
                 While (sqlReader.Read())
-                    Dim orderNumber As Long = CLng(sqlReader.GetString(0))
+                    Dim orderNumber As Long = CLng(sqlReader.GetInt32(0))
                     Dim orderDate As String = sqlReader.Item(1).ToString
                     Dim shipDate As String = sqlReader.Item(2).ToString
                     Dim custId As Long = sqlReader.GetInt32(3)
@@ -152,8 +152,7 @@ Public Class DBManager
             Dim sqlReader As SqlDataReader = sqlComm.ExecuteReader()
             If sqlReader.HasRows Then
                 While (sqlReader.Read())
-                    Dim productId = sqlReader.GetString(0)
-                    productId = sqlReader.GetString(1).Trim
+                    Dim productId = sqlReader.GetString(1).Trim
                     Dim qty = sqlReader.GetInt32(2)
                     Dim discount As Double = sqlReader.GetSqlMoney(3).ToDouble()
                     Dim item = New OrderItem(order1._orderNumber, qty, productId, discount)
