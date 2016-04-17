@@ -31,10 +31,10 @@ Namespace IOTS
             Set(ByVal Value As String)
                 ' Store the value in a local variable.
 
-                If (Value > 0) Then
+                If (Value IsNot Nothing) Then
                     phoneNum = Value
                 Else
-                    Throw New OrderSystemExceptions("An exception has occurred, Credit can not be negative.")
+                    Throw New OrderSystemExceptions("An exception has occurred, phone number not valid.")
                 End If
             End Set
         End Property
@@ -191,6 +191,7 @@ Namespace IOTS
             _postalCode = postalcode
             _creditLimit = credit
             _email = email
+            _phoneNum = phoneNumber
         End Sub
         Sub New(ByVal firstname, ByVal lastname, ByVal street, ByVal city, ByVal province, ByVal postalcode, ByVal credit, ByVal email, ByVal phoneNumber)
 
@@ -202,6 +203,7 @@ Namespace IOTS
             _postalCode = postalcode
             _creditLimit = credit
             _email = email
+            _phoneNum = phoneNumber
         End Sub
 
         Sub New()
