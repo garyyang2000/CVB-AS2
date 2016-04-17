@@ -39,14 +39,23 @@ Public Class frmOrder
         With dgvOrderItems
             .RowHeadersVisible = False
             .Columns("DEL").DisplayIndex = 0
-            .Columns(1).HeaderCell.Value = "Product"
-            .Columns(2).HeaderCell.Value = "QTY"
-            .Columns(3).HeaderCell.Value = "Discount"
+            .Columns(0).Visible = 0
+            .Columns(1).HeaderCell.Value = "QTY"
+            .Columns(2).HeaderCell.Value = "Discount"
+            .Columns(3).HeaderCell.Value = "Product"
+            .Columns(3).DisplayIndex = 1
         End With
     End Sub
 
     Private Sub btnAddProduct_Click(sender As Object, e As EventArgs) Handles btnAddProduct.Click
-
+        Dim addProdcut As New frmAddProductForOrder
+        addProdcut.lbOrderNumber.Text = order._orderNumber
+        Dim dr = addProdcut.ShowDialog(Me)
+        If dr = System.Windows.Forms.DialogResult.OK Then
+            db.addOrderItem(addProdcut._Item)
+            order = db.getOrderByID(orderNumber)
+            loadOrderItems(order.orderItems)
+        End If
     End Sub
 
     Private Sub dgvOrderItems_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvOrderItems.CellClick
@@ -59,7 +68,9 @@ Public Class frmOrder
             If result = DialogResult.No Then
                 Return
             ElseIf result = DialogResult.Yes Then
-                db.deleteProductFromOrderById(order._orderNumber, dgvOrderItems.Rows(e.RowIndex).Cells(0).Value.ToString())
+                db.deleteProductFromOrderById(order._orderNumber, dgvOrderItems.Rows(e.RowIndex).Cells(3).Value.ToString())
+                order = db.getOrderByID(orderNumber)
+                loadOrderItems(order.orderItems)
             End If
         End If
     End Sub

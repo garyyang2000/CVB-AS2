@@ -110,14 +110,14 @@ Partial Class frmOrder
         Me.dgvOrderItems.Name = "dgvOrderItems"
         Me.dgvOrderItems.ReadOnly = True
         Me.dgvOrderItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvOrderItems.Size = New System.Drawing.Size(285, 150)
+        Me.dgvOrderItems.Size = New System.Drawing.Size(483, 150)
         Me.dgvOrderItems.TabIndex = 9
         '
         'frmOrder
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(316, 290)
+        Me.ClientSize = New System.Drawing.Size(531, 290)
         Me.Controls.Add(Me.dgvOrderItems)
         Me.Controls.Add(Me.btnAddProduct)
         Me.Controls.Add(Me.Label5)
