@@ -33,6 +33,7 @@ Partial Class frmMain
         Me.dgvData = New System.Windows.Forms.DataGridView()
         Me.btnAddCustomer = New System.Windows.Forms.Button()
         Me.btnAddProduct = New System.Windows.Forms.Button()
+        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.dgvData, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -40,7 +41,7 @@ Partial Class frmMain
         'MenuStrip1
         '
         Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SearchToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SearchToolStripMenuItem, Me.HelpToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
@@ -135,6 +136,12 @@ Partial Class frmMain
         Me.btnAddProduct.Text = "New Product"
         Me.btnAddProduct.UseVisualStyleBackColor = True
         '
+        'HelpToolStripMenuItem
+        '
+        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(52, 22)
+        Me.HelpToolStripMenuItem.Text = "About"
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -170,4 +177,5 @@ Partial Class frmMain
     Friend WithEvents dgvData As DataGridView
     Friend WithEvents btnAddCustomer As Button
     Friend WithEvents btnAddProduct As Button
+    Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
 End Class

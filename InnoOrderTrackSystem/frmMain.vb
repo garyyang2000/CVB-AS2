@@ -204,4 +204,9 @@ Public Class frmMain
         End If
 
     End Sub
+
+    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
+        Dim about As New aboutBox
+        about.ShowDialog()
+    End Sub
 End Class
