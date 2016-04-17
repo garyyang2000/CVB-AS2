@@ -32,6 +32,7 @@ Partial Class frmProduct
         Me.Label4 = New System.Windows.Forms.Label()
         Me.txtPrice = New System.Windows.Forms.TextBox()
         Me.lbProductID = New System.Windows.Forms.Label()
+        Me.txtProductId = New System.Windows.Forms.TextBox()
         Me.SuspendLayout()
         '
         'Label1
@@ -129,12 +130,22 @@ Partial Class frmProduct
         Me.lbProductID.Size = New System.Drawing.Size(39, 13)
         Me.lbProductID.TabIndex = 10
         Me.lbProductID.Text = "Label5"
+        Me.lbProductID.Visible = False
+        '
+        'txtProductId
+        '
+        Me.txtProductId.Location = New System.Drawing.Point(113, 32)
+        Me.txtProductId.Name = "txtProductId"
+        Me.txtProductId.Size = New System.Drawing.Size(123, 20)
+        Me.txtProductId.TabIndex = 11
+        Me.txtProductId.Visible = False
         '
         'frmProduct
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(311, 204)
+        Me.Controls.Add(Me.txtProductId)
         Me.Controls.Add(Me.lbProductID)
         Me.Controls.Add(Me.txtPrice)
         Me.Controls.Add(Me.Label4)
@@ -163,4 +174,5 @@ Partial Class frmProduct
     Friend WithEvents Label4 As Label
     Friend WithEvents txtPrice As TextBox
     Friend WithEvents lbProductID As Label
+    Friend WithEvents txtProductId As TextBox
 End Class
