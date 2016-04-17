@@ -5,12 +5,13 @@ Imports System.Windows.Forms
 
 
 Public Class DBManager
-    Private strConn As String = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\USERS\MICHAEL\DOCUMENTS\VISUAL STUDIO 2015\PROJECTS\CVB-AS2\DBMANAGER\INNOTRACKSYS.MDF;Integrated Security=True"
+    Private strConn As String = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Wendy Meng\Source\Repos\CVB-AS2\DBManager\InnoTrackSys.mdf;Integrated Security=True"
     Private sqlCon As SqlConnection
     Public productList As List(Of Product)
     Public customerList As List(Of Customer)
     Public orderList As List(Of Order)
 
+    Public Event orderUpdate(ByVal reason As Int16)
     Public Sub New()
         productList = Me.getAllProduct
         customerList = getAllCustomer()
@@ -274,7 +275,7 @@ Public Class DBManager
             End Try
 
         End Using
-
+        RaiseEvent orderUpdate(1)
         orderList = getAllOrder()
     End Sub
 
