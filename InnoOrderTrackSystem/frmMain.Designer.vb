@@ -31,6 +31,9 @@ Partial Class frmMain
         Me.btnOrderList = New System.Windows.Forms.Button()
         Me.btnProductList = New System.Windows.Forms.Button()
         Me.dgvData = New System.Windows.Forms.DataGridView()
+        Me.btnAddCustomer = New System.Windows.Forms.Button()
+        Me.btnAddProduct = New System.Windows.Forms.Button()
+        Me.btnAddOrder = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.dgvData, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -115,11 +118,41 @@ Partial Class frmMain
         Me.dgvData.Size = New System.Drawing.Size(679, 298)
         Me.dgvData.TabIndex = 5
         '
+        'btnAddCustomer
+        '
+        Me.btnAddCustomer.Location = New System.Drawing.Point(13, 359)
+        Me.btnAddCustomer.Name = "btnAddCustomer"
+        Me.btnAddCustomer.Size = New System.Drawing.Size(108, 23)
+        Me.btnAddCustomer.TabIndex = 6
+        Me.btnAddCustomer.Text = "New Customer"
+        Me.btnAddCustomer.UseVisualStyleBackColor = True
+        '
+        'btnAddProduct
+        '
+        Me.btnAddProduct.Location = New System.Drawing.Point(155, 359)
+        Me.btnAddProduct.Name = "btnAddProduct"
+        Me.btnAddProduct.Size = New System.Drawing.Size(94, 23)
+        Me.btnAddProduct.TabIndex = 7
+        Me.btnAddProduct.Text = "New Product"
+        Me.btnAddProduct.UseVisualStyleBackColor = True
+        '
+        'btnAddOrder
+        '
+        Me.btnAddOrder.Location = New System.Drawing.Point(287, 359)
+        Me.btnAddOrder.Name = "btnAddOrder"
+        Me.btnAddOrder.Size = New System.Drawing.Size(75, 23)
+        Me.btnAddOrder.TabIndex = 8
+        Me.btnAddOrder.Text = "New Order"
+        Me.btnAddOrder.UseVisualStyleBackColor = True
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(700, 367)
+        Me.ClientSize = New System.Drawing.Size(700, 394)
+        Me.Controls.Add(Me.btnAddOrder)
+        Me.Controls.Add(Me.btnAddProduct)
+        Me.Controls.Add(Me.btnAddCustomer)
         Me.Controls.Add(Me.dgvData)
         Me.Controls.Add(Me.btnProductList)
         Me.Controls.Add(Me.btnOrderList)
@@ -146,4 +179,7 @@ Partial Class frmMain
     Friend WithEvents CustomerSearchToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents dgvData As DataGridView
+    Friend WithEvents btnAddCustomer As Button
+    Friend WithEvents btnAddProduct As Button
+    Friend WithEvents btnAddOrder As Button
 End Class

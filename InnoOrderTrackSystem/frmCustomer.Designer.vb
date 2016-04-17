@@ -42,197 +42,198 @@ Partial Class frmCustomer
         Me.txtCredit = New System.Windows.Forms.TextBox()
         Me.txtEmail = New System.Windows.Forms.TextBox()
         Me.txtPhone = New System.Windows.Forms.TextBox()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.btnUpdate = New System.Windows.Forms.Button()
+        Me.btnCancel = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(10, 11)
+        Me.Label1.Location = New System.Drawing.Point(10, 12)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(77, 12)
+        Me.Label1.Size = New System.Drawing.Size(68, 13)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Customer ID:"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(10, 37)
+        Me.Label2.Location = New System.Drawing.Point(10, 40)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(71, 12)
+        Me.Label2.Size = New System.Drawing.Size(60, 13)
         Me.Label2.TabIndex = 1
         Me.Label2.Text = "First Name:"
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(10, 63)
+        Me.Label3.Location = New System.Drawing.Point(10, 68)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(65, 12)
+        Me.Label3.Size = New System.Drawing.Size(61, 13)
         Me.Label3.TabIndex = 2
         Me.Label3.Text = "Last Name:"
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(10, 90)
+        Me.Label4.Location = New System.Drawing.Point(10, 98)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(95, 12)
+        Me.Label4.Size = New System.Drawing.Size(79, 13)
         Me.Label4.TabIndex = 3
         Me.Label4.Text = "Street Address:"
         '
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(10, 117)
+        Me.Label5.Location = New System.Drawing.Point(10, 127)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(35, 12)
+        Me.Label5.Size = New System.Drawing.Size(27, 13)
         Me.Label5.TabIndex = 4
         Me.Label5.Text = "City:"
         '
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(10, 144)
+        Me.Label6.Location = New System.Drawing.Point(10, 156)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(59, 12)
+        Me.Label6.Size = New System.Drawing.Size(52, 13)
         Me.Label6.TabIndex = 5
         Me.Label6.Text = "Province:"
         '
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(10, 171)
+        Me.Label7.Location = New System.Drawing.Point(10, 185)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(71, 12)
+        Me.Label7.Size = New System.Drawing.Size(63, 13)
         Me.Label7.TabIndex = 6
         Me.Label7.Text = "Postalcode:"
         '
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(10, 198)
+        Me.Label8.Location = New System.Drawing.Point(10, 215)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(83, 12)
+        Me.Label8.Size = New System.Drawing.Size(61, 13)
         Me.Label8.TabIndex = 7
         Me.Label8.Text = "Credit Limit:"
         '
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(10, 225)
+        Me.Label9.Location = New System.Drawing.Point(10, 244)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(41, 12)
+        Me.Label9.Size = New System.Drawing.Size(35, 13)
         Me.Label9.TabIndex = 8
         Me.Label9.Text = "Email:"
         '
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(10, 252)
+        Me.Label10.Location = New System.Drawing.Point(10, 273)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(83, 12)
+        Me.Label10.Size = New System.Drawing.Size(81, 13)
         Me.Label10.TabIndex = 9
         Me.Label10.Text = "Phone Number:"
         '
         'lbCusId
         '
         Me.lbCusId.AutoSize = True
-        Me.lbCusId.Location = New System.Drawing.Point(113, 11)
+        Me.lbCusId.Location = New System.Drawing.Point(113, 12)
         Me.lbCusId.Name = "lbCusId"
-        Me.lbCusId.Size = New System.Drawing.Size(47, 12)
+        Me.lbCusId.Size = New System.Drawing.Size(0, 13)
         Me.lbCusId.TabIndex = 10
-        Me.lbCusId.Text = "Label11"
         '
         'txtFirst
         '
-        Me.txtFirst.Location = New System.Drawing.Point(104, 34)
+        Me.txtFirst.Location = New System.Drawing.Point(104, 37)
         Me.txtFirst.Name = "txtFirst"
-        Me.txtFirst.Size = New System.Drawing.Size(100, 21)
+        Me.txtFirst.Size = New System.Drawing.Size(100, 20)
         Me.txtFirst.TabIndex = 11
         '
         'txtLast
         '
-        Me.txtLast.Location = New System.Drawing.Point(104, 60)
+        Me.txtLast.Location = New System.Drawing.Point(104, 65)
         Me.txtLast.Name = "txtLast"
-        Me.txtLast.Size = New System.Drawing.Size(100, 21)
+        Me.txtLast.Size = New System.Drawing.Size(100, 20)
         Me.txtLast.TabIndex = 12
         '
         'txtStreet
         '
-        Me.txtStreet.Location = New System.Drawing.Point(104, 87)
+        Me.txtStreet.Location = New System.Drawing.Point(104, 94)
         Me.txtStreet.Name = "txtStreet"
-        Me.txtStreet.Size = New System.Drawing.Size(100, 21)
+        Me.txtStreet.Size = New System.Drawing.Size(100, 20)
         Me.txtStreet.TabIndex = 13
         '
         'txtCity
         '
-        Me.txtCity.Location = New System.Drawing.Point(104, 114)
+        Me.txtCity.Location = New System.Drawing.Point(104, 124)
         Me.txtCity.Name = "txtCity"
-        Me.txtCity.Size = New System.Drawing.Size(100, 21)
+        Me.txtCity.Size = New System.Drawing.Size(100, 20)
         Me.txtCity.TabIndex = 14
         '
         'txtProvince
         '
-        Me.txtProvince.Location = New System.Drawing.Point(104, 141)
+        Me.txtProvince.Location = New System.Drawing.Point(104, 153)
         Me.txtProvince.Name = "txtProvince"
-        Me.txtProvince.Size = New System.Drawing.Size(100, 21)
+        Me.txtProvince.Size = New System.Drawing.Size(100, 20)
         Me.txtProvince.TabIndex = 15
         '
         'txtPostal
         '
-        Me.txtPostal.Location = New System.Drawing.Point(104, 168)
+        Me.txtPostal.Location = New System.Drawing.Point(104, 182)
         Me.txtPostal.Name = "txtPostal"
-        Me.txtPostal.Size = New System.Drawing.Size(100, 21)
+        Me.txtPostal.Size = New System.Drawing.Size(100, 20)
         Me.txtPostal.TabIndex = 16
         '
         'txtCredit
         '
-        Me.txtCredit.Location = New System.Drawing.Point(104, 195)
+        Me.txtCredit.Location = New System.Drawing.Point(104, 211)
         Me.txtCredit.Name = "txtCredit"
-        Me.txtCredit.Size = New System.Drawing.Size(100, 21)
+        Me.txtCredit.Size = New System.Drawing.Size(100, 20)
         Me.txtCredit.TabIndex = 17
         '
         'txtEmail
         '
-        Me.txtEmail.Location = New System.Drawing.Point(104, 222)
+        Me.txtEmail.Location = New System.Drawing.Point(104, 241)
         Me.txtEmail.Name = "txtEmail"
-        Me.txtEmail.Size = New System.Drawing.Size(100, 21)
+        Me.txtEmail.Size = New System.Drawing.Size(100, 20)
         Me.txtEmail.TabIndex = 18
         '
         'txtPhone
         '
-        Me.txtPhone.Location = New System.Drawing.Point(104, 249)
+        Me.txtPhone.Location = New System.Drawing.Point(104, 270)
         Me.txtPhone.Name = "txtPhone"
-        Me.txtPhone.Size = New System.Drawing.Size(100, 21)
+        Me.txtPhone.Size = New System.Drawing.Size(100, 20)
         Me.txtPhone.TabIndex = 19
         '
-        'Button1
+        'btnUpdate
         '
-        Me.Button1.Location = New System.Drawing.Point(104, 288)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 21)
-        Me.Button1.TabIndex = 20
-        Me.Button1.Text = "Update"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.btnUpdate.DialogResult = System.Windows.Forms.DialogResult.OK
+        Me.btnUpdate.Location = New System.Drawing.Point(104, 312)
+        Me.btnUpdate.Name = "btnUpdate"
+        Me.btnUpdate.Size = New System.Drawing.Size(75, 23)
+        Me.btnUpdate.TabIndex = 20
+        Me.btnUpdate.Text = "Update"
+        Me.btnUpdate.UseVisualStyleBackColor = True
         '
-        'Button2
+        'btnCancel
         '
-        Me.Button2.Location = New System.Drawing.Point(185, 288)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(75, 21)
-        Me.Button2.TabIndex = 21
-        Me.Button2.Text = "Cancel"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.btnCancel.Location = New System.Drawing.Point(185, 312)
+        Me.btnCancel.Name = "btnCancel"
+        Me.btnCancel.Size = New System.Drawing.Size(75, 23)
+        Me.btnCancel.TabIndex = 21
+        Me.btnCancel.Text = "Cancel"
+        Me.btnCancel.UseVisualStyleBackColor = True
         '
         'frmCustomer
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(284, 358)
-        Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.Button1)
+        Me.ClientSize = New System.Drawing.Size(284, 388)
+        Me.Controls.Add(Me.btnCancel)
+        Me.Controls.Add(Me.btnUpdate)
         Me.Controls.Add(Me.txtPhone)
         Me.Controls.Add(Me.txtEmail)
         Me.Controls.Add(Me.txtCredit)
@@ -280,6 +281,6 @@ Partial Class frmCustomer
     Friend WithEvents txtCredit As TextBox
     Friend WithEvents txtEmail As TextBox
     Friend WithEvents txtPhone As TextBox
-    Friend WithEvents Button1 As Button
-    Friend WithEvents Button2 As Button
+    Friend WithEvents btnUpdate As Button
+    Friend WithEvents btnCancel As Button
 End Class
