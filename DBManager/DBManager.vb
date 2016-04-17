@@ -535,11 +535,11 @@ Public Class DBManager
             Dim sqlReader As SqlDataReader = sqlComm.ExecuteReader()
             If sqlReader.HasRows Then
                 While (sqlReader.Read())
-                    Dim orderNumber As Long = CLng(sqlReader.GetString(0))
+                    'Dim orderNumber As Long = CLng(sqlReader.GetString(0))
                     Dim orderDate As String = sqlReader.Item(1).ToString
                     Dim shipDate As String = sqlReader.Item(2).ToString
                     Dim custId As Long = sqlReader.GetInt32(3)
-                    Dim newOrder As New Order(orderNumber, orderDate, shipDate, custId)
+                    Dim newOrder As New Order(ordernumber, orderDate, shipDate, custId)
                     getOrderItems(newOrder)
                     result.Add(newOrder)
                 End While
