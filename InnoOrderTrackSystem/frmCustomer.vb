@@ -30,6 +30,21 @@
             btnUpdate.Text = "Add Custmer"
         End If
 
+        dgvCustomerOrderList.DataSource = Nothing
+        dgvCustomerOrderList.Columns.Clear()
+        'dgvCustomerOrderList.DataSource =
+
+
+        With dgvCustomerOrderList
+            .RowHeadersVisible = False
+            .Columns(0).HeaderCell.Value = "Order Number"
+            .Columns(1).Visible = False
+            .Columns(2).Visible = False
+            .Columns(3).HeaderCell.Value = "Order Date"
+            .Columns(4).HeaderCell.Value = "Ship Date"
+            .Columns(5).Visible = False
+            .Columns(6).Visible = False
+        End With
 
     End Sub
 
@@ -52,20 +67,25 @@
             Catch ex As Exception
                 MessageBox.Show(ex.Message)
                 closing = False
-                Return
             End Try
 
         Else
-            customer._firstName = txtFirst.Text.Trim
-            customer._lastName = txtLast.Text.Trim
-            customer._streetAddress = txtStreet.Text.Trim
-            customer._city = txtCity.Text.Trim
-            customer._province = txtProvince.Text.Trim
-            customer._postalCode = txtPostal.Text.Trim
-            customer._creditLimit = Double.Parse(txtCredit.Text.Trim)
-            customer._email = txtEmail.Text.Trim
-            customer._phoneNum = txtPhone.Text.Trim
-            db.updateCustomer(customer)
+            Try
+                customer._firstName = txtFirst.Text.Trim
+                customer._lastName = txtLast.Text.Trim
+                customer._streetAddress = txtStreet.Text.Trim
+                customer._city = txtCity.Text.Trim
+                customer._province = txtProvince.Text.Trim
+                customer._postalCode = txtPostal.Text.Trim
+                customer._creditLimit = Double.Parse(txtCredit.Text.Trim)
+                customer._email = txtEmail.Text.Trim
+                customer._phoneNum = txtPhone.Text.Trim
+                db.updateCustomer(customer)
+            Catch ex As Exception
+                MessageBox.Show(ex.Message)
+                closing = False
+            End Try
+
         End If
     End Sub
 

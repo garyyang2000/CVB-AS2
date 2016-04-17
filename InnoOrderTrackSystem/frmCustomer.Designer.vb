@@ -45,6 +45,9 @@ Partial Class frmCustomer
         Me.btnUpdate = New System.Windows.Forms.Button()
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.btnAddOrder = New System.Windows.Forms.Button()
+        Me.dgvCustomerOrderList = New System.Windows.Forms.DataGridView()
+        Me.Label11 = New System.Windows.Forms.Label()
+        CType(Me.dgvCustomerOrderList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label1
@@ -104,7 +107,7 @@ Partial Class frmCustomer
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(10, 185)
+        Me.Label7.Location = New System.Drawing.Point(236, 42)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(63, 13)
         Me.Label7.TabIndex = 6
@@ -113,7 +116,7 @@ Partial Class frmCustomer
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(10, 215)
+        Me.Label8.Location = New System.Drawing.Point(236, 72)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(61, 13)
         Me.Label8.TabIndex = 7
@@ -122,7 +125,7 @@ Partial Class frmCustomer
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(10, 244)
+        Me.Label9.Location = New System.Drawing.Point(236, 101)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(35, 13)
         Me.Label9.TabIndex = 8
@@ -131,7 +134,7 @@ Partial Class frmCustomer
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(10, 273)
+        Me.Label10.Location = New System.Drawing.Point(236, 130)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(81, 13)
         Me.Label10.TabIndex = 9
@@ -182,28 +185,28 @@ Partial Class frmCustomer
         '
         'txtPostal
         '
-        Me.txtPostal.Location = New System.Drawing.Point(104, 182)
+        Me.txtPostal.Location = New System.Drawing.Point(330, 39)
         Me.txtPostal.Name = "txtPostal"
         Me.txtPostal.Size = New System.Drawing.Size(100, 20)
         Me.txtPostal.TabIndex = 16
         '
         'txtCredit
         '
-        Me.txtCredit.Location = New System.Drawing.Point(104, 211)
+        Me.txtCredit.Location = New System.Drawing.Point(330, 68)
         Me.txtCredit.Name = "txtCredit"
         Me.txtCredit.Size = New System.Drawing.Size(100, 20)
         Me.txtCredit.TabIndex = 17
         '
         'txtEmail
         '
-        Me.txtEmail.Location = New System.Drawing.Point(104, 241)
+        Me.txtEmail.Location = New System.Drawing.Point(330, 98)
         Me.txtEmail.Name = "txtEmail"
         Me.txtEmail.Size = New System.Drawing.Size(100, 20)
         Me.txtEmail.TabIndex = 18
         '
         'txtPhone
         '
-        Me.txtPhone.Location = New System.Drawing.Point(104, 270)
+        Me.txtPhone.Location = New System.Drawing.Point(330, 127)
         Me.txtPhone.Name = "txtPhone"
         Me.txtPhone.Size = New System.Drawing.Size(100, 20)
         Me.txtPhone.TabIndex = 19
@@ -211,7 +214,7 @@ Partial Class frmCustomer
         'btnUpdate
         '
         Me.btnUpdate.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.btnUpdate.Location = New System.Drawing.Point(104, 312)
+        Me.btnUpdate.Location = New System.Drawing.Point(271, 362)
         Me.btnUpdate.Name = "btnUpdate"
         Me.btnUpdate.Size = New System.Drawing.Size(75, 23)
         Me.btnUpdate.TabIndex = 20
@@ -221,7 +224,7 @@ Partial Class frmCustomer
         'btnCancel
         '
         Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(185, 312)
+        Me.btnCancel.Location = New System.Drawing.Point(352, 362)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
         Me.btnCancel.TabIndex = 21
@@ -230,18 +233,40 @@ Partial Class frmCustomer
         '
         'btnAddOrder
         '
-        Me.btnAddOrder.Location = New System.Drawing.Point(16, 312)
+        Me.btnAddOrder.Location = New System.Drawing.Point(183, 362)
         Me.btnAddOrder.Name = "btnAddOrder"
         Me.btnAddOrder.Size = New System.Drawing.Size(75, 23)
         Me.btnAddOrder.TabIndex = 22
         Me.btnAddOrder.Text = "Add Order"
         Me.btnAddOrder.UseVisualStyleBackColor = True
         '
+        'dgvCustomerOrderList
+        '
+        Me.dgvCustomerOrderList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvCustomerOrderList.Location = New System.Drawing.Point(12, 206)
+        Me.dgvCustomerOrderList.MultiSelect = False
+        Me.dgvCustomerOrderList.Name = "dgvCustomerOrderList"
+        Me.dgvCustomerOrderList.ReadOnly = True
+        Me.dgvCustomerOrderList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvCustomerOrderList.Size = New System.Drawing.Size(418, 150)
+        Me.dgvCustomerOrderList.TabIndex = 23
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(12, 182)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(52, 13)
+        Me.Label11.TabIndex = 24
+        Me.Label11.Text = "Order List"
+        '
         'frmCustomer
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(284, 388)
+        Me.ClientSize = New System.Drawing.Size(456, 420)
+        Me.Controls.Add(Me.Label11)
+        Me.Controls.Add(Me.dgvCustomerOrderList)
         Me.Controls.Add(Me.btnAddOrder)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnUpdate)
@@ -267,6 +292,7 @@ Partial Class frmCustomer
         Me.Controls.Add(Me.Label1)
         Me.Name = "frmCustomer"
         Me.Text = "Customer"
+        CType(Me.dgvCustomerOrderList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -295,4 +321,6 @@ Partial Class frmCustomer
     Friend WithEvents btnUpdate As Button
     Friend WithEvents btnCancel As Button
     Friend WithEvents btnAddOrder As Button
+    Friend WithEvents dgvCustomerOrderList As DataGridView
+    Friend WithEvents Label11 As Label
 End Class
