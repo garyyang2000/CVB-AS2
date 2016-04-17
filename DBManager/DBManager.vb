@@ -375,13 +375,15 @@ Public Class DBManager
         Dim sqlCon As New SqlConnection(strConn)
         Using (sqlCon)
             Dim strQuery As String
-            strQuery = "Update PRODUCT SET(@prodId,@desc,@stock,@price)"
+            strQuery = "Update PRODUCT SET "
+            strQuery = +"description=@desc, stock=@stock, price=@price "
+            strQuery = +"WHERE productId=@prodId"
             Dim sqlComm As New SqlCommand(strQuery, sqlCon)
-            sqlComm.Parameters.AddWithValue("@prodId", prod._productId)
+
             sqlComm.Parameters.AddWithValue("@desc", prod._description)
             sqlComm.Parameters.AddWithValue("@stock", prod._QtyOnHand)
             sqlComm.Parameters.AddWithValue("@price", prod._Price)
-
+            sqlComm.Parameters.AddWithValue("@prodId", prod._productId)
             sqlCon.Open()
             sqlComm.ExecuteNonQuery()
 
@@ -440,11 +442,31 @@ Public Class DBManager
 
         End Using
     End Sub
-    Public Sub searchProduct()
 
-    End Sub
 
     Public Function searchProduct(ByVal desc As String)
+        Dim result As New List(Of Product)()
+        Dim strQuery As String
+        strQuery = "SELECT * FROM Product WHERE description LIKE %@"
+        sqlCon = New SqlConnection(strConn)
+        Using (sqlCon)
+            Dim sqlComm As SqlCommand = New SqlCommand(strQuery, sqlCon)
+            sqlCon.Open()
+            Dim sqlReader As SqlDataReader = sqlComm.ExecuteReader()
+            If sqlReader.HasRows Then
+                While (sqlReader.Read())
+                    Dim productId As String = sqlReader.Item(0).ToString.Trim
+                    Dim description As String = sqlReader.Item(1)
+                    Dim qtyOnHand As Int32 = sqlReader.Item(2)
+                    Dim price As Double = sqlReader.GetSqlMoney(3).ToDouble()
+                    Dim newProd As New DLL_Library.IOTS.Product(productId, description, qtyOnHand, price)
+                    result.Add(newProd)
+                End While
+            End If
+            sqlReader.Close()
+        End Using
+        Return result
+
         Return Nothing
     End Function
 
