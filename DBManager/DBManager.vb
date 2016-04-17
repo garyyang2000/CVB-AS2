@@ -418,7 +418,8 @@ Public Class DBManager
                 End If
             Next
         End If
-
+        orderList.Remove(order2)
+        orderList.Add(order1)
         Dim sqlCon As New SqlConnection(strConn)
         Using (sqlCon)
             Dim strQuery As String
@@ -432,14 +433,7 @@ Public Class DBManager
             sqlCon.Open()
             sqlComm.ExecuteNonQuery()
         End Using
-        For x = orderList.Count - 1 To 0 Step -1
-            Dim Needed = orderList(x)
-            If Needed._orderNumber = order1._orderNumber Then
-                orderList.RemoveAt(x)
-                Exit For
-            End If
-        Next
-        orderList.Add(order1)
+
     End Sub
 
     Public Sub updateOrderItem(ByVal item As OrderItem)
@@ -461,6 +455,7 @@ Public Class DBManager
 
     Public Function searchProduct(ByVal desc As String) As List(Of Product)
         Dim result As New List(Of Product)()
+        Dim sqlCon As New SqlConnection(strConn)
         Using (sqlCon)
             Dim strQuery As String
             strQuery = "SELECT * FROM Product WHERE description LIKE @desc"
@@ -489,7 +484,7 @@ Public Class DBManager
 
     Public Function searchCustomer(ByVal name As String)
         Dim result As New List(Of Customer)()
-
+        Dim sqlCon As New SqlConnection(strConn)
         Using (sqlCon)
             Dim strQuery As String
             strQuery = "SELECT * FROM Customer WHERE firstName LIKE @name OR lastName LIKE @name"
@@ -526,26 +521,47 @@ Public Class DBManager
     End Function
     Public Function searchOrder(ByVal ordernumber As Long, ByVal dtOrderDateStart As Date, ByVal dtOrderDateEnd As Date, ByVal dtShipDateStart As Date, ByVal dtShipDateEnd As Date)
         Dim result As New List(Of Order)()
-        Dim strQuery As String
-        strQuery = "SELECT * FROM [Order]"
+
         sqlCon = New SqlConnection(strConn)
         Using (sqlCon)
+            Dim strQuery As String
+            strQuery = "SELECT * FROM [Order] WHERE orderNumber=@orderNum "
+            strQuery = +" OR (orderDate>=@oderDateStart AND orderDate<=@orderDateEnd)"
+            strQuery = +" OR (shipDate>=@shipDateStart AND orderDate<=@shipDateEnd)"
             Dim sqlComm As SqlCommand = New SqlCommand(strQuery, sqlCon)
+            sqlComm.Parameters.AddWithValue("@orderNum", ordernumber)
+            sqlComm.Parameters.AddWithValue("@orderDateStart", dtOrderDateStart)
+            sqlComm.Parameters.AddWithValue("@orderDateEnd", dtOrderDateEnd)
+            sqlComm.Parameters.AddWithValue("@shipDateStart", dtShipDateStart)
+            sqlComm.Parameters.AddWithValue("@shipDateEnd", dtShipDateEnd)
+
             sqlCon.Open()
             Dim sqlReader As SqlDataReader = sqlComm.ExecuteReader()
             If sqlReader.HasRows Then
                 While (sqlReader.Read())
-                    Dim orderNumber As Long = CLng(sqlReader.GetString(0))
+                    Dim orderNum As Long = CLng(sqlReader.GetString(0))
                     Dim orderDate As String = sqlReader.Item(1).ToString
                     Dim shipDate As String = sqlReader.Item(2).ToString
                     Dim custId As Long = sqlReader.GetInt32(3)
-                    Dim newOrder As New Order(orderNumber, orderDate, shipDate, custId)
+                    Dim newOrder As New Order(orderNum, orderDate, shipDate, custId)
                     getOrderItems(newOrder)
                     result.Add(newOrder)
                 End While
             End If
             sqlReader.Close()
         End Using
+        Return result
+
+    End Function
+
+    Public Function checkOrderItem(ByVal orderNum As Long, ByVal prodId As String)
+        Dim result As OrderItem = Nothing
+        Dim order1 As Order = getOrderByID(orderNum)
+        For Each item In order1.orderItems
+            If item._productId.Equals(prodId) Then
+                result = item
+            End If
+        Next
         Return result
 
     End Function
