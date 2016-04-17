@@ -75,4 +75,11 @@
             db.addNewOrder(order)
         End If
     End Sub
+
+    Private Sub txtCredit_Leave(sender As Object, e As EventArgs) Handles txtCredit.Leave
+        If Not IsNumeric(txtCredit.Text) Then
+            MessageBox.Show("Please input numeric only for Credit Limit")
+            txtCredit.Text = 0
+        End If
+    End Sub
 End Class

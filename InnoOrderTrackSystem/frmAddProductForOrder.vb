@@ -33,18 +33,25 @@
     End Sub
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
-        If lbProductId.Text = "" Then
-            MessageBox.Show("Please select the product in the list")
-            Return
-        End If
-        item = New DLL_Library.IOTS.OrderItem(Long.Parse(lbOrderNumber.Text), Integer.Parse(txtNuberOrdered.Text),
+        Try
+            item = New DLL_Library.IOTS.OrderItem(Long.Parse(lbOrderNumber.Text), Integer.Parse(txtNuberOrdered.Text),
                                               lbProductId.Text, Double.Parse(txtDiscount.Text))
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+
     End Sub
 
     Private Sub dgpSelectProduct_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgpSelectProduct.CellClick
         Dim selectedRow As DataGridViewRow = dgpSelectProduct.Rows(e.RowIndex)
         lbDesc.Text = selectedRow.Cells(1).Value
         lbProductId.Text = selectedRow.Cells(3).Value
+        If db.checkOrderItem(Long.Parse(lbOrderNumber.Text), lbProductId.Text) Is Nothing Then
+            btnAdd.Enabled = True
+        Else
+            MessageBox.Show("Product already in the Order")
+            btnAdd.Enabled = False
+        End If
     End Sub
 
     Private Sub txtNuberOrdered_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtNuberOrdered.KeyPress

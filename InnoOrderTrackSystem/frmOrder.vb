@@ -22,6 +22,8 @@ Public Class frmOrder
         dtOrderDate.Value = order._orderDate
         dtShipDate.Value = order._shipDate
         loadOrderItems(order.orderItems)
+        Dim customer As DLL_Library.IOTS.Customer = db.getCustomerByID(order._custId)
+        lbCustomer.Text = customer._firstName + " " + customer._lastName
     End Sub
 
     Private Sub loadOrderItems(ByVal orderItems As List(Of OrderItem))
@@ -73,5 +75,11 @@ Public Class frmOrder
                 loadOrderItems(order.orderItems)
             End If
         End If
+    End Sub
+
+    Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
+        order._orderDate = dtOrderDate.Value
+        order._shipDate = dtShipDate.Value
+        db.updateOrder(order)
     End Sub
 End Class

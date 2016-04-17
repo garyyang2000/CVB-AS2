@@ -33,7 +33,6 @@ Partial Class frmMain
         Me.dgvData = New System.Windows.Forms.DataGridView()
         Me.btnAddCustomer = New System.Windows.Forms.Button()
         Me.btnAddProduct = New System.Windows.Forms.Button()
-        Me.btnAddOrder = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.dgvData, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -136,21 +135,11 @@ Partial Class frmMain
         Me.btnAddProduct.Text = "New Product"
         Me.btnAddProduct.UseVisualStyleBackColor = True
         '
-        'btnAddOrder
-        '
-        Me.btnAddOrder.Location = New System.Drawing.Point(287, 359)
-        Me.btnAddOrder.Name = "btnAddOrder"
-        Me.btnAddOrder.Size = New System.Drawing.Size(75, 23)
-        Me.btnAddOrder.TabIndex = 8
-        Me.btnAddOrder.Text = "New Order"
-        Me.btnAddOrder.UseVisualStyleBackColor = True
-        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(700, 394)
-        Me.Controls.Add(Me.btnAddOrder)
         Me.Controls.Add(Me.btnAddProduct)
         Me.Controls.Add(Me.btnAddCustomer)
         Me.Controls.Add(Me.dgvData)
@@ -181,5 +170,4 @@ Partial Class frmMain
     Friend WithEvents dgvData As DataGridView
     Friend WithEvents btnAddCustomer As Button
     Friend WithEvents btnAddProduct As Button
-    Friend WithEvents btnAddOrder As Button
 End Class

@@ -106,6 +106,7 @@ Partial Class frmAddProductForOrder
         'btnAdd
         '
         Me.btnAdd.DialogResult = System.Windows.Forms.DialogResult.OK
+        Me.btnAdd.Enabled = False
         Me.btnAdd.Location = New System.Drawing.Point(266, 348)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.Size = New System.Drawing.Size(75, 23)

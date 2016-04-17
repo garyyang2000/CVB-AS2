@@ -17,7 +17,13 @@ Public Class frmProduct
 
     Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
         If btnUpdate.Text = "Add Product" Then
-            product = New DLL_Library.IOTS.Product(txtProductId.Text.Trim, txtDesc.Text.Trim, Integer.Parse(txtQty.Text), Double.Parse(txtPrice.Text))
+            Try
+                product = New DLL_Library.IOTS.Product(txtProductId.Text.Trim, txtDesc.Text.Trim, Integer.Parse(txtQty.Text), Double.Parse(txtPrice.Text))
+            Catch ex As Exception
+                MessageBox.Show(ex.Message)
+                Return
+            End Try
+
             db.addNewProduct(product)
         Else
             product._description = txtDesc.Text.Trim
@@ -49,6 +55,14 @@ Public Class frmProduct
         If Not IsNumeric(txtPrice.Text) Then
             MessageBox.Show("Please input numeric only for price")
             txtPrice.Text = 0
+        End If
+    End Sub
+
+    Private Sub txtQty_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtQty.KeyPress
+        If Asc(e.KeyChar) <> 8 Then
+            If Asc(e.KeyChar) < 48 Or Asc(e.KeyChar) > 57 Then
+                e.Handled = True
+            End If
         End If
     End Sub
 End Class
