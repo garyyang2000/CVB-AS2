@@ -456,23 +456,7 @@ Public Class DBManager
 
     Public Sub updateOrder(ByVal order1 As Order)
         Dim order2 As Order = getOrderByID(order1._orderNumber)
-        Dim founded As Boolean = False
-        If order2 IsNot Nothing Then
-            For Each item In order1.orderItems
-                For Each item2 In order2.orderItems
-                    If item._productId.Equals(order2._productId) Then
-                        updateOrderItem(item)
-                        founded = True
-                        Exit For
-                    End If
-                Next
-                If founded Then
-                    founded = False
-                Else
-                    addOrderItem(item)
-                End If
-            Next
-        End If
+
         orderList.Remove(order2)
         orderList.Add(order1)
         Dim sqlCon As New SqlConnection(strConn)
@@ -484,7 +468,7 @@ Public Class DBManager
                 sqlComm.Parameters.AddWithValue("@orderDate", DateTime.Parse(order1._orderDate))
                 sqlComm.Parameters.AddWithValue("@shipDate", DateTime.Parse(order1._shipDate))
                 sqlComm.Parameters.AddWithValue("@custId", order1._custId)
-                sqlComm.Parameters.AddWithValue("@orerNum", order1._orderNumber)
+                sqlComm.Parameters.AddWithValue("@orderNum", order1._orderNumber)
                 sqlCon.Open()
                 sqlComm.ExecuteNonQuery()
             Catch ex As Exception
