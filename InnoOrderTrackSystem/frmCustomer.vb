@@ -35,12 +35,21 @@
 
     Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
 
+        customer._firstName = txtFirst.Text.Trim
+        customer._lastName = txtLast.Text.Trim
+        customer._streetAddress = txtStreet.Text.Trim
+        customer._city = txtCity.Text.Trim
+        customer._province = txtProvince.Text.Trim
+        customer._postalCode = txtPostal.Text.Trim
+        customer._creditLimit = Double.Parse(txtCredit.Text.Trim)
+        customer._email = txtEmail.Text.Trim
+        customer._phoneNum = txtPhone.Text.Trim
         If custId = 0 Then
             'customer = New DLL_Library.IOTS.Customer()
 
             db.addNewCustomer(customer)
         Else
-            'db.updateCustomer()
+            db.updateCustomer(customer)
         End If
     End Sub
 End Class

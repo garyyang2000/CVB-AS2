@@ -554,4 +554,16 @@ Public Class DBManager
 
     End Function
 
+    Public Function checkOrderItem(ByVal orderNum As Long, ByVal prodId As String)
+        Dim result As OrderItem = Nothing
+        Dim order1 As Order = getOrderByID(orderNum)
+        For Each item In order1.orderItems
+            If item._productId.Equals(prodId) Then
+                result = item
+            End If
+        Next
+        Return result
+
+    End Function
+
 End Class

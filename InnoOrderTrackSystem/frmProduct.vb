@@ -19,7 +19,7 @@ Public Class frmProduct
         product._description = txtDesc.Text.Trim
         product._Price = Double.Parse(txtPrice.Text.Trim)
         product._QtyOnHand = Integer.Parse(txtQty.Text.Trim)
-        db.updateProduct()
+        db.updateProduct(product)
     End Sub
 
     Private Sub ProductForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
