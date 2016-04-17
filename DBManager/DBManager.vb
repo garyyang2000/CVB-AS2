@@ -106,7 +106,7 @@ Public Class DBManager
                     Dim shipDate As String = sqlReader.Item(2).ToString
                     Dim custId As Long = sqlReader.GetInt32(3)
                     Dim newOrder As New Order(orderNumber, orderDate, shipDate, custId)
-                    'getOrderItems(newOrder)
+                    getOrderItems(newOrder)
                     result.Add(newOrder)
                 End While
             End If
@@ -142,20 +142,24 @@ Public Class DBManager
     Public Sub getOrderItems(ByRef order1 As Order)
         Dim sqlCon As New SqlConnection(strConn)
 
-        Dim strQuery As String
-        strQuery = "SELECT * FROM OrderItem WHERE orderNumber=@orderNum"
+
         Using (sqlCon)
+            Dim strQuery As String
+            strQuery = "SELECT * FROM OrderItem WHERE orderNumber=" + order1._orderNumber.ToString
             Dim sqlComm As New SqlCommand(strQuery, sqlCon)
-            sqlComm.Parameters.AddWithValue("@orderNum", order1._orderNumber.ToString)
+            'sqlComm.Parameters.AddWithValue("@orderNum", order1._orderNumber.ToString)
             sqlCon.Open()
             Dim sqlReader As SqlDataReader = sqlComm.ExecuteReader()
             If sqlReader.HasRows Then
-                Dim productId = sqlReader.Item(1).ToString.Trim
-                Dim qty = sqlReader.GetInt32(2)
-                Dim discount As Double = sqlReader.GetSqlMoney(3).ToDouble()
-                Dim item = New OrderItem(order1._orderNumber, qty, productId, discount)
-                'item._orderNumber = order1._orderNumber
-                order1.orderItems.Add(item)
+                While (sqlReader.Read())
+                    Dim productId = sqlReader.GetString(0)
+                    productId = sqlReader.GetString(1).Trim
+                    Dim qty = sqlReader.GetInt32(2)
+                    Dim discount As Double = sqlReader.GetSqlMoney(3).ToDouble()
+                    Dim item = New OrderItem(order1._orderNumber, qty, productId, discount)
+                    'item._orderNumber = order1._orderNumber
+                    order1.orderItems.Add(item)
+                End While
             End If
         End Using
 
