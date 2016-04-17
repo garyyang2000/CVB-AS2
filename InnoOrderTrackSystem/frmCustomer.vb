@@ -14,6 +14,8 @@
     End Property
 
     Private Sub frmCustomer_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        dgvCustomerOrderList.DataSource = Nothing
+        dgvCustomerOrderList.Columns.Clear()
         If custId <> 0 Then
             customer = db.getCustomerByID(custId)
             lbCusId.Text = custId
@@ -26,11 +28,24 @@
             txtCredit.Text = customer._creditLimit
             txtEmail.Text = customer._email
             txtPhone.Text = customer._phoneNum
+
+
+            dgvCustomerOrderList.DataSource = db.getCustOrders(custId)
+
+            With dgvCustomerOrderList
+                .RowHeadersVisible = False
+                .Columns(0).HeaderCell.Value = "Order Number"
+                .Columns(1).Visible = False
+                .Columns(2).Visible = False
+                .Columns(3).HeaderCell.Value = "Order Date"
+                .Columns(4).HeaderCell.Value = "Ship Date"
+                .Columns(5).Visible = False
+                .Columns(6).Visible = False
+            End With
+
         Else
             btnUpdate.Text = "Add Custmer"
         End If
-
-
     End Sub
 
     Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
@@ -52,20 +67,25 @@
             Catch ex As Exception
                 MessageBox.Show(ex.Message)
                 closing = False
-                Return
             End Try
 
         Else
-            customer._firstName = txtFirst.Text.Trim
-            customer._lastName = txtLast.Text.Trim
-            customer._streetAddress = txtStreet.Text.Trim
-            customer._city = txtCity.Text.Trim
-            customer._province = txtProvince.Text.Trim
-            customer._postalCode = txtPostal.Text.Trim
-            customer._creditLimit = Double.Parse(txtCredit.Text.Trim)
-            customer._email = txtEmail.Text.Trim
-            customer._phoneNum = txtPhone.Text.Trim
-            db.updateCustomer(customer)
+            Try
+                customer._firstName = txtFirst.Text.Trim
+                customer._lastName = txtLast.Text.Trim
+                customer._streetAddress = txtStreet.Text.Trim
+                customer._city = txtCity.Text.Trim
+                customer._province = txtProvince.Text.Trim
+                customer._postalCode = txtPostal.Text.Trim
+                customer._creditLimit = Double.Parse(txtCredit.Text.Trim)
+                customer._email = txtEmail.Text.Trim
+                customer._phoneNum = txtPhone.Text.Trim
+                db.updateCustomer(customer)
+            Catch ex As Exception
+                MessageBox.Show(ex.Message)
+                closing = False
+            End Try
+
         End If
     End Sub
 
