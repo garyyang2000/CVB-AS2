@@ -329,27 +329,42 @@ Public Class DBManager
         Next
 
     End Sub
-    Public Sub deleteCustomer(ByVal custId As Long)
-        Dim sqlCon As New SqlConnection(strConn)
-        Using (sqlCon)
-            Dim sqlComm As New SqlCommand()
-            sqlComm.Connection = sqlCon
-            sqlComm.CommandText = "Delete FROM Customer WHERE custId=@custId"
-            Try
-                sqlComm.Parameters.AddWithValue("@custId", custId.ToString)
-                sqlCon.Open()
-                sqlComm.ExecuteNonQuery()
-            Catch ex As Exception
-                MessageBox.Show("Fail to delete customer from database", "Data Access Error")
-            End Try
-        End Using
-        For x = customerList.Count - 1 To 0 Step -1
-            Dim Needed = customerList(x)
-            If Needed._custId = custId Then
-                customerList.RemoveAt(x)
-                Exit For
+    Public Function getCustOrders(ByVal custId As Long) As List(Of Order)
+        Dim result As New List(Of Order)()
+        For Each order1 In orderList
+            If order1._custId = custId Then
+                Dim order2 As Order = order1
+                result.Add(order2)
             End If
         Next
+        Return result
+    End Function
+    Public Sub deleteCustomer(ByVal custId As Long)
+        Dim orders As List(Of Order) = getCustOrders(custId)
+        If orders.Count > 0 Then
+            MessageBox.Show("Reason: Cann't delete customer has orders. ", "Failed to delete Customer")
+        Else
+            Dim sqlCon As New SqlConnection(strConn)
+            Using (sqlCon)
+                Dim sqlComm As New SqlCommand()
+                sqlComm.Connection = sqlCon
+                sqlComm.CommandText = "Delete FROM Customer WHERE custId=@custId"
+                Try
+                    sqlComm.Parameters.AddWithValue("@custId", custId.ToString)
+                    sqlCon.Open()
+                    sqlComm.ExecuteNonQuery()
+                Catch ex As Exception
+                    MessageBox.Show("Fail to delete customer from database", "Data Access Error")
+                End Try
+            End Using
+            For x = customerList.Count - 1 To 0 Step -1
+                Dim Needed = customerList(x)
+                If Needed._custId = custId Then
+                    customerList.RemoveAt(x)
+                    Exit For
+                End If
+            Next
+        End If
     End Sub
 
     Public Sub deleteProductFromOrderById(ByVal orderId As Long, ByVal prodId As String)

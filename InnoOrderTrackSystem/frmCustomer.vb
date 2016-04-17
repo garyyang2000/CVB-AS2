@@ -14,6 +14,8 @@
     End Property
 
     Private Sub frmCustomer_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        dgvCustomerOrderList.DataSource = Nothing
+        dgvCustomerOrderList.Columns.Clear()
         If custId <> 0 Then
             customer = db.getCustomerByID(custId)
             lbCusId.Text = custId
@@ -26,26 +28,24 @@
             txtCredit.Text = customer._creditLimit
             txtEmail.Text = customer._email
             txtPhone.Text = customer._phoneNum
+
+
+            dgvCustomerOrderList.DataSource = db.getCustOrders(custId)
+
+            With dgvCustomerOrderList
+                .RowHeadersVisible = False
+                .Columns(0).HeaderCell.Value = "Order Number"
+                .Columns(1).Visible = False
+                .Columns(2).Visible = False
+                .Columns(3).HeaderCell.Value = "Order Date"
+                .Columns(4).HeaderCell.Value = "Ship Date"
+                .Columns(5).Visible = False
+                .Columns(6).Visible = False
+            End With
+
         Else
             btnUpdate.Text = "Add Custmer"
         End If
-
-        dgvCustomerOrderList.DataSource = Nothing
-        dgvCustomerOrderList.Columns.Clear()
-        'dgvCustomerOrderList.DataSource =
-
-
-        With dgvCustomerOrderList
-            .RowHeadersVisible = False
-            .Columns(0).HeaderCell.Value = "Order Number"
-            .Columns(1).Visible = False
-            .Columns(2).Visible = False
-            .Columns(3).HeaderCell.Value = "Order Date"
-            .Columns(4).HeaderCell.Value = "Ship Date"
-            .Columns(5).Visible = False
-            .Columns(6).Visible = False
-        End With
-
     End Sub
 
     Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
