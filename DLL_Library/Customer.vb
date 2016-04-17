@@ -31,10 +31,10 @@ Namespace IOTS
             Set(ByVal Value As String)
                 ' Store the value in a local variable.
 
-                If (Value > 0) Then
+                If (Value.Length < 50) Then
                     phoneNum = Value
                 Else
-                    Throw New OrderSystemExceptions("An exception has occurred, Credit can not be negative.")
+                    Throw New OrderSystemExceptions("An exception has occurred, phone number can not be more than 50.")
                 End If
             End Set
         End Property
