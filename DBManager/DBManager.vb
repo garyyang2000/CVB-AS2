@@ -3,7 +3,7 @@ Imports DLL_Library.IOTS
 Imports DLL_Library.OrderSystemExceptions
 
 Public Class DBManager
-    Private strConn As String = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\USERS\MICHAEL\DOCUMENTS\VISUAL STUDIO 2015\PROJECTS\CVB-AS2\DBMANAGER\INNOTRACKSYS.MDF;Integrated Security=True"
+    Private strConn As String = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Wendy Meng\Source\Repos\CVB-AS2\DBManager\InnoTrackSys.mdf;Integrated Security=True"
     Private sqlCon As SqlConnection
     Public productList As List(Of Product)
     Public customerList As List(Of Customer)
@@ -226,9 +226,9 @@ Public Class DBManager
         Dim sqlCon As New SqlConnection(strConn)
         Using (sqlCon)
             Dim strQuery As String
-            strQuery = "insert INTO [Order](orderNumber, orderDate,shipDate,custId) Values(@orderNum,@orderDate,@shipDate,@custId)"
+            strQuery = "insert INTO [Order](orderDate,shipDate,custId) Values(@orderDate,@shipDate,@custId)"
             Dim sqlComm As New SqlCommand(strQuery, sqlCon)
-            sqlComm.Parameters.AddWithValue("@orderNum", order1._orderNumber)
+
             sqlComm.Parameters.AddWithValue("@orderDate", DateTime.Parse(order1._orderDate))
             sqlComm.Parameters.AddWithValue("@shipDate", DateTime.Parse(order1._shipDate))
             sqlComm.Parameters.AddWithValue("@custId", order1._custId)
@@ -516,14 +516,14 @@ Public Class DBManager
 
 
     End Function
-    Public Function searchOrder(ByVal ordernumber As Long, ByVal dtOrderDateStart As Date, ByVal dtOrderDateEnd As Date, ByVal dtShipDateStart As Date, ByVal dtShipDateEnd As Date)
+    Public Function searchOrder(ByVal ordernumber As String, ByVal dtOrderDateStart As Date, ByVal dtOrderDateEnd As Date, ByVal dtShipDateStart As Date, ByVal dtShipDateEnd As Date)
         Dim result As New List(Of Order)()
 
         sqlCon = New SqlConnection(strConn)
         Using (sqlCon)
             Dim strQuery As String
             strQuery = "SELECT * FROM [Order] WHERE orderNumber=@orderNum "
-            strQuery = strQuery & " OR (orderDate>=@oderDateStart AND orderDate<=@orderDateEnd)"
+            strQuery = strQuery & " OR (orderDate>=@orderDateStart AND orderDate<=@orderDateEnd)"
             strQuery = strQuery & " OR (shipDate>=@shipDateStart AND orderDate<=@shipDateEnd)"
             Dim sqlComm As SqlCommand = New SqlCommand(strQuery, sqlCon)
             sqlComm.Parameters.AddWithValue("@orderNum", ordernumber)
@@ -536,7 +536,7 @@ Public Class DBManager
             Dim sqlReader As SqlDataReader = sqlComm.ExecuteReader()
             If sqlReader.HasRows Then
                 While (sqlReader.Read())
-                    Dim orderNum As Long = CLng(sqlReader.GetString(0))
+                    Dim orderNum As Long = CLng(sqlReader.GetInt32(0))
                     Dim orderDate As String = sqlReader.Item(1).ToString
                     Dim shipDate As String = sqlReader.Item(2).ToString
                     Dim custId As Long = sqlReader.GetInt32(3)
