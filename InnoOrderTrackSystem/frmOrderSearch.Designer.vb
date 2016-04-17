@@ -166,7 +166,7 @@ Partial Class frmOrderSearch
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Name = "frmOrderSearch"
-        Me.Text = "frmOrderSearch"
+        Me.Text = "Order Search"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
