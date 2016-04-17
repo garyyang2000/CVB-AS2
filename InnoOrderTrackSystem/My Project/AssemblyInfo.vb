@@ -9,10 +9,10 @@ Imports System.Runtime.InteropServices
 ' Review the values of the assembly attributes
 
 <Assembly: AssemblyTitle("InnoOrderTrackSystem")>
-<Assembly: AssemblyDescription("")>
-<Assembly: AssemblyCompany("")>
-<Assembly: AssemblyProduct("InnoOrderTrackSystem")>
-<Assembly: AssemblyCopyright("Copyright ©  2016")>
+<Assembly: AssemblyDescription("This assignment is part two of the Innovation Order Tracking Systems. In addition, this assignment provides a graphical user interface (GUI) to interact with your library. Add features to the library to provide support to store and manipulate this application’s data with a database.")>
+<Assembly: AssemblyCompany("DAD Seneca@York")>
+<Assembly: AssemblyProduct("InnoOrder Track System(CVB Assignment 2)")>
+<Assembly: AssemblyCopyright("Copyright ©  2016: Ge Yang, Yan Liu, Ji Zhang, Bohao Liu")>
 <Assembly: AssemblyTrademark("")>
 
 <Assembly: ComVisible(False)>

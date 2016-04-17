@@ -5,7 +5,7 @@ Imports System.Windows.Forms
 
 
 Public Class DBManager
-    Private strConn As String = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Wendy Meng\Source\Repos\CVB-AS2\DBManager\InnoTrackSys.mdf;Integrated Security=True"
+    Private strConn As String = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Michael\Documents\Visual Studio 2015\Projects\CVB-AS2\DBManager\InnoTrackSys.mdf;Integrated Security=True"
     Private sqlCon As SqlConnection
     Public productList As List(Of Product)
     Public customerList As List(Of Customer)
@@ -64,7 +64,7 @@ Public Class DBManager
                     End While
                 End If
             Catch ex As Exception
-                MessageBox.show("Fail to get customer from database", "Data Access Error")
+                MessageBox.Show("Fail to get customer from database", "Data Access Error")
             Finally
                 If sqlReader IsNot Nothing Then
                     sqlReader.Close()
