@@ -234,27 +234,57 @@ Public Class DBManager
         productList.Add(prod)
     End Sub
 
+    Public Function checkCreditLimit(ByVal custId As Long, ByVal item As OrderItem) As Boolean
+        Dim cust = getCustomerByID(custId)
+        Dim credit As Double = cust._creditLimit
+        Dim orders As List(Of Order) = getCustOrders(cust._custId)
+        For Each order1 In orders
+            For Each item1 In order1.orderItems
+                Dim product1 = getProductById(item1._productId)
+                credit = credit - (product1._Price - item1._discount) * item._numberOrdered
+
+            Next
+        Next
+        Dim product2 = getProductById(item._productId)
+        credit = credit - (product2._Price - item._discount) * item._numberOrdered
+        If credit >= 0 Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+
+
     Public Sub addOrderItem(ByVal item As OrderItem)
         If item IsNot Nothing Then
-            Dim sqlCon As New SqlConnection(strConn)
-            Using (sqlCon)
-                Dim strQuery As String
-                strQuery = "insert INTO [OrderItem] Values(@orderNum,@prodId,@quantity,@discount)"
-                Try
-                    Dim sqlComm As New SqlCommand(strQuery, sqlCon)
-                    sqlComm.Parameters.AddWithValue("@orderNum", item._orderNumber)
-                    sqlComm.Parameters.AddWithValue("@prodId", item._productId)
-                    sqlComm.Parameters.AddWithValue("@quantity", item._numberOrdered)
-                    sqlComm.Parameters.AddWithValue("@discount", item._discount)
+            Dim order1 As Order = getOrderByID(item._orderNumber)
+            Dim cust As Customer = getCustomerByID(order1._custId)
+            If Not checkCreditLimit(order1._custId, item) Then
+                Dim strMsg = "The credit of customer" & cust._firstName
+                strMsg = strMsg & " " & cust._lastName & "is not enough to cover new items."
+                MessageBox.Show(strMsg, "Failed to add product")
+                Return
+            End If
 
-                    sqlCon.Open()
-                    sqlComm.ExecuteNonQuery()
-                Catch ex As Exception
-                    MessageBox.Show("Fail to add order item to database", "Data Access Error")
-                End Try
-            End Using
-            orderList = getAllOrder()
-        End If
+            Dim sqlCon As New SqlConnection(strConn)
+                Using (sqlCon)
+                    Dim strQuery As String
+                    strQuery = "insert INTO [OrderItem] Values(@orderNum,@prodId,@quantity,@discount)"
+                    Try
+                        Dim sqlComm As New SqlCommand(strQuery, sqlCon)
+                        sqlComm.Parameters.AddWithValue("@orderNum", item._orderNumber)
+                        sqlComm.Parameters.AddWithValue("@prodId", item._productId)
+                        sqlComm.Parameters.AddWithValue("@quantity", item._numberOrdered)
+                        sqlComm.Parameters.AddWithValue("@discount", item._discount)
+
+                        sqlCon.Open()
+                        sqlComm.ExecuteNonQuery()
+                    Catch ex As Exception
+                        MessageBox.Show("Fail to add order item to database", "Data Access Error")
+                    End Try
+                End Using
+                orderList = getAllOrder()
+            End If
     End Sub
     Public Sub addNewOrder(ByVal order1 As Order)
         Dim sqlCon As New SqlConnection(strConn)
