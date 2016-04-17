@@ -1,6 +1,8 @@
 ﻿Imports System.Data.SqlClient
 Imports DLL_Library.IOTS
 Imports DLL_Library.OrderSystemExceptions
+Imports System.Windows.Forms
+
 
 Public Class DBManager
     Private strConn As String = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Wendy Meng\Source\Repos\CVB-AS2\DBManager\InnoTrackSys.mdf;Integrated Security=True"
@@ -30,7 +32,7 @@ Public Class DBManager
     Public Function getAllCustomer() As List(Of Customer)
         Dim result As New List(Of Customer)()
         Dim strQuery As String
-
+        Dim sqlReader As SqlDataReader = Nothing
         strQuery = "SELECT * FROM Customer"
 
         sqlCon = New SqlConnection(strConn)
@@ -38,28 +40,35 @@ Public Class DBManager
         Using (sqlCon)
 
             Dim sqlComm As SqlCommand = New SqlCommand(strQuery, sqlCon)
-            sqlCon.Open()
-            Dim sqlReader As SqlDataReader = sqlComm.ExecuteReader()
-            If sqlReader.HasRows Then
-                Dim mailAddr As String = Nothing
-                Dim mailId As Int32 = 0
-                While (sqlReader.Read())
-                    Dim custId = sqlReader.Item(0)
-                    Dim first_name = sqlReader.Item(1).ToString().Trim
-                    Dim last_name = sqlReader.Item(2).ToString().Trim
-                    Dim address = sqlReader.Item(3).ToString().Trim
-                    Dim city = sqlReader.Item(4).ToString().Trim
-                    Dim province = sqlReader.Item(5).ToString().Trim
-                    Dim postalcode = sqlReader.Item(6).ToString().Trim
-                    Dim credit_limit = sqlReader.Item(7)
-                    Dim email = sqlReader.Item(8)
-                    Dim phone = sqlReader.Item(9)
-                    Dim newCust As New DLL_Library.IOTS.Customer(custId,
+            Try
+                sqlCon.Open()
+                sqlReader = sqlComm.ExecuteReader()
+                If sqlReader.HasRows Then
+                    Dim mailAddr As String = Nothing
+                    Dim mailId As Int32 = 0
+                    While (sqlReader.Read())
+                        Dim custId = sqlReader.Item(0)
+                        Dim first_name = sqlReader.Item(1).ToString().Trim
+                        Dim last_name = sqlReader.Item(2).ToString().Trim
+                        Dim address = sqlReader.Item(3).ToString().Trim
+                        Dim city = sqlReader.Item(4).ToString().Trim
+                        Dim province = sqlReader.Item(5).ToString().Trim
+                        Dim postalcode = sqlReader.Item(6).ToString().Trim
+                        Dim credit_limit = sqlReader.Item(7)
+                        Dim email = sqlReader.Item(8)
+                        Dim phone = sqlReader.Item(9)
+                        Dim newCust As New DLL_Library.IOTS.Customer(custId,
                              first_name, last_name, address, city, province, postalcode, credit_limit, email, phone)
-                    result.Add(newCust)
-                End While
-            End If
-            sqlReader.Close()
+                        result.Add(newCust)
+                    End While
+                End If
+            Catch ex As Exception
+                MessageBox.show("Fail to get customer from database", "Data Access Error")
+            Finally
+                If sqlReader IsNot Nothing Then
+                    sqlReader.Close()
+                End If
+            End Try
         End Using
         Return result
 
@@ -68,24 +77,30 @@ Public Class DBManager
 
     Public Function getAllProduct() As List(Of Product)
         Dim result As New List(Of Product)()
-        Dim strQuery As String
-        strQuery = "SELECT * FROM Product"
+
         sqlCon = New SqlConnection(strConn)
         Using (sqlCon)
-            Dim sqlComm As SqlCommand = New SqlCommand(strQuery, sqlCon)
-            sqlCon.Open()
-            Dim sqlReader As SqlDataReader = sqlComm.ExecuteReader()
-            If sqlReader.HasRows Then
-                While (sqlReader.Read())
-                    Dim productId As String = sqlReader.Item(0).ToString.Trim
-                    Dim description As String = sqlReader.Item(1)
-                    Dim qtyOnHand As Int32 = sqlReader.Item(2)
-                    Dim price As Double = sqlReader.GetSqlMoney(3).ToDouble()
-                    Dim newProd As New DLL_Library.IOTS.Product(productId, description, qtyOnHand, price)
-                    result.Add(newProd)
-                End While
-            End If
-            sqlReader.Close()
+            Dim strQuery As String
+            strQuery = "SELECT * FROM Product"
+            Try
+                Dim sqlComm As SqlCommand = New SqlCommand(strQuery, sqlCon)
+                sqlCon.Open()
+                Dim sqlReader As SqlDataReader = sqlComm.ExecuteReader()
+                If sqlReader.HasRows Then
+                    While (sqlReader.Read())
+                        Dim productId As String = sqlReader.Item(0).ToString.Trim
+                        Dim description As String = sqlReader.Item(1)
+                        Dim qtyOnHand As Int32 = sqlReader.Item(2)
+                        Dim price As Double = sqlReader.GetSqlMoney(3).ToDouble()
+                        Dim newProd As New DLL_Library.IOTS.Product(productId, description, qtyOnHand, price)
+                        result.Add(newProd)
+                    End While
+                End If
+                sqlReader.Close()
+            Catch ex As Exception
+                MessageBox.Show("Fail to get product from database", "Data Access Error")
+            End Try
+
         End Using
         Return result
     End Function
@@ -97,20 +112,24 @@ Public Class DBManager
         sqlCon = New SqlConnection(strConn)
         Using (sqlCon)
             Dim sqlComm As SqlCommand = New SqlCommand(strQuery, sqlCon)
-            sqlCon.Open()
-            Dim sqlReader As SqlDataReader = sqlComm.ExecuteReader()
-            If sqlReader.HasRows Then
-                While (sqlReader.Read())
-                    Dim orderNumber As Long = CLng(sqlReader.GetInt32(0))
-                    Dim orderDate As String = sqlReader.Item(1).ToString
-                    Dim shipDate As String = sqlReader.Item(2).ToString
-                    Dim custId As Long = sqlReader.GetInt32(3)
-                    Dim newOrder As New Order(orderNumber, orderDate, shipDate, custId)
-                    getOrderItems(newOrder)
-                    result.Add(newOrder)
-                End While
-            End If
-            sqlReader.Close()
+            Try
+                sqlCon.Open()
+                Dim sqlReader As SqlDataReader = sqlComm.ExecuteReader()
+                If sqlReader.HasRows Then
+                    While (sqlReader.Read())
+                        Dim orderNumber As Long = CLng(sqlReader.GetInt32(0))
+                        Dim orderDate As String = sqlReader.Item(1).ToString
+                        Dim shipDate As String = sqlReader.Item(2).ToString
+                        Dim custId As Long = sqlReader.GetInt32(3)
+                        Dim newOrder As New Order(orderNumber, orderDate, shipDate, custId)
+                        getOrderItems(newOrder)
+                        result.Add(newOrder)
+                    End While
+                End If
+                sqlReader.Close()
+            Catch
+                MessageBox.Show("Fail to get order from database", "Data Access Error")
+            End Try
         End Using
         Return result
 
@@ -141,25 +160,27 @@ Public Class DBManager
 
     Public Sub getOrderItems(ByRef order1 As Order)
         Dim sqlCon As New SqlConnection(strConn)
-
-
         Using (sqlCon)
             Dim strQuery As String
             strQuery = "SELECT * FROM OrderItem WHERE orderNumber=" + order1._orderNumber.ToString
-            Dim sqlComm As New SqlCommand(strQuery, sqlCon)
-            'sqlComm.Parameters.AddWithValue("@orderNum", order1._orderNumber.ToString)
-            sqlCon.Open()
-            Dim sqlReader As SqlDataReader = sqlComm.ExecuteReader()
-            If sqlReader.HasRows Then
-                While (sqlReader.Read())
-                    Dim productId = sqlReader.GetString(1).Trim
-                    Dim qty = sqlReader.GetInt32(2)
-                    Dim discount As Double = sqlReader.GetSqlMoney(3).ToDouble()
-                    Dim item = New OrderItem(order1._orderNumber, qty, productId, discount)
+            Try
+                Dim sqlComm As New SqlCommand(strQuery, sqlCon)
+                'sqlComm.Parameters.AddWithValue("@orderNum", order1._orderNumber.ToString)
+                sqlCon.Open()
+                Dim sqlReader As SqlDataReader = sqlComm.ExecuteReader()
+                If sqlReader.HasRows Then
+                    While (sqlReader.Read())
+                        Dim productId = sqlReader.GetString(1).Trim
+                        Dim qty = sqlReader.GetInt32(2)
+                        Dim discount As Double = sqlReader.GetSqlMoney(3).ToDouble()
+                        Dim item = New OrderItem(order1._orderNumber, qty, productId, discount)
 
-                    order1.orderItems.Add(item)
-                End While
-            End If
+                        order1.orderItems.Add(item)
+                    End While
+                End If
+            Catch ex As Exception
+                MessageBox.Show("Fail to get order item from database", "Data Access Error")
+            End Try
         End Using
 
     End Sub
@@ -170,20 +191,23 @@ Public Class DBManager
             Dim strQuery As String
             strQuery = "insert INTO Customer(firstName, lastName,streetAddress,city,province,postalCode,creditLimit,email,phoneNumber) "
             strQuery = strQuery & "Values(@fName,@lName,@StreetAddr,@city,@prov,@pCode,@credit,@email,@phoneNum)"
-            Dim sqlComm As New SqlCommand(strQuery, sqlCon)
-            'sqlComm.Parameters.AddWithValue("@custId", cust._custId)
-            sqlComm.Parameters.AddWithValue("@fName", cust._firstName)
-            sqlComm.Parameters.AddWithValue("@lName", cust._lastName)
-            sqlComm.Parameters.AddWithValue("@StreetAddr", cust._streetAddress)
-            sqlComm.Parameters.AddWithValue("@city", cust._city)
-            sqlComm.Parameters.AddWithValue("@prov", cust._province)
-            sqlComm.Parameters.AddWithValue("@pCode", cust._postalCode)
-            sqlComm.Parameters.AddWithValue("@credit", cust._creditLimit)
-            sqlComm.Parameters.AddWithValue("@email", cust._email)
-            sqlComm.Parameters.AddWithValue("@phoneNum", cust._phoneNum)
-            sqlCon.Open()
-            sqlComm.ExecuteNonQuery()
-
+            Try
+                Dim sqlComm As New SqlCommand(strQuery, sqlCon)
+                'sqlComm.Parameters.AddWithValue("@custId", cust._custId)
+                sqlComm.Parameters.AddWithValue("@fName", cust._firstName)
+                sqlComm.Parameters.AddWithValue("@lName", cust._lastName)
+                sqlComm.Parameters.AddWithValue("@StreetAddr", cust._streetAddress)
+                sqlComm.Parameters.AddWithValue("@city", cust._city)
+                sqlComm.Parameters.AddWithValue("@prov", cust._province)
+                sqlComm.Parameters.AddWithValue("@pCode", cust._postalCode)
+                sqlComm.Parameters.AddWithValue("@credit", cust._creditLimit)
+                sqlComm.Parameters.AddWithValue("@email", cust._email)
+                sqlComm.Parameters.AddWithValue("@phoneNum", cust._phoneNum)
+                sqlCon.Open()
+                sqlComm.ExecuteNonQuery()
+            Catch ex As Exception
+                MessageBox.Show("Fail to add customer to database", "Data Access Error")
+            End Try
         End Using
         customerList = getAllCustomer()
 
@@ -193,49 +217,61 @@ Public Class DBManager
         Using (sqlCon)
             Dim strQuery As String
             strQuery = "insert INTO Product Values(@prodId,@desc,@stock,@price)"
-            Dim sqlComm As New SqlCommand(strQuery, sqlCon)
-            sqlComm.Parameters.AddWithValue("@prodId", prod._productId)
-            sqlComm.Parameters.AddWithValue("@desc", prod._description)
-            sqlComm.Parameters.AddWithValue("@stock", prod._QtyOnHand)
-            sqlComm.Parameters.AddWithValue("@price", prod._Price)
+            Try
+                Dim sqlComm As New SqlCommand(strQuery, sqlCon)
+                sqlComm.Parameters.AddWithValue("@prodId", prod._productId)
+                sqlComm.Parameters.AddWithValue("@desc", prod._description)
+                sqlComm.Parameters.AddWithValue("@stock", prod._QtyOnHand)
+                sqlComm.Parameters.AddWithValue("@price", prod._Price)
 
-            sqlCon.Open()
-            sqlComm.ExecuteNonQuery()
-
+                sqlCon.Open()
+                sqlComm.ExecuteNonQuery()
+            Catch ex As Exception
+                MessageBox.Show("Fail to new product to database", "Data Access Error")
+            End Try
         End Using
         productList.Add(prod)
     End Sub
 
     Public Sub addOrderItem(ByVal item As OrderItem)
-        Dim sqlCon As New SqlConnection(strConn)
-        Using (sqlCon)
-            Dim strQuery As String
-            strQuery = "insert INTO [OrderItem] Values(@orderNum,@prodId,@quantity,@discount)"
-            Dim sqlComm As New SqlCommand(strQuery, sqlCon)
-            sqlComm.Parameters.AddWithValue("@orderNum", item._orderNumber)
-            sqlComm.Parameters.AddWithValue("@prodId", item._productId)
-            sqlComm.Parameters.AddWithValue("@quantity", item._numberOrdered)
-            sqlComm.Parameters.AddWithValue("@discount", item._discount)
+        If item IsNot Nothing Then
+            Dim sqlCon As New SqlConnection(strConn)
+            Using (sqlCon)
+                Dim strQuery As String
+                strQuery = "insert INTO [OrderItem] Values(@orderNum,@prodId,@quantity,@discount)"
+                Try
+                    Dim sqlComm As New SqlCommand(strQuery, sqlCon)
+                    sqlComm.Parameters.AddWithValue("@orderNum", item._orderNumber)
+                    sqlComm.Parameters.AddWithValue("@prodId", item._productId)
+                    sqlComm.Parameters.AddWithValue("@quantity", item._numberOrdered)
+                    sqlComm.Parameters.AddWithValue("@discount", item._discount)
 
-            sqlCon.Open()
-            sqlComm.ExecuteNonQuery()
-
-        End Using
-        orderList = getAllOrder()
+                    sqlCon.Open()
+                    sqlComm.ExecuteNonQuery()
+                Catch ex As Exception
+                    MessageBox.Show("Fail to add order item to database", "Data Access Error")
+                End Try
+            End Using
+            orderList = getAllOrder()
+        End If
     End Sub
     Public Sub addNewOrder(ByVal order1 As Order)
         Dim sqlCon As New SqlConnection(strConn)
         Using (sqlCon)
             Dim strQuery As String
             strQuery = "insert INTO [Order](orderDate,shipDate,custId) Values(@orderDate,@shipDate,@custId)"
-            Dim sqlComm As New SqlCommand(strQuery, sqlCon)
+            Try
+                Dim sqlComm As New SqlCommand(strQuery, sqlCon)
 
-            sqlComm.Parameters.AddWithValue("@orderDate", DateTime.Parse(order1._orderDate))
-            sqlComm.Parameters.AddWithValue("@shipDate", DateTime.Parse(order1._shipDate))
-            sqlComm.Parameters.AddWithValue("@custId", order1._custId)
+                sqlComm.Parameters.AddWithValue("@orderDate", DateTime.Parse(order1._orderDate))
+                sqlComm.Parameters.AddWithValue("@shipDate", DateTime.Parse(order1._shipDate))
+                sqlComm.Parameters.AddWithValue("@custId", order1._custId)
 
-            sqlCon.Open()
-            sqlComm.ExecuteNonQuery()
+                sqlCon.Open()
+                sqlComm.ExecuteNonQuery()
+            Catch ex As Exception
+                MessageBox.Show("Fail to add new order to database", "Data Access Error")
+            End Try
 
         End Using
 
@@ -249,11 +285,14 @@ Public Class DBManager
             Dim sqlComm As New SqlCommand()
             sqlComm.Connection = sqlCon
             sqlComm.CommandText = "Delete FROM OrderItem WHERE orderNumber=@orderNum1;Delete From [Order] WHERE orderNumber=@orderNum2"
-
-            sqlComm.Parameters.AddWithValue("@orderNum1", orderId.ToString)
-            sqlComm.Parameters.AddWithValue("@orderNum2", orderId.ToString)
-            sqlCon.Open()
-            sqlComm.ExecuteNonQuery()
+            Try
+                sqlComm.Parameters.AddWithValue("@orderNum1", orderId.ToString)
+                sqlComm.Parameters.AddWithValue("@orderNum2", orderId.ToString)
+                sqlCon.Open()
+                sqlComm.ExecuteNonQuery()
+            Catch ex As Exception
+                MessageBox.Show("Fail to delete order from database", "Data Access Error")
+            End Try
         End Using
 
         For x = orderList.Count - 1 To 0 Step -1
@@ -271,11 +310,15 @@ Public Class DBManager
         Dim sqlCon As New SqlConnection(strConn)
         Using (sqlCon)
             Dim sqlComm As New SqlCommand()
-            sqlComm.Connection = sqlCon
-            sqlComm.CommandText = "Delete FROM Product WHERE ProductId=@prodId"
-            sqlComm.Parameters.AddWithValue("@prodId", prodId)
-            sqlCon.Open()
-            sqlComm.ExecuteNonQuery()
+            Try
+                sqlComm.Connection = sqlCon
+                sqlComm.CommandText = "Delete FROM Product WHERE ProductId=@prodId"
+                sqlComm.Parameters.AddWithValue("@prodId", prodId)
+                sqlCon.Open()
+                sqlComm.ExecuteNonQuery()
+            Catch
+                MessageBox.Show("Fail to delete product from database", "Data Access Error")
+            End Try
         End Using
         For x = productList.Count - 1 To 0 Step -1
             Dim Needed = productList(x)
@@ -292,9 +335,13 @@ Public Class DBManager
             Dim sqlComm As New SqlCommand()
             sqlComm.Connection = sqlCon
             sqlComm.CommandText = "Delete FROM Customer WHERE custId=@custId"
-            sqlComm.Parameters.AddWithValue("@custId", custId.ToString)
-            sqlCon.Open()
-            sqlComm.ExecuteNonQuery()
+            Try
+                sqlComm.Parameters.AddWithValue("@custId", custId.ToString)
+                sqlCon.Open()
+                sqlComm.ExecuteNonQuery()
+            Catch ex As Exception
+                MessageBox.Show("Fail to delete customer from database", "Data Access Error")
+            End Try
         End Using
         For x = customerList.Count - 1 To 0 Step -1
             Dim Needed = customerList(x)
@@ -312,11 +359,14 @@ Public Class DBManager
             Dim sqlComm As New SqlCommand()
             sqlComm.Connection = sqlCon
             sqlComm.CommandText = "Delete FROM OrderItem WHERE orderNumber=@orderNum AND productId=@prodId"
-
-            sqlComm.Parameters.AddWithValue("@orderNum", orderId.ToString)
-            sqlComm.Parameters.AddWithValue("@prodId", prodId.ToString)
-            sqlCon.Open()
-            sqlComm.ExecuteNonQuery()
+            Try
+                sqlComm.Parameters.AddWithValue("@orderNum", orderId.ToString)
+                sqlComm.Parameters.AddWithValue("@prodId", prodId.ToString)
+                sqlCon.Open()
+                sqlComm.ExecuteNonQuery()
+            Catch ex As Exception
+                MessageBox.Show("Fail to delet order item from database", "Data Access Error")
+            End Try
         End Using
         Dim done = False
         For Each order1 In orderList
@@ -354,9 +404,12 @@ Public Class DBManager
             sqlComm.Parameters.AddWithValue("@email", cust._email)
             sqlComm.Parameters.AddWithValue("@phoneNum", cust._phoneNum)
             sqlComm.Parameters.AddWithValue("@custId", cust._custId)
-            sqlCon.Open()
-            sqlComm.ExecuteNonQuery()
-
+            Try
+                sqlCon.Open()
+                sqlComm.ExecuteNonQuery()
+            Catch ex As Exception
+                MessageBox.Show("Fail to update customer information to database", "Data Access Error")
+            End Try
         End Using
         For x = customerList.Count - 1 To 0 Step -1
             Dim Needed = customerList(x)
@@ -378,14 +431,16 @@ Public Class DBManager
             strQuery = strQuery & "description=@desc, stock=@stock, price=@price "
             strQuery = strQuery & "WHERE productId=@prodId"
             Dim sqlComm As New SqlCommand(strQuery, sqlCon)
-
-            sqlComm.Parameters.AddWithValue("@desc", prod._description)
-            sqlComm.Parameters.AddWithValue("@stock", prod._QtyOnHand)
-            sqlComm.Parameters.AddWithValue("@price", prod._Price)
-            sqlComm.Parameters.AddWithValue("@prodId", prod._productId)
-            sqlCon.Open()
-            sqlComm.ExecuteNonQuery()
-
+            Try
+                sqlComm.Parameters.AddWithValue("@desc", prod._description)
+                sqlComm.Parameters.AddWithValue("@stock", prod._QtyOnHand)
+                sqlComm.Parameters.AddWithValue("@price", prod._Price)
+                sqlComm.Parameters.AddWithValue("@prodId", prod._productId)
+                sqlCon.Open()
+                sqlComm.ExecuteNonQuery()
+            Catch ex As Exception
+                MessageBox.Show("Fail to update product information to database", "Data Access Error")
+            End Try
         End Using
 
         For x = productList.Count - 1 To 0 Step -1
@@ -425,13 +480,16 @@ Public Class DBManager
             Dim strQuery As String
             strQuery = "Update [Order] Set orderDate=@orderDate,shipDate=@shipDate,custId=@custId WHERE orderNumber=@orderNum"
             Dim sqlComm As New SqlCommand(strQuery, sqlCon)
-
-            sqlComm.Parameters.AddWithValue("@orderDate", DateTime.Parse(order1._orderDate))
-            sqlComm.Parameters.AddWithValue("@shipDate", DateTime.Parse(order1._shipDate))
-            sqlComm.Parameters.AddWithValue("@custId", order1._custId)
-            sqlComm.Parameters.AddWithValue("@orerNum", order1._orderNumber)
-            sqlCon.Open()
-            sqlComm.ExecuteNonQuery()
+            Try
+                sqlComm.Parameters.AddWithValue("@orderDate", DateTime.Parse(order1._orderDate))
+                sqlComm.Parameters.AddWithValue("@shipDate", DateTime.Parse(order1._shipDate))
+                sqlComm.Parameters.AddWithValue("@custId", order1._custId)
+                sqlComm.Parameters.AddWithValue("@orerNum", order1._orderNumber)
+                sqlCon.Open()
+                sqlComm.ExecuteNonQuery()
+            Catch ex As Exception
+                MessageBox.Show("Fail to update order information to database", "Data Access Error")
+            End Try
         End Using
 
     End Sub
@@ -442,13 +500,16 @@ Public Class DBManager
             Dim strQuery As String
             strQuery = "Update [OrderItem] SET quantity=@quantity,discount=@discount WHERE orderNumber=@orderNum AND ProductId=@prodId"
             Dim sqlComm As New SqlCommand(strQuery, sqlCon)
-            sqlComm.Parameters.AddWithValue("@quantity", item._numberOrdered)
-            sqlComm.Parameters.AddWithValue("@discount", item._discount)
-            sqlComm.Parameters.AddWithValue("@orerNum", item._orderNumber)
-            sqlComm.Parameters.AddWithValue("@prodId", item._productId)
-            sqlCon.Open()
-            sqlComm.ExecuteNonQuery()
-
+            Try
+                sqlComm.Parameters.AddWithValue("@quantity", item._numberOrdered)
+                sqlComm.Parameters.AddWithValue("@discount", item._discount)
+                sqlComm.Parameters.AddWithValue("@orerNum", item._orderNumber)
+                sqlComm.Parameters.AddWithValue("@prodId", item._productId)
+                sqlCon.Open()
+                sqlComm.ExecuteNonQuery()
+            Catch
+                MessageBox.Show("Fail to update order item to database", "Data Access Error")
+            End Try
         End Using
     End Sub
 
@@ -459,23 +520,26 @@ Public Class DBManager
         Using (sqlCon)
             Dim strQuery As String
             strQuery = "SELECT * FROM Product WHERE description LIKE @desc"
-            sqlCon = New SqlConnection(strConn)
-            Dim sqlComm As SqlCommand = New SqlCommand(strQuery, sqlCon)
-            desc = "%" + desc + "%"
-            sqlComm.Parameters.AddWithValue("@desc", desc)
-            sqlCon.Open()
-            Dim sqlReader As SqlDataReader = sqlComm.ExecuteReader()
-            If sqlReader.HasRows Then
-                While (sqlReader.Read())
-                    Dim productId As String = sqlReader.Item(0).ToString.Trim
-                    Dim description As String = sqlReader.Item(1)
-                    Dim qtyOnHand As Int32 = sqlReader.Item(2)
-                    Dim price As Double = sqlReader.GetSqlMoney(3).ToDouble()
-                    Dim newProd As New DLL_Library.IOTS.Product(productId, description, qtyOnHand, price)
-                    result.Add(newProd)
-                End While
-            End If
-            sqlReader.Close()
+            Try
+                Dim sqlComm As SqlCommand = New SqlCommand(strQuery, sqlCon)
+                desc = "%" + desc + "%"
+                sqlComm.Parameters.AddWithValue("@desc", desc)
+                sqlCon.Open()
+                Dim sqlReader As SqlDataReader = sqlComm.ExecuteReader()
+                If sqlReader.HasRows Then
+                    While (sqlReader.Read())
+                        Dim productId As String = sqlReader.Item(0).ToString.Trim
+                        Dim description As String = sqlReader.Item(1)
+                        Dim qtyOnHand As Int32 = sqlReader.Item(2)
+                        Dim price As Double = sqlReader.GetSqlMoney(3).ToDouble()
+                        Dim newProd As New DLL_Library.IOTS.Product(productId, description, qtyOnHand, price)
+                        result.Add(newProd)
+                    End While
+                End If
+                sqlReader.Close()
+            Catch ex As Exception
+                MessageBox.Show("Fail to search product information from database", "Data Access Error")
+            End Try
         End Using
         Return result
     End Function
@@ -486,32 +550,35 @@ Public Class DBManager
         Using (sqlCon)
             Dim strQuery As String
             strQuery = "SELECT * FROM Customer WHERE firstName LIKE @name OR lastName LIKE @name"
-            sqlCon = New SqlConnection(strConn)
-            Dim sqlComm As SqlCommand = New SqlCommand(strQuery, sqlCon)
-            name = "%" + name + "%"
-            sqlComm.Parameters.AddWithValue("@name", name)
-            sqlCon.Open()
-            Dim sqlReader As SqlDataReader = sqlComm.ExecuteReader()
-            If sqlReader.HasRows Then
-                Dim mailAddr As String = Nothing
-                Dim mailId As Int32 = 0
-                While (sqlReader.Read())
-                    Dim custId = sqlReader.Item(0)
-                    Dim first_name = sqlReader.Item(1).ToString().Trim
-                    Dim last_name = sqlReader.Item(2).ToString().Trim
-                    Dim address = sqlReader.Item(3).ToString().Trim
-                    Dim city = sqlReader.Item(4).ToString().Trim
-                    Dim province = sqlReader.Item(5).ToString().Trim
-                    Dim postalcode = sqlReader.Item(6).ToString().Trim
-                    Dim credit_limit = sqlReader.Item(7)
-                    Dim email = sqlReader.Item(8)
-                    Dim phone = sqlReader.Item(9)
-                    Dim newCust As New DLL_Library.IOTS.Customer(custId,
+            Try
+                Dim sqlComm As SqlCommand = New SqlCommand(strQuery, sqlCon)
+                name = "%" + name + "%"
+                sqlComm.Parameters.AddWithValue("@name", name)
+                sqlCon.Open()
+                Dim sqlReader As SqlDataReader = sqlComm.ExecuteReader()
+                If sqlReader.HasRows Then
+                    Dim mailAddr As String = Nothing
+                    Dim mailId As Int32 = 0
+                    While (sqlReader.Read())
+                        Dim custId = sqlReader.Item(0)
+                        Dim first_name = sqlReader.Item(1).ToString().Trim
+                        Dim last_name = sqlReader.Item(2).ToString().Trim
+                        Dim address = sqlReader.Item(3).ToString().Trim
+                        Dim city = sqlReader.Item(4).ToString().Trim
+                        Dim province = sqlReader.Item(5).ToString().Trim
+                        Dim postalcode = sqlReader.Item(6).ToString().Trim
+                        Dim credit_limit = sqlReader.Item(7)
+                        Dim email = sqlReader.Item(8)
+                        Dim phone = sqlReader.Item(9)
+                        Dim newCust As New DLL_Library.IOTS.Customer(custId,
                              first_name, last_name, address, city, province, postalcode, credit_limit, email, phone)
-                    result.Add(newCust)
-                End While
-            End If
-            sqlReader.Close()
+                        result.Add(newCust)
+                    End While
+                End If
+                sqlReader.Close()
+            Catch ex As Exception
+                MessageBox.Show("Fail to search customer information from database", "Data Access Error")
+            End Try
         End Using
         Return result
 
@@ -526,27 +593,31 @@ Public Class DBManager
             strQuery = "SELECT * FROM [Order] WHERE orderNumber=@orderNum "
             strQuery = strQuery & " OR (orderDate>=@orderDateStart AND orderDate<=@orderDateEnd)"
             strQuery = strQuery & " OR (shipDate>=@shipDateStart AND orderDate<=@shipDateEnd)"
-            Dim sqlComm As SqlCommand = New SqlCommand(strQuery, sqlCon)
-            sqlComm.Parameters.AddWithValue("@orderNum", ordernumber)
-            sqlComm.Parameters.AddWithValue("@orderDateStart", dtOrderDateStart)
-            sqlComm.Parameters.AddWithValue("@orderDateEnd", dtOrderDateEnd)
-            sqlComm.Parameters.AddWithValue("@shipDateStart", dtShipDateStart)
-            sqlComm.Parameters.AddWithValue("@shipDateEnd", dtShipDateEnd)
+            Try
+                Dim sqlComm As SqlCommand = New SqlCommand(strQuery, sqlCon)
+                sqlComm.Parameters.AddWithValue("@orderNum", ordernumber)
+                sqlComm.Parameters.AddWithValue("@orderDateStart", dtOrderDateStart)
+                sqlComm.Parameters.AddWithValue("@orderDateEnd", dtOrderDateEnd)
+                sqlComm.Parameters.AddWithValue("@shipDateStart", dtShipDateStart)
+                sqlComm.Parameters.AddWithValue("@shipDateEnd", dtShipDateEnd)
 
-            sqlCon.Open()
-            Dim sqlReader As SqlDataReader = sqlComm.ExecuteReader()
-            If sqlReader.HasRows Then
-                While (sqlReader.Read())
-                    Dim orderNum As Long = CLng(sqlReader.GetInt32(0))
-                    Dim orderDate As String = sqlReader.Item(1).ToString
-                    Dim shipDate As String = sqlReader.Item(2).ToString
-                    Dim custId As Long = sqlReader.GetInt32(3)
-                    Dim newOrder As New Order(orderNum, orderDate, shipDate, custId)
-                    getOrderItems(newOrder)
-                    result.Add(newOrder)
-                End While
-            End If
-            sqlReader.Close()
+                sqlCon.Open()
+                Dim sqlReader As SqlDataReader = sqlComm.ExecuteReader()
+                If sqlReader.HasRows Then
+                    While (sqlReader.Read())
+                        Dim orderNum As Long = CLng(sqlReader.GetInt32(0))
+                        Dim orderDate As String = sqlReader.Item(1).ToString
+                        Dim shipDate As String = sqlReader.Item(2).ToString
+                        Dim custId As Long = sqlReader.GetInt32(3)
+                        Dim newOrder As New Order(orderNum, orderDate, shipDate, custId)
+                        getOrderItems(newOrder)
+                        result.Add(newOrder)
+                    End While
+                End If
+                sqlReader.Close()
+            Catch ex As Exception
+                MessageBox.Show("Fail to search order information from database", "Data Access Error")
+            End Try
         End Using
         Return result
 

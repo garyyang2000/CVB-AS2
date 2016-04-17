@@ -37,17 +37,21 @@
 
 
         If custId = 0 Then
-            customer = New DLL_Library.IOTS.Customer()
-            customer._firstName = txtFirst.Text.Trim
-            customer._lastName = txtLast.Text.Trim
-            customer._streetAddress = txtStreet.Text.Trim
-            customer._city = txtCity.Text.Trim
-            customer._province = txtProvince.Text.Trim
-            customer._postalCode = txtPostal.Text.Trim
-            customer._creditLimit = Double.Parse(txtCredit.Text.Trim)
-            customer._email = txtEmail.Text.Trim
-            customer._phoneNum = txtPhone.Text.Trim
-            db.addNewCustomer(customer)
+            Try
+                customer = New DLL_Library.IOTS.Customer()
+                customer._firstName = txtFirst.Text.Trim
+                customer._lastName = txtLast.Text.Trim
+                customer._streetAddress = txtStreet.Text.Trim
+                customer._city = txtCity.Text.Trim
+                customer._province = txtProvince.Text.Trim
+                customer._postalCode = txtPostal.Text.Trim
+                customer._creditLimit = Double.Parse(txtCredit.Text.Trim)
+                customer._email = txtEmail.Text.Trim
+                customer._phoneNum = txtPhone.Text.Trim
+                db.addNewCustomer(customer)
+            Catch ex As Exception
+                MessageBox.Show("Fail to create new customer, please check it")
+            End Try
         Else
             customer._firstName = txtFirst.Text.Trim
             customer._lastName = txtLast.Text.Trim
