@@ -37,7 +37,6 @@
             MessageBox.Show("Please select the product in the list")
             Return
         End If
-
         item = New DLL_Library.IOTS.OrderItem(Long.Parse(lbOrderNumber.Text), Integer.Parse(txtNuberOrdered.Text),
                                               lbProductId.Text, Double.Parse(txtDiscount.Text))
     End Sub
@@ -46,5 +45,20 @@
         Dim selectedRow As DataGridViewRow = dgpSelectProduct.Rows(e.RowIndex)
         lbDesc.Text = selectedRow.Cells(1).Value
         lbProductId.Text = selectedRow.Cells(3).Value
+    End Sub
+
+    Private Sub txtNuberOrdered_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtNuberOrdered.KeyPress
+        If Asc(e.KeyChar) <> 8 Then
+            If Asc(e.KeyChar) < 48 Or Asc(e.KeyChar) > 57 Then
+                e.Handled = True
+            End If
+        End If
+    End Sub
+
+    Private Sub txtDiscount_Leave(sender As Object, e As EventArgs) Handles txtDiscount.Leave
+        If Not IsNumeric(txtDiscount.Text) Then
+            MessageBox.Show("Please input numeric only for discount")
+            txtDiscount.Text = 0
+        End If
     End Sub
 End Class
