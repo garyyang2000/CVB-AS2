@@ -45,6 +45,10 @@
 
         Else
             btnUpdate.Text = "Add Custmer"
+            dgvCustomerOrderList.Visible = False
+            lbOrderList.Visible = False
+            btnAddOrder.Visible = False
+            Me.Size = New System.Drawing.Size(472, 250)
         End If
     End Sub
 
