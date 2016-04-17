@@ -211,7 +211,7 @@ Public Class DBManager
             Dim strQuery As String
             strQuery = "insert INTO [OrderItem] Values(@orderNum,@prodId,@quantity,@discount)"
             Dim sqlComm As New SqlCommand(strQuery, sqlCon)
-            sqlComm.Parameters.AddWithValue("@orerNum", item._orderNumber)
+            sqlComm.Parameters.AddWithValue("@orderNum", item._orderNumber)
             sqlComm.Parameters.AddWithValue("@prodId", item._productId)
             sqlComm.Parameters.AddWithValue("@quantity", item._numberOrdered)
             sqlComm.Parameters.AddWithValue("@discount", item._discount)
