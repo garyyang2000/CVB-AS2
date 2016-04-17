@@ -166,14 +166,81 @@ Public Class DBManager
     End Sub
 
     Public Sub addNewCustomer(ByVal cust As Customer)
+        Dim sqlCon As New SqlConnection(strConn)
+        Using (sqlCon)
+            Dim strQuery As String
+            strQuery = "insert INTO Customer Values(@custId,@fName,@lName,@StreetAddr,@city,@prov,@pCode,@credit,@email,@phoneNum)"
+            Dim sqlComm As New SqlCommand(strQuery, sqlCon)
+            sqlComm.Parameters.AddWithValue("@custId", cust._custId)
+            sqlComm.Parameters.AddWithValue("@fName", cust._firstName)
+            sqlComm.Parameters.AddWithValue("@lName", cust._lastName)
+            sqlComm.Parameters.AddWithValue("@StreetAddr", cust._streetAddress)
+            sqlComm.Parameters.AddWithValue("@city", cust._city)
+            sqlComm.Parameters.AddWithValue("@prov", cust._province)
+            sqlComm.Parameters.AddWithValue("@pCode", cust._postalCode)
+            sqlComm.Parameters.AddWithValue("@credit", cust._creditLimit)
+            sqlComm.Parameters.AddWithValue("@email", cust._email)
+            sqlComm.Parameters.AddWithValue("@phoneNum", cust._phoneNum)
+            sqlCon.Open()
+            sqlComm.ExecuteNonQuery()
 
+        End Using
+        customerList.Add(cust)
     End Sub
-    Public Sub addNewProduct()
+    Public Sub addNewProduct(ByVal prod As Product)
+        Dim sqlCon As New SqlConnection(strConn)
+        Using (sqlCon)
+            Dim strQuery As String
+            strQuery = "insert INTO Product Values(@prodId,@desc,@stock,@price)"
+            Dim sqlComm As New SqlCommand(strQuery, sqlCon)
+            sqlComm.Parameters.AddWithValue("@prodId", prod._productId)
+            sqlComm.Parameters.AddWithValue("@desc", prod._description)
+            sqlComm.Parameters.AddWithValue("@stock", prod._QtyOnHand)
+            sqlComm.Parameters.AddWithValue("@price", prod._Price)
 
+            sqlCon.Open()
+            sqlComm.ExecuteNonQuery()
+
+        End Using
+        productList.Add(prod)
     End Sub
 
-    Public Sub addNewOrder()
+    Public Sub addOrderItem(ByVal item As OrderItem)
+        Dim sqlCon As New SqlConnection(strConn)
+        Using (sqlCon)
+            Dim strQuery As String
+            strQuery = "insert INTO [OrderItem] Values(@orderNum,@prodId,@quantity,@discount)"
+            Dim sqlComm As New SqlCommand(strQuery, sqlCon)
+            sqlComm.Parameters.AddWithValue("@orerNum", item._orderNumber)
+            sqlComm.Parameters.AddWithValue("@prodId", item._productId)
+            sqlComm.Parameters.AddWithValue("@quantity", item._numberOrdered)
+            sqlComm.Parameters.AddWithValue("@discount", item._discount)
 
+            sqlCon.Open()
+            sqlComm.ExecuteNonQuery()
+
+        End Using
+    End Sub
+    Public Sub addNewOrder(ByVal order1 As Order)
+        Dim sqlCon As New SqlConnection(strConn)
+        Using (sqlCon)
+            Dim strQuery As String
+            strQuery = "insert INTO [Order] Values(@orderNum,@orderDate,@shipDate,@custId)"
+            Dim sqlComm As New SqlCommand(strQuery, sqlCon)
+            sqlComm.Parameters.AddWithValue("@orerNum", order1._orderNumber)
+            sqlComm.Parameters.AddWithValue("@orderDate", DateTime.Parse(order1._orderDate))
+            sqlComm.Parameters.AddWithValue("@shipDate", DateTime.Parse(order1._shipDate))
+            sqlComm.Parameters.AddWithValue("@custId", order1._custId)
+
+            sqlCon.Open()
+            sqlComm.ExecuteNonQuery()
+
+        End Using
+        For Each item In order1.orderItems
+            addOrderItem(item)
+        Next
+
+        orderList.Add(order1)
     End Sub
 
     Public Sub deleteOrder(ByVal orderId As Long)
@@ -303,6 +370,7 @@ Public Class DBManager
 
     End Sub
 
+
     Public Sub updateProduct(ByVal prod As Product)
         Dim sqlCon As New SqlConnection(strConn)
         Using (sqlCon)
@@ -319,6 +387,15 @@ Public Class DBManager
 
         End Using
 
+        For x = productList.Count - 1 To 0 Step -1
+            Dim Needed = productList(x)
+            If Needed._productId.Equals(prod._productId) Then
+                productList.RemoveAt(x)
+                Exit For
+            End If
+        Next
+        productList.Add(prod)
+
     End Sub
 
     Public Sub updateOrder(ByVal order1 As Order)
@@ -331,9 +408,21 @@ Public Class DBManager
             strQuery = "Update [Order] Set orderDate=@orderDate,shipDate=@shipDate,custId=@custId WHERE orderNumber=@orderNum"
             Dim sqlComm As New SqlCommand(strQuery, sqlCon)
 
+            sqlComm.Parameters.AddWithValue("@orderDate", DateTime.Parse(order1._orderDate))
+            sqlComm.Parameters.AddWithValue("@shipDate", DateTime.Parse(order1._shipDate))
+            sqlComm.Parameters.AddWithValue("@custId", order1._custId)
+            sqlComm.Parameters.AddWithValue("@orerNum", order1._orderNumber)
+            sqlCon.Open()
+            sqlComm.ExecuteNonQuery()
         End Using
-
-
+        For x = orderList.Count - 1 To 0 Step -1
+            Dim Needed = orderList(x)
+            If Needed._orderNumber = order1._orderNumber Then
+                orderList.RemoveAt(x)
+                Exit For
+            End If
+        Next
+        orderList.Add(order1)
     End Sub
 
     Public Sub updateOrderItem(ByVal item As OrderItem)
