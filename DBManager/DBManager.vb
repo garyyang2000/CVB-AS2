@@ -174,15 +174,15 @@ Public Class DBManager
 
     End Sub
 
-    Public Sub searchProduct()
+    Public Function searchProduct(ByVal desc As String)
+        Return Nothing
+    End Function
 
-    End Sub
-
-    Public Sub searchCustomer()
-
-    End Sub
-    Public Sub searchOrder()
-
-    End Sub
+    Public Function searchCustomer(ByVal name As String)
+        Return Nothing
+    End Function
+    Public Function searchOrder(ByVal ordernumber As Long, ByVal dtOrderDateStart As Date, ByVal dtOrderDateEnd As Date, ByVal dtShipDateStart As Date, ByVal dtShipDateEnd As Date)
+        Return Nothing
+    End Function
 
 End Class

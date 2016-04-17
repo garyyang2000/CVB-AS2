@@ -5,13 +5,13 @@ Public Class frmMain
     Dim db As New DBManager.DBManager
     Dim currentViewType As String
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        loadCustomer()
+        loadCustomer(db.getAllCustomer())
     End Sub
 
-    Private Sub loadCustomer()
+    Private Sub loadCustomer(ByVal customers As List(Of DLL_Library.IOTS.Customer))
         dgvData.DataSource = Nothing
         dgvData.Columns.Clear()
-        dgvData.DataSource = db.getAllCustomer()
+        dgvData.DataSource = customers
         Dim delecolumn As DataGridViewButtonColumn = New DataGridViewButtonColumn
         delecolumn.UseColumnTextForButtonValue = True
         delecolumn.Text = "DEL"
@@ -39,10 +39,10 @@ Public Class frmMain
     End Sub
 
 
-    Private Sub loadProduct()
+    Private Sub loadProduct(ByVal products As List(Of DLL_Library.IOTS.Product))
         dgvData.DataSource = Nothing
         dgvData.Columns.Clear()
-        dgvData.DataSource = db.getAllProduct()
+        dgvData.DataSource = products
         Dim delecolumn As DataGridViewButtonColumn = New DataGridViewButtonColumn
         delecolumn.UseColumnTextForButtonValue = True
         delecolumn.Text = "DEL"
@@ -66,10 +66,10 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub loadOrder()
+    Private Sub loadOrder(ByVal orders As List(Of DLL_Library.IOTS.Order))
         dgvData.DataSource = Nothing
         dgvData.Columns.Clear()
-        dgvData.DataSource = db.getAllOrder()
+        dgvData.DataSource = orders
         Dim delecolumn As DataGridViewButtonColumn = New DataGridViewButtonColumn
         delecolumn.UseColumnTextForButtonValue = True
         delecolumn.Text = "DEL"
@@ -97,15 +97,15 @@ Public Class frmMain
     End Sub
 
     Private Sub btnProductList_Click(sender As Object, e As EventArgs) Handles btnProductList.Click
-        loadProduct()
+        loadProduct(db.getAllProduct())
     End Sub
 
     Private Sub btnOrderList_Click(sender As Object, e As EventArgs) Handles btnOrderList.Click
-        loadOrder()
+        loadOrder(db.getAllOrder())
     End Sub
 
     Private Sub btnCustomerList_Click(sender As Object, e As EventArgs) Handles btnCustomerList.Click
-        loadCustomer()
+        loadCustomer(db.getAllCustomer())
     End Sub
 
     Private Sub dgvData_CellMouseDoubleClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvData.CellMouseDoubleClick
@@ -149,13 +149,35 @@ Public Class frmMain
         Select Case currentViewType
             Case "Customer"
                 db.deleteCustomer(Long.Parse(selectedRow.Cells(1).Value.ToString()))
-                loadCustomer()
+                loadCustomer(db.getAllCustomer())
             Case "Product"
                 db.deleteProduct(selectedRow.Cells(3).Value.ToString())
-                loadProduct()
+                loadProduct(db.getAllProduct())
             Case "Order"
                 db.deleteOrder(selectedRow.Cells(0).Value.ToString())
-                loadOrder()
+                loadOrder(db.getAllOrder())
         End Select
+    End Sub
+
+    Private Sub CustomerSearchToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CustomerSearchToolStripMenuItem.Click
+        Dim customerSearch As New frmCustomerSearch
+        If (customerSearch.ShowDialog(Me) = System.Windows.Forms.DialogResult.OK) Then
+            loadCustomer(db.searchCustomer(customerSearch.txtName.Text.Trim))
+        End If
+    End Sub
+
+    Private Sub ProductSearchToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ProductSearchToolStripMenuItem.Click
+        Dim productSearch As New frmProductSearch
+        If (productSearch.ShowDialog(Me) = System.Windows.Forms.DialogResult.OK) Then
+            loadCustomer(db.searchProduct(productSearch.txtDesc.Text.Trim))
+        End If
+    End Sub
+
+    Private Sub OrderSearchToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OrderSearchToolStripMenuItem.Click
+        Dim orderSearch As New frmOrderSearch
+        If (orderSearch.ShowDialog(Me) = System.Windows.Forms.DialogResult.OK) Then
+            loadCustomer(db.searchOrder(orderSearch.txtOrderNumber.Text.Trim, orderSearch.dtpOrderDateStart.Value, orderSearch.dtpOrderDateEnd.Value,
+                                        orderSearch.dtpShipDateStart.Value, orderSearch.dtpShipDateEnd.Value))
+        End If
     End Sub
 End Class
