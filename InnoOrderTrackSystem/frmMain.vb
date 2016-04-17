@@ -88,10 +88,7 @@ Public Class frmMain
             .Columns(3).HeaderCell.Value = "Order Date"
             .Columns(4).HeaderCell.Value = "Ship Date"
             .Columns(5).HeaderCell.Value = "Customer"
-            .Columns(6).HeaderCell.Value = "Discount"
-
-
-
+            .Columns(6).Visible = False
         End With
         currentViewType = "Order"
     End Sub
