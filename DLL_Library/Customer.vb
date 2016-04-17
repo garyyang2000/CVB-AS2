@@ -32,7 +32,7 @@ Namespace IOTS
                 ' Store the value in a local variable.
 
                 If (Value > 0) Then
-                    creditLimit = Value
+                    phoneNum = Value
                 Else
                     Throw New OrderSystemExceptions("An exception has occurred, Credit can not be negative.")
                 End If
