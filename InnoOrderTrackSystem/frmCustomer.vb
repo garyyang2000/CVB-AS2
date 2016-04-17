@@ -3,7 +3,7 @@
     Private customer As DLL_Library.IOTS.Customer = New DLL_Library.IOTS.Customer()
 
     Private db As DBManager.DBManager = New DBManager.DBManager
-
+    Dim closing As Boolean = True
     Property _CustID As Long
         Get
             Return custId
@@ -50,8 +50,11 @@
                 customer._phoneNum = txtPhone.Text.Trim
                 db.addNewCustomer(customer)
             Catch ex As Exception
-                MessageBox.Show("Fail to create new customer, please check it")
+                MessageBox.Show(ex.Message)
+                closing = False
+                Return
             End Try
+
         Else
             customer._firstName = txtFirst.Text.Trim
             customer._lastName = txtLast.Text.Trim
@@ -80,6 +83,13 @@
         If Not IsNumeric(txtCredit.Text) Then
             MessageBox.Show("Please input numeric only for Credit Limit")
             txtCredit.Text = 0
+        End If
+    End Sub
+
+    Private Sub frmCustomer_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        If Not closing Then
+            e.Cancel = True
+            closing = True
         End If
     End Sub
 End Class

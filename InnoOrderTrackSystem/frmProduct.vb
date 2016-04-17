@@ -4,7 +4,7 @@ Public Class frmProduct
     Private product_id As String
 
     Private product As DLL_Library.IOTS.Product
-
+    Dim closing As Boolean = True
     Dim db As New DBManager.DBManager
     Property _Product_id As String
         Get
@@ -19,12 +19,12 @@ Public Class frmProduct
         If btnUpdate.Text = "Add Product" Then
             Try
                 product = New DLL_Library.IOTS.Product(txtProductId.Text.Trim, txtDesc.Text.Trim, Integer.Parse(txtQty.Text), Double.Parse(txtPrice.Text))
+                db.addNewProduct(product)
             Catch ex As Exception
                 MessageBox.Show(ex.Message)
+                closing = False
                 Return
             End Try
-
-            db.addNewProduct(product)
         Else
             product._description = txtDesc.Text.Trim
             product._Price = Double.Parse(txtPrice.Text.Trim)
@@ -63,6 +63,13 @@ Public Class frmProduct
             If Asc(e.KeyChar) < 48 Or Asc(e.KeyChar) > 57 Then
                 e.Handled = True
             End If
+        End If
+    End Sub
+
+    Private Sub frmProduct_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        If Not closing Then
+            e.Cancel = True
+            closing = True
         End If
     End Sub
 End Class
