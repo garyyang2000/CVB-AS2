@@ -191,6 +191,7 @@ Namespace IOTS
             _postalCode = postalcode
             _creditLimit = credit
             _email = email
+            _phoneNum = phoneNumber
         End Sub
         Sub New(ByVal firstname, ByVal lastname, ByVal street, ByVal city, ByVal province, ByVal postalcode, ByVal credit, ByVal email, ByVal phoneNumber)
 
@@ -202,6 +203,7 @@ Namespace IOTS
             _postalCode = postalcode
             _creditLimit = credit
             _email = email
+            _phoneNum = phoneNumber
         End Sub
 
         Sub New()
