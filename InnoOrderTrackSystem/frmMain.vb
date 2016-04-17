@@ -180,4 +180,12 @@ Public Class frmMain
                                         orderSearch.dtpShipDateStart.Value, orderSearch.dtpShipDateEnd.Value))
         End If
     End Sub
+
+    Private Sub btnAddCustomer_Click(sender As Object, e As EventArgs) Handles btnAddCustomer.Click
+        Dim frmCust As New frmCustomer
+
+        If frmCust.ShowDialog() = System.Windows.Forms.DialogResult.OK Then
+            loadCustomer(db.getAllCustomer())
+        End If
+    End Sub
 End Class

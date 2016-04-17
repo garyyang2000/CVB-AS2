@@ -16,8 +16,10 @@ Public Class frmProduct
     End Property
 
     Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
-
-        'Dim product As DLL_Library.IOTS.Product = db
+        product._description = txtDesc.Text.Trim
+        product._Price = Double.Parse(txtPrice.Text.Trim)
+        product._QtyOnHand = Integer.Parse(txtQty.Text.Trim)
+        db.updateProduct()
     End Sub
 
     Private Sub ProductForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load

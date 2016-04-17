@@ -67,7 +67,7 @@ Partial Class frmProduct
         'txtDesc
         '
         Me.txtDesc.Location = New System.Drawing.Point(113, 64)
-        Me.txtDesc.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.txtDesc.Margin = New System.Windows.Forms.Padding(2)
         Me.txtDesc.Name = "txtDesc"
         Me.txtDesc.Size = New System.Drawing.Size(123, 20)
         Me.txtDesc.TabIndex = 4
@@ -75,15 +75,16 @@ Partial Class frmProduct
         'txtQty
         '
         Me.txtQty.Location = New System.Drawing.Point(113, 95)
-        Me.txtQty.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.txtQty.Margin = New System.Windows.Forms.Padding(2)
         Me.txtQty.Name = "txtQty"
         Me.txtQty.Size = New System.Drawing.Size(123, 20)
         Me.txtQty.TabIndex = 5
         '
         'btnUpdate
         '
+        Me.btnUpdate.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.btnUpdate.Location = New System.Drawing.Point(113, 170)
-        Me.btnUpdate.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.btnUpdate.Margin = New System.Windows.Forms.Padding(2)
         Me.btnUpdate.Name = "btnUpdate"
         Me.btnUpdate.Size = New System.Drawing.Size(56, 23)
         Me.btnUpdate.TabIndex = 6
@@ -92,8 +93,9 @@ Partial Class frmProduct
         '
         'btnCancel
         '
+        Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.btnCancel.Location = New System.Drawing.Point(183, 170)
-        Me.btnCancel.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.btnCancel.Margin = New System.Windows.Forms.Padding(2)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(53, 23)
         Me.btnCancel.TabIndex = 7
@@ -113,7 +115,7 @@ Partial Class frmProduct
         'txtPrice
         '
         Me.txtPrice.Location = New System.Drawing.Point(113, 129)
-        Me.txtPrice.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.txtPrice.Margin = New System.Windows.Forms.Padding(2)
         Me.txtPrice.Name = "txtPrice"
         Me.txtPrice.Size = New System.Drawing.Size(123, 20)
         Me.txtPrice.TabIndex = 9
@@ -128,7 +130,7 @@ Partial Class frmProduct
         Me.lbProductID.TabIndex = 10
         Me.lbProductID.Text = "Label5"
         '
-        'ProductForm
+        'frmProduct
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -143,8 +145,8 @@ Partial Class frmProduct
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.Name = "ProductForm"
+        Me.Margin = New System.Windows.Forms.Padding(2)
+        Me.Name = "frmProduct"
         Me.Text = "Product"
         Me.ResumeLayout(False)
         Me.PerformLayout()

@@ -14,25 +14,32 @@
     End Property
 
     Private Sub frmCustomer_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        customer = db.getCustomerByID(custId)
-        lbCusId.Text = custId
-        txtFirst.Text = customer._firstName
-        txtLast.Text = customer._lastName
-        txtStreet.Text = customer._streetAddress
-        txtCity.Text = customer._city
-        txtProvince.Text = customer._province
-        txtPostal.Text = customer._postalCode
-        txtCredit.Text = customer._creditLimit
-        txtEmail.Text = customer._email
-        txtPhone.Text = customer._phoneNum
+        If custId <> 0 Then
+            customer = db.getCustomerByID(custId)
+            lbCusId.Text = custId
+            txtFirst.Text = customer._firstName
+            txtLast.Text = customer._lastName
+            txtStreet.Text = customer._streetAddress
+            txtCity.Text = customer._city
+            txtProvince.Text = customer._province
+            txtPostal.Text = customer._postalCode
+            txtCredit.Text = customer._creditLimit
+            txtEmail.Text = customer._email
+            txtPhone.Text = customer._phoneNum
+        Else
+            btnUpdate.Text = "Add Custmer"
+        End If
+
 
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
+        If custId = 0 Then
+            'customer = New DLL_Library.IOTS.Customer()
 
-    End Sub
-
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-
+            db.addNewCustomer(customer)
+        Else
+            db.updateCustomer()
+        End If
     End Sub
 End Class
