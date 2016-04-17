@@ -21,6 +21,7 @@ Public Class frmOrder
         lbOrderNumber.Text = order._orderNumber
         dtOrderDate.Value = order._orderDate
         dtShipDate.Value = order._shipDate
+        loadOrderItems(order.orderItems)
     End Sub
 
     Private Sub loadOrderItems(ByVal orderItems As List(Of OrderItem))

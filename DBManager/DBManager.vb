@@ -157,7 +157,7 @@ Public Class DBManager
                     Dim qty = sqlReader.GetInt32(2)
                     Dim discount As Double = sqlReader.GetSqlMoney(3).ToDouble()
                     Dim item = New OrderItem(order1._orderNumber, qty, productId, discount)
-                    'item._orderNumber = order1._orderNumber
+
                     order1.orderItems.Add(item)
                 End While
             End If
@@ -165,7 +165,7 @@ Public Class DBManager
 
     End Sub
 
-    Public Sub addNewCustomer()
+    Public Sub addNewCustomer(ByVal cust As Customer)
 
     End Sub
     Public Sub addNewProduct()
