@@ -184,8 +184,18 @@ Public Class frmMain
     Private Sub btnAddCustomer_Click(sender As Object, e As EventArgs) Handles btnAddCustomer.Click
         Dim frmCust As New frmCustomer
 
-        If frmCust.ShowDialog() = System.Windows.Forms.DialogResult.OK Then
+        Dim dr = frmCust.ShowDialog()
+        If dr = System.Windows.Forms.DialogResult.OK And currentViewType = "Customer" Then
             loadCustomer(db.getAllCustomer())
         End If
+    End Sub
+
+    Private Sub btnAddProduct_Click(sender As Object, e As EventArgs) Handles btnAddProduct.Click
+        Dim frmNewProduct As New frmProduct
+        Dim dr = frmNewProduct.ShowDialog()
+        If dr = System.Windows.Forms.DialogResult.OK And currentViewType = "Product" Then
+            loadProduct(db.getAllProduct())
+        End If
+
     End Sub
 End Class

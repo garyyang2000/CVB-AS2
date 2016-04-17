@@ -16,17 +16,39 @@ Public Class frmProduct
     End Property
 
     Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
-        product._description = txtDesc.Text.Trim
-        product._Price = Double.Parse(txtPrice.Text.Trim)
-        product._QtyOnHand = Integer.Parse(txtQty.Text.Trim)
-        db.updateProduct(product)
+        If btnUpdate.Text = "Add Product" Then
+            product = New DLL_Library.IOTS.Product(txtProductId.Text.Trim, txtDesc.Text.Trim, Integer.Parse(txtQty.Text), Double.Parse(txtPrice.Text))
+            db.addNewProduct(product)
+        Else
+            product._description = txtDesc.Text.Trim
+            product._Price = Double.Parse(txtPrice.Text.Trim)
+            product._QtyOnHand = Integer.Parse(txtQty.Text.Trim)
+            db.updateProduct(product)
+        End If
+
     End Sub
 
     Private Sub ProductForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        product = db.getProductById(product_id)
-        lbProductID.Text = product_id
-        txtDesc.Text = product._description
-        txtPrice.Text = product._Price
-        txtQty.Text = product._QtyOnHand
+        If product_id IsNot Nothing Then
+            product = db.getProductById(product_id)
+            lbProductID.Text = product_id
+            lbProductID.Visible = True
+            txtDesc.Text = product._description
+            txtPrice.Text = product._Price
+            txtQty.Text = product._QtyOnHand
+        Else
+            txtProductId.Visible = True
+            txtPrice.Text = 0
+            txtQty.Text = 0
+            btnUpdate.Text = "Add Product"
+        End If
+
+    End Sub
+
+    Private Sub txtPrice_Leave(sender As Object, e As EventArgs) Handles txtPrice.Leave
+        If Not IsNumeric(txtPrice.Text) Then
+            MessageBox.Show("Please input numeric only for price")
+            txtPrice.Text = 0
+        End If
     End Sub
 End Class

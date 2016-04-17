@@ -64,12 +64,13 @@ Namespace IOTS
                 End If
             End Set
         End Property
-        Sub New(ByVal ProductId, ByVal Description, ByVal QtyOnHand, ByVal Price)
+        Sub New(ByVal ProductId As String, ByVal Description As String, ByVal QtyOnHand As Integer, ByVal Price As Double)
             _productId = ProductId
             MyClass.Description = Description
             _QtyOnHand = QtyOnHand
             _Price = Price
         End Sub
+
 
         Public Function IsValid(ByVal testData As String, ByVal regex As String) As Boolean Implements IValidator.IsValid
             Dim r As Regex = New Regex(regex, RegexOptions.IgnoreCase)
