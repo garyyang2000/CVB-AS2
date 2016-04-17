@@ -41,7 +41,12 @@
         Dim selectedRow As DataGridViewRow = dgpSelectProduct.Rows(e.RowIndex)
         lbDesc.Text = selectedRow.Cells(1).Value
         lbProductId.Text = selectedRow.Cells(3).Value
-        btnAdd.Enabled = True
+        If db.checkOrderItem(Long.Parse(lbOrderNumber.Text), lbProductId.Text) Is Nothing Then
+            btnAdd.Enabled = True
+        Else
+            MessageBox.Show("Product already in the Order")
+            btnAdd.Enabled = False
+        End If
     End Sub
 
     Private Sub txtNuberOrdered_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtNuberOrdered.KeyPress
