@@ -169,9 +169,10 @@ Public Class DBManager
         Dim sqlCon As New SqlConnection(strConn)
         Using (sqlCon)
             Dim strQuery As String
-            strQuery = "insert INTO Customer Values(@custId,@fName,@lName,@StreetAddr,@city,@prov,@pCode,@credit,@email,@phoneNum)"
+            strQuery = "insert INTO Customer(firstName, lastName,streetAddress,city,province,postalCode,creditLimit,email,phoneNumber) "
+            strQuery = +"Values(@fName,@lName,@StreetAddr,@city,@prov,@pCode,@credit,@email,@phoneNum)"
             Dim sqlComm As New SqlCommand(strQuery, sqlCon)
-            sqlComm.Parameters.AddWithValue("@custId", cust._custId)
+            'sqlComm.Parameters.AddWithValue("@custId", cust._custId)
             sqlComm.Parameters.AddWithValue("@fName", cust._firstName)
             sqlComm.Parameters.AddWithValue("@lName", cust._lastName)
             sqlComm.Parameters.AddWithValue("@StreetAddr", cust._streetAddress)
@@ -185,7 +186,8 @@ Public Class DBManager
             sqlComm.ExecuteNonQuery()
 
         End Using
-        customerList.Add(cust)
+        customerList = getAllCustomer()
+
     End Sub
     Public Sub addNewProduct(ByVal prod As Product)
         Dim sqlCon As New SqlConnection(strConn)
@@ -225,7 +227,7 @@ Public Class DBManager
         Dim sqlCon As New SqlConnection(strConn)
         Using (sqlCon)
             Dim strQuery As String
-            strQuery = "insert INTO [Order] Values(@orderNum,@orderDate,@shipDate,@custId)"
+            strQuery = "insert INTO [Order](orderDate,shipDate,custId) Values(@orderNum,@orderDate,@shipDate,@custId)"
             Dim sqlComm As New SqlCommand(strQuery, sqlCon)
             sqlComm.Parameters.AddWithValue("@orerNum", order1._orderNumber)
             sqlComm.Parameters.AddWithValue("@orderDate", DateTime.Parse(order1._orderDate))
@@ -236,11 +238,8 @@ Public Class DBManager
             sqlComm.ExecuteNonQuery()
 
         End Using
-        For Each item In order1.orderItems
-            addOrderItem(item)
-        Next
 
-        orderList.Add(order1)
+        orderList = getAllOrder()
     End Sub
 
     Public Sub deleteOrder(ByVal orderId As Long)
@@ -375,13 +374,15 @@ Public Class DBManager
         Dim sqlCon As New SqlConnection(strConn)
         Using (sqlCon)
             Dim strQuery As String
-            strQuery = "Update PRODUCT SET(@prodId,@desc,@stock,@price)"
+            strQuery = "Update PRODUCT SET "
+            strQuery = +"description=@desc, stock=@stock, price=@price "
+            strQuery = +"WHERE productId=@prodId"
             Dim sqlComm As New SqlCommand(strQuery, sqlCon)
-            sqlComm.Parameters.AddWithValue("@prodId", prod._productId)
+
             sqlComm.Parameters.AddWithValue("@desc", prod._description)
             sqlComm.Parameters.AddWithValue("@stock", prod._QtyOnHand)
             sqlComm.Parameters.AddWithValue("@price", prod._Price)
-
+            sqlComm.Parameters.AddWithValue("@prodId", prod._productId)
             sqlCon.Open()
             sqlComm.ExecuteNonQuery()
 
@@ -399,9 +400,25 @@ Public Class DBManager
     End Sub
 
     Public Sub updateOrder(ByVal order1 As Order)
-        For Each item In order1.orderItems
-            updateOrderItem(item)
-        Next
+        Dim order2 As Order = getOrderByID(order1._orderNumber)
+        Dim founded As Boolean = False
+        If order2 IsNot Nothing Then
+            For Each item In order1.orderItems
+                For Each item2 In order2.orderItems
+                    If item._productId.Equals(order2._productId) Then
+                        updateOrderItem(item)
+                        founded = True
+                        Exit For
+                    End If
+                Next
+                If founded Then
+                    founded = False
+                Else
+                    addOrderItem(item)
+                End If
+            Next
+        End If
+
         Dim sqlCon As New SqlConnection(strConn)
         Using (sqlCon)
             Dim strQuery As String
@@ -440,19 +457,97 @@ Public Class DBManager
 
         End Using
     End Sub
-    Public Sub searchProduct()
 
-    End Sub
 
-    Public Function searchProduct(ByVal desc As String)
-        Return Nothing
+    Public Function searchProduct(ByVal desc As String) As List(Of Product)
+        Dim result As New List(Of Product)()
+        Using (sqlCon)
+            Dim strQuery As String
+            strQuery = "SELECT * FROM Product WHERE description LIKE @desc"
+            sqlCon = New SqlConnection(strConn)
+            Dim sqlComm As SqlCommand = New SqlCommand(strQuery, sqlCon)
+            desc = "%" + desc + "%"
+            sqlComm.Parameters.AddWithValue("@desc", desc)
+            sqlCon.Open()
+            Dim sqlReader As SqlDataReader = sqlComm.ExecuteReader()
+            If sqlReader.HasRows Then
+                While (sqlReader.Read())
+                    Dim productId As String = sqlReader.Item(0).ToString.Trim
+                    Dim description As String = sqlReader.Item(1)
+                    Dim qtyOnHand As Int32 = sqlReader.Item(2)
+                    Dim price As Double = sqlReader.GetSqlMoney(3).ToDouble()
+                    Dim newProd As New DLL_Library.IOTS.Product(productId, description, qtyOnHand, price)
+                    result.Add(newProd)
+                End While
+            End If
+            sqlReader.Close()
+        End Using
+        Return result
+
+
     End Function
 
     Public Function searchCustomer(ByVal name As String)
-        Return Nothing
+        Dim result As New List(Of Customer)()
+
+        Using (sqlCon)
+            Dim strQuery As String
+            strQuery = "SELECT * FROM Customer WHERE firstName LIKE @name OR lastName LIKE @name"
+            sqlCon = New SqlConnection(strConn)
+            Dim sqlComm As SqlCommand = New SqlCommand(strQuery, sqlCon)
+            name = "%" + name + "%"
+            sqlComm.Parameters.AddWithValue("@name", name)
+            sqlCon.Open()
+            Dim sqlReader As SqlDataReader = sqlComm.ExecuteReader()
+            If sqlReader.HasRows Then
+                Dim mailAddr As String = Nothing
+                Dim mailId As Int32 = 0
+                While (sqlReader.Read())
+                    Dim custId = sqlReader.Item(0)
+                    Dim first_name = sqlReader.Item(1).ToString().Trim
+                    Dim last_name = sqlReader.Item(2).ToString().Trim
+                    Dim address = sqlReader.Item(3).ToString().Trim
+                    Dim city = sqlReader.Item(4).ToString().Trim
+                    Dim province = sqlReader.Item(5).ToString().Trim
+                    Dim postalcode = sqlReader.Item(6).ToString().Trim
+                    Dim credit_limit = sqlReader.Item(7)
+                    Dim email = sqlReader.Item(8)
+                    Dim phone = sqlReader.Item(9)
+                    Dim newCust As New DLL_Library.IOTS.Customer(custId,
+                             first_name, last_name, address, city, province, postalcode, credit_limit, email, phone)
+                    result.Add(newCust)
+                End While
+            End If
+            sqlReader.Close()
+        End Using
+        Return result
+
+
     End Function
     Public Function searchOrder(ByVal ordernumber As Long, ByVal dtOrderDateStart As Date, ByVal dtOrderDateEnd As Date, ByVal dtShipDateStart As Date, ByVal dtShipDateEnd As Date)
-        Return Nothing
+        Dim result As New List(Of Order)()
+        Dim strQuery As String
+        strQuery = "SELECT * FROM [Order]"
+        sqlCon = New SqlConnection(strConn)
+        Using (sqlCon)
+            Dim sqlComm As SqlCommand = New SqlCommand(strQuery, sqlCon)
+            sqlCon.Open()
+            Dim sqlReader As SqlDataReader = sqlComm.ExecuteReader()
+            If sqlReader.HasRows Then
+                While (sqlReader.Read())
+                    Dim orderNumber As Long = CLng(sqlReader.GetString(0))
+                    Dim orderDate As String = sqlReader.Item(1).ToString
+                    Dim shipDate As String = sqlReader.Item(2).ToString
+                    Dim custId As Long = sqlReader.GetInt32(3)
+                    Dim newOrder As New Order(orderNumber, orderDate, shipDate, custId)
+                    getOrderItems(newOrder)
+                    result.Add(newOrder)
+                End While
+            End If
+            sqlReader.Close()
+        End Using
+        Return result
+
     End Function
 
 End Class

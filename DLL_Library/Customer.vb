@@ -32,7 +32,7 @@ Namespace IOTS
                 ' Store the value in a local variable.
 
                 If (Value > 0) Then
-                    creditLimit = Value
+                    phoneNum = Value
                 Else
                     Throw New OrderSystemExceptions("An exception has occurred, Credit can not be negative.")
                 End If
@@ -181,8 +181,19 @@ Namespace IOTS
             End Set
         End Property
 
-        Sub New(ByVal custId, ByVal firstname, ByVal lastname, ByVal street, ByVal city, ByVal province, ByVal postalcode, ByVal credit, ByVal email, ByVal phoneNumber)
-            MyClass.custId = custId
+        Sub New(ByVal custid1, ByVal firstname, ByVal lastname, ByVal street, ByVal city, ByVal province, ByVal postalcode, ByVal credit, ByVal email, ByVal phoneNumber)
+            Me.custId = custid1
+            _firstName = firstname
+            _lastName = lastname
+            _streetAddress = street
+            _city = city
+            _province = province
+            _postalCode = postalcode
+            _creditLimit = credit
+            _email = email
+        End Sub
+        Sub New(ByVal firstname, ByVal lastname, ByVal street, ByVal city, ByVal province, ByVal postalcode, ByVal credit, ByVal email, ByVal phoneNumber)
+
             _firstName = firstname
             _lastName = lastname
             _streetAddress = street
@@ -193,6 +204,9 @@ Namespace IOTS
             _email = email
         End Sub
 
+        Sub New()
+
+        End Sub
 
         'imlements the IsValid from IValidator
         Public Function IsValid(ByVal testData As String, ByVal regex As String) As Boolean Implements IValidator.IsValid
