@@ -175,7 +175,7 @@ Public Class frmMain
     Private Sub ProductSearchToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ProductSearchToolStripMenuItem.Click
         Dim productSearch As New frmProductSearch
         If (productSearch.ShowDialog(Me) = System.Windows.Forms.DialogResult.OK) Then
-            'loadCustomer(db.searchProduct(productSearch.txtDesc.Text.Trim))
+            loadProduct(db.searchProduct(productSearch.txtDesc.Text.Trim))
         End If
     End Sub
 
